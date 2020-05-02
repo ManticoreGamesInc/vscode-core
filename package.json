@@ -2,7 +2,7 @@
 	"name": "vscode-core",
 	"displayName": "Core API Autocomplete",
 	"description": "Provides autocomplete support for the Core Games API",
-	"version": "0.0.3",
+	"version": "0.1.0",
 	"icon": "images/logo.png",
 	"publisher": "ManticoreGames",
 	"repository": {
