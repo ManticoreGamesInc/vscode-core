@@ -2,6 +2,7 @@
 	"name": "vscode-core",
 	"displayName": "Core API Autocomplete",
 	"description": "Provides autocomplete support for the Core Games API",
+	"license": "MIT",
 	"version": "0.1.0",
 	"icon": "images/logo.png",
 	"publisher": "ManticoreGames",
@@ -23,7 +24,7 @@
 		"Other"
 	],
 	"activationEvents": [
-		"*"
+		"onLanguage:lua"
 	],
 	"main": "./out/extension.js",
 	"scripts": {
@@ -33,6 +34,11 @@
 		"watch": "tsc -watch -p ./",
 		"pretest": "npm run compile && npm run lint",
 		"test": "node ./out/test/runTest.js"
+	},
+	"dependencies": {
+		"@types/request-promise-native": "^1.0.17",
+		"request": "^2.88.0",
+		"request-promise-native": "^1.0.8"
 	},
 	"devDependencies": {
 		"@types/vscode": "^1.44.0",

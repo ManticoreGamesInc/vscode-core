@@ -108,3 +108,7 @@ out
 node_modules
 .vscode-test/
 *.vsix
+
+# Core API Dump
+
+src/CoreLuaAPI.json
