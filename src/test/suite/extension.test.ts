@@ -18,6 +18,6 @@ suite('Extension Test Suite', () => {
 
 suite("Expect API to exist", () => {
 	test('Is true?', () => {
-		expect(getApiDump).to.be.exist;
+		expect(getApiDump).to.exist;
 	});
 });
