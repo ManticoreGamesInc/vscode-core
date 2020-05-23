@@ -1,7 +1,13 @@
-[![Build Status](https://github.com/ManticoreGamesInc/vscode-core/workflows/CI/badge.svg)](https://github.com/ManticoreGamesInc/vscode-core/actions?workflow=CI)
-
 # vscode-core
 
-Visual Studio Code Extension for Core API
+[![Build Status](https://github.com/ManticoreGamesInc/vscode-core/workflows/CI/badge.svg)](https://github.com/ManticoreGamesInc/vscode-core/actions?workflow=CI) ![Marketplace Version](http://vsmarketplacebadge.apphb.com/version/eg2.tslint.svg "Current Version")
 
-Provides autocomplete support for the Core Games API
+A [Visual Studio Code](https://code.visualstudio.com/) [extension](https://marketplace.visualstudio.com/VSCode) that provides autocomplete support for the [Core Games](https://www.coregames.com) API. More soon!
+
+## Contributing
+
+This project welcomes contributions and suggestions.
+
+## License
+
+[MIT](LICENSE)
