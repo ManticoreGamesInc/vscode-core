@@ -1,11 +1,8 @@
 import * as assert from 'assert';
 var expect = require('chai').expect;
 
-// You can import and use all API from the 'vscode' module
-// as well as import your extension to test it
 import * as vscode from 'vscode';
-// import * as myExtension from '../../extension';
-import { getApiDump, ApiEnum } from "./../../api";
+import * as api from "../../CoreLuaAPI-Prod.json"
 
 suite('Extension Test Suite', () => {
 	vscode.window.showInformationMessage('Start all tests.');
@@ -18,6 +15,6 @@ suite('Extension Test Suite', () => {
 
 suite("Expect API to exist", () => {
 	test('Is true?', () => {
-		expect(getApiDump).to.exist;
+		expect(api).to.exist;
 	});
 });
