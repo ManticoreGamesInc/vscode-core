@@ -3,7 +3,7 @@
   "displayName": "Core API Autocomplete",
   "description": "Provides autocomplete support for the Core Games API",
   "license": "MIT",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "icon": "images/logo.png",
   "publisher": "ManticoreGames",
   "repository": {
@@ -18,7 +18,7 @@
     "theme": "dark"
   },
   "engines": {
-    "vscode": "^1.44.0"
+    "vscode": "^1.45.1"
   },
   "categories": [
     "Other"
