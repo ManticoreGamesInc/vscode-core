@@ -27,6 +27,14 @@
   "activationEvents": [
     "onLanguage:lua"
   ],
+  "contributes": {
+    "snippets": [
+      {
+        "language": "lua",
+        "path": "./snippets.json"
+      }
+    ]
+  },
   "main": "./dist/extension",
   "scripts": {
     "vscode:prepublish": "webpack --mode production",

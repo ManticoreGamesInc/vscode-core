@@ -1,0 +1,8 @@
+{
+    "function": {
+        "prefix": "function",
+        "body": "function ${1:func}(${2:})\n\t${0:-- body}\nend",
+        "description": "function",
+        "scope": "source.lua"
+    }
+}
