@@ -8,7 +8,9 @@
     "plugins": [
         "@typescript-eslint"
     ],
-    "ignorePatterns": ["**/dist/*.js"],
+    "ignorePatterns": [
+        "**/dist/*.js"
+    ],
     "rules": {
         "@typescript-eslint/class-name-casing": "off",
         "@typescript-eslint/semi": "off",

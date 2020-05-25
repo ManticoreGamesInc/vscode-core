@@ -1,5 +1,7 @@
 //@ts-check
 
+'use strict'
+
 const path = require('path')
 
 const config = {
@@ -25,6 +27,11 @@ const config = {
             exclude: /node_modules/,
             use: [{
                 loader: 'ts-loader',
+                options: {
+                    compilerOptions: {
+                        "module": "es6"
+                    }
+                }
             }]
         }]
     },

@@ -3,7 +3,7 @@
   "displayName": "Core API Autocomplete",
   "description": "Provides autocomplete support for the Core Games API",
   "license": "MIT",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "icon": "images/logo.png",
   "publisher": "ManticoreGames",
   "repository": {
@@ -38,10 +38,11 @@
   "main": "./dist/extension",
   "scripts": {
     "vscode:prepublish": "webpack --mode production",
-    "compile": "webpack --mode none",
-    "watch": "webpack --mode none --watch",
+    "webpack": "webpack --mode development",
+    "webpack-dev": "webpack --mode development --watch",
+    "test-compile": "tsc -p ./",
     "lint": "eslint src --ext ts",
-    "pretest": "npm run compile && npm run lint",
+    "pretest": "npm run test-compile && npm run lint",
     "test": "node ./out/test/runTest.js"
   },
   "dependencies": {
