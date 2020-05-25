@@ -10,5 +10,14 @@
     "typescript.tsc.autoDetect": "off",
     "cSpell.words": [
         "UNCREATABLE"
-    ]
+    ],
+    "spellright.language": [
+        "en"
+    ],
+    "spellright.documentTypes": [
+        "markdown",
+        "latex",
+        "plaintext"
+    ],
+    "typescript.tsdk": "node_modules/typescript/lib"
 }

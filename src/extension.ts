@@ -1,13 +1,14 @@
 import * as vscode from 'vscode'
 import * as api from "./CoreLuaAPI-Prod.json"
 
-const SELECTOR = { scheme: "file", language: "lua" }
+const SCHEME = { scheme: "file", language: "lua" }
 
 export function activate(context: vscode.ExtensionContext) {
     let providers: vscode.Disposable[] = []
-    let classProvider = vscode.languages.registerCompletionItemProvider(SELECTOR, {
+    let classProvider = vscode.languages.registerCompletionItemProvider(SCHEME, {
         provideCompletionItems(document: vscode.TextDocument, position: vscode.Position, token: vscode.CancellationToken, context: vscode.CompletionContext) {
-            let completions = [];
+            let completions = []
+
             for (let i = 0; i < api.Classes.length; i++) {
                 completions.push(new vscode.CompletionItem(api.Classes[i].Name, vscode.CompletionItemKind.Class))
             }
@@ -20,7 +21,6 @@ export function activate(context: vscode.ExtensionContext) {
                 completions.push(new vscode.CompletionItem(api.Namespaces[i].Name, vscode.CompletionItemKind.Class))
             }
 
-            // return all completion items as array
             return completions
         }
     })
@@ -28,14 +28,16 @@ export function activate(context: vscode.ExtensionContext) {
 
     // Create Class MemberFunction Providers
     for (let i = 0; i < api.Classes.length; i++) {
-        providers.push(vscode.languages.registerCompletionItemProvider(SELECTOR, {
+        providers.push(vscode.languages.registerCompletionItemProvider(SCHEME, {
             provideCompletionItems(document: vscode.TextDocument, position: vscode.Position) {
                 let linePrefix = document.lineAt(position).text.substr(0, position.character)
+
                 if (!linePrefix.endsWith(api.Classes[i].Name + ".")) {
-                    return undefined;
+                    return undefined
                 }
 
                 let methodCompletions = []
+
                 for (let j = 0; j < api.Classes[i].MemberFunctions.length; j++) {
                     methodCompletions.push(new vscode.CompletionItem(api.Classes[i].MemberFunctions[j].Name, vscode.CompletionItemKind.Method))
                 }
@@ -48,14 +50,16 @@ export function activate(context: vscode.ExtensionContext) {
 
     // Create Namespace StaticFunction Providers
     for (let i = 0; i < api.Namespaces.length; i++) {
-        providers.push(vscode.languages.registerCompletionItemProvider(SELECTOR, {
+        providers.push(vscode.languages.registerCompletionItemProvider(SCHEME, {
             provideCompletionItems(document: vscode.TextDocument, position: vscode.Position) {
                 let linePrefix = document.lineAt(position).text.substr(0, position.character)
+
                 if (!linePrefix.endsWith(api.Namespaces[i].Name + ".")) {
                     return undefined
                 }
 
-                let methodCompletions = [];
+                let methodCompletions = []
+
                 for (let j = 0; j < api.Namespaces[i].StaticFunctions.length; j++) {
                     methodCompletions.push(new vscode.CompletionItem(api.Namespaces[i].StaticFunctions[j].Name, vscode.CompletionItemKind.Method))
                 }
@@ -68,14 +72,16 @@ export function activate(context: vscode.ExtensionContext) {
 
     // Create Enum Member Providers
     for (let i = 0; i < api.Enums.length; i++) {
-        providers.push(vscode.languages.registerCompletionItemProvider(SELECTOR, {
+        providers.push(vscode.languages.registerCompletionItemProvider(SCHEME, {
             provideCompletionItems(document: vscode.TextDocument, position: vscode.Position) {
                 let linePrefix = document.lineAt(position).text.substr(0, position.character)
+
                 if (!linePrefix.endsWith(api.Enums[i].Name + ".")) {
                     return undefined
                 }
 
-                let completions = [];
+                let completions = []
+
                 for (let j = 0; j < api.Enums[i].Values.length; j++) {
                     completions.push(new vscode.CompletionItem(api.Enums[i].Values[j].Name, vscode.CompletionItemKind.EnumMember))
                 }
