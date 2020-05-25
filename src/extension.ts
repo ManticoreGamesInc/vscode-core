@@ -1,8 +1,6 @@
 import * as vscode from 'vscode'
 import * as api from "./CoreLuaAPI-Prod.json"
 
-// import { EnumCompletionProvider } from "./enum"
-
 const SELECTOR = { scheme: "file", language: "lua" }
 
 export function activate(context: vscode.ExtensionContext) {
