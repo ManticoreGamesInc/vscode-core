@@ -1,8 +1,8 @@
 import * as assert from 'assert';
-var expect = require('chai').expect;
+const expect = require('chai').expect;
 
 import * as vscode from 'vscode';
-import * as api from "../../CoreLuaAPI-Prod.json"
+import * as api from "../../CoreLuaAPI-Prod.json";
 
 suite('Extension Test Suite', () => {
     vscode.window.showInformationMessage('Start all tests.');
