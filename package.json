@@ -44,7 +44,6 @@
     "request-promise-native": "^1.0.8"
   },
   "devDependencies": {
-    "@semantic-release/github": "^7.0.7",
     "@types/glob": "^7.1.1",
     "@types/mocha": "^7.0.2",
     "@types/node": "^14.0.5",
@@ -60,20 +59,5 @@
     "vscode-test": "^1.4.0",
     "webpack": "^4.43.0",
     "webpack-cli": "^3.3.11"
-  },
-  "release": {
-    "branches": "master",
-    "verifyConditions": [
-      "@semantic-release/github"
-    ],
-    "publish": [
-      "@semantic-release/github"
-    ],
-    "success": [
-      "@semantic-release/github"
-    ],
-    "fail": [
-      "@semantic-release/github"
-    ]
   }
 }

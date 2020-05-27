@@ -17,10 +17,6 @@ jobs:
         node-version: 12
     - name: Install Dependencies
       run: npm install
-    - name: Release
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      run: npx semantic-release
     - name: Release Plugin
       uses: jcofman/vscodeaction@master
       env:
