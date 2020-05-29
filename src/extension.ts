@@ -72,7 +72,7 @@ export function activate(context: vscode.ExtensionContext): void {
             for (let i = 0; i < api.Classes.length; i++) {
                 for (let j = 0; j < api.Classes[i].MemberFunctions.length; j++) {
                     const memberFunction = api.Classes[i].MemberFunctions[j];
-                    for (let k = 0; k < memberFunction.Signatures.length; k++) {
+                    for (let k = memberFunction.Signatures.length - 1; k >= 0; k--) {
                         const signature = memberFunction.Signatures[k];
                         const ci: vscode.CompletionItem = new vscode.CompletionItem(memberFunction.Name, vscode.CompletionItemKind.Method);
 
