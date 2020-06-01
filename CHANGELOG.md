@@ -1,9 +1,41 @@
-# Change Log
-
-All notable changes to the "vscode-core" extension will be documented in this file.
-
-Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how to structure this file.
-
-## [Unreleased]
-
-- Initial release
+* [[`d18cc78181`](https://github.com/ManticoreGamesInc/vscode-core/commit/d18cc78181)] - 0.1.5 (Benjamin Staneck)
+* [[`7101dc2dbb`](https://github.com/ManticoreGamesInc/vscode-core/commit/7101dc2dbb)] - 0.1.4 (Benjamin Staneck)
+* [[`19ee9f6bd3`](https://github.com/ManticoreGamesInc/vscode-core/commit/19ee9f6bd3)] - fix signature check (Benjamin Staneck)
+* [[`f71e810928`](https://github.com/ManticoreGamesInc/vscode-core/commit/f71e810928)] - Bump @typescript-eslint/parser from 3.0.1 to 3.0.2 (dependabot-preview[bot])
+* [[`3eb47e4d80`](https://github.com/ManticoreGamesInc/vscode-core/commit/3eb47e4d80)] - Bump @typescript-eslint/eslint-plugin from 3.0.1 to 3.0.2 (dependabot-preview[bot])
+* [[`a5fbda4ff1`](https://github.com/ManticoreGamesInc/vscode-core/commit/a5fbda4ff1)] - Bump @typescript-eslint/typescript-estree from 3.0.1 to 3.0.2 (dependabot-preview[bot])
+* [[`cb612b67a1`](https://github.com/ManticoreGamesInc/vscode-core/commit/cb612b67a1)] - remove usage of semantic-release (Benjamin Staneck)
+* [[`609c08ac12`](https://github.com/ManticoreGamesInc/vscode-core/commit/609c08ac12)] - (fix) use require in webpack config (Benjamin Staneck)
+* [[`f593d3359c`](https://github.com/ManticoreGamesInc/vscode-core/commit/f593d3359c)] - remove snippets (Benjamin Staneck)
+* [[`823ed8ec5a`](https://github.com/ManticoreGamesInc/vscode-core/commit/823ed8ec5a)] - make webpack config typescript as well (Benjamin Staneck)
+* [[`97cf95cb90`](https://github.com/ManticoreGamesInc/vscode-core/commit/97cf95cb90)] - update packages and version number (Benjamin Staneck)
+* [[`5b8c39d99f`](https://github.com/ManticoreGamesInc/vscode-core/commit/5b8c39d99f)] - add snippet functionality and refactor (Benjamin Staneck)
+* [[`6cddc1cdc8`](https://github.com/ManticoreGamesInc/vscode-core/commit/6cddc1cdc8)] - hook up linting properly (Benjamin Staneck)
+* [[`ee3d9e475d`](https://github.com/ManticoreGamesInc/vscode-core/commit/ee3d9e475d)] - optimize webpack setup (Benjamin Staneck)
+* [[`359deb4ee1`](https://github.com/ManticoreGamesInc/vscode-core/commit/359deb4ee1)] - add snippets and update config (Benjamin Staneck)
+* [[`c4f37a2281`](https://github.com/ManticoreGamesInc/vscode-core/commit/c4f37a2281)] - add webpack (Benjamin Staneck)
+* [[`87a835b708`](https://github.com/ManticoreGamesInc/vscode-core/commit/87a835b708)] - remove unused files (Benjamin Staneck)
+* [[`5c93fb4ea3`](https://github.com/ManticoreGamesInc/vscode-core/commit/5c93fb4ea3)] - add semantic release and release ci (Benjamin Staneck)
+* [[`0b52af6684`](https://github.com/ManticoreGamesInc/vscode-core/commit/0b52af6684)] - Bump mocha from 7.1.2 to 7.2.0 (dependabot-preview[bot])
+* [[`eadda105cb`](https://github.com/ManticoreGamesInc/vscode-core/commit/eadda105cb)] - normalize indents and update packages (Benjamin Staneck)
+* [[`874649af70`](https://github.com/ManticoreGamesInc/vscode-core/commit/874649af70)] - make project ready to package (Benjamin Staneck)
+* [[`cfbbe1e70f`](https://github.com/ManticoreGamesInc/vscode-core/commit/cfbbe1e70f)] - add more info to readme, marketplace badge placeholder (Benjamin Staneck)
+* [[`a5fea30226`](https://github.com/ManticoreGamesInc/vscode-core/commit/a5fea30226)] - Create CONTRIBUTING.md (Benjamin Staneck)
+* [[`81dbac8c1c`](https://github.com/ManticoreGamesInc/vscode-core/commit/81dbac8c1c)] - update editorconfig (Benjamin Staneck)
+* [[`545300327d`](https://github.com/ManticoreGamesInc/vscode-core/commit/545300327d)] - Create config.yml (Benjamin Staneck)
+* [[`e48e1cb15b`](https://github.com/ManticoreGamesInc/vscode-core/commit/e48e1cb15b)] - Create feature\_request.md (Benjamin Staneck)
+* [[`3d915febba`](https://github.com/ManticoreGamesInc/vscode-core/commit/3d915febba)] - Create bug\_report.md (Benjamin Staneck)
+* [[`88e633d51e`](https://github.com/ManticoreGamesInc/vscode-core/commit/88e633d51e)] - Bump @types/node from 13.13.9 to 14.0.5 (dependabot-preview[bot])
+* [[`e80df5facd`](https://github.com/ManticoreGamesInc/vscode-core/commit/e80df5facd)] - fix typo (Benjamin Staneck)
+* [[`9966b7c6df`](https://github.com/ManticoreGamesInc/vscode-core/commit/9966b7c6df)] - disable test but run lint in ci (Benjamin Staneck)
+* [[`68aba60d69`](https://github.com/ManticoreGamesInc/vscode-core/commit/68aba60d69)] - add ci badge (Benjamin Staneck)
+* [[`8945e037dc`](https://github.com/ManticoreGamesInc/vscode-core/commit/8945e037dc)] - fix test (Benjamin Staneck)
+* [[`2899015a07`](https://github.com/ManticoreGamesInc/vscode-core/commit/2899015a07)] - Create ci.yml (Benjamin Staneck)
+* [[`06183f22ee`](https://github.com/ManticoreGamesInc/vscode-core/commit/06183f22ee)] - initial working version (Benjamin Staneck)
+* [[`8a76d0d4e5`](https://github.com/ManticoreGamesInc/vscode-core/commit/8a76d0d4e5)] - Update Packages (Benjamin Staneck)
+* [[`15ac9d8f8f`](https://github.com/ManticoreGamesInc/vscode-core/commit/15ac9d8f8f)] - add test (Benjamin Staneck)
+* [[`2c2e41a78c`](https://github.com/ManticoreGamesInc/vscode-core/commit/2c2e41a78c)] - start working on getting API in (Benjamin Staneck)
+* [[`7d223e86ac`](https://github.com/ManticoreGamesInc/vscode-core/commit/7d223e86ac)] - 0.1.0 (Benjamin Staneck)
+* [[`423573c2a9`](https://github.com/ManticoreGamesInc/vscode-core/commit/423573c2a9)] - add logo (Benjamin Staneck)
+* [[`cf517bf9a0`](https://github.com/ManticoreGamesInc/vscode-core/commit/cf517bf9a0)] - Initial commit (Benjamin Staneck)
+* [[`98050169ce`](https://github.com/ManticoreGamesInc/vscode-core/commit/98050169ce)] - Initial commit (Benjamin Staneck)

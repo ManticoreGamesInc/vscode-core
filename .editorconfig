@@ -19,3 +19,7 @@ insert_final_newline = false
 indent_style = space
 indent_size = 2
 insert_final_newline = false
+
+[CoreLuaAPI-Prod.json]
+indent_style = tab
+insert_final_newline = false
