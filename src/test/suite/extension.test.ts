@@ -1,5 +1,5 @@
 import * as assert from 'assert';
-const expect = require('chai').expect;
+import { expect } from 'chai';
 
 import * as vscode from 'vscode';
 import * as api from "../../CoreLuaAPI-Prod.json";
