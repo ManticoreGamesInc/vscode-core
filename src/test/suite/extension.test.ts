@@ -2,7 +2,7 @@ import * as assert from 'assert';
 import { expect } from 'chai';
 
 import * as vscode from 'vscode';
-import * as api from "../../CoreLuaAPI-Prod.json";
+import * as api from "../../CoreLuaAPI.json";
 
 suite('Extension Test Suite', () => {
     vscode.window.showInformationMessage('Start all tests.');
