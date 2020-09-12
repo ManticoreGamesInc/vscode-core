@@ -52,7 +52,7 @@
     "@typescript-eslint/eslint-plugin": "^4.0.0",
     "@typescript-eslint/parser": "^3.10.1",
     "@typescript-eslint/typescript-estree": "^4.1.0",
-    "eslint": "^7.8.1",
+    "eslint": "^7.9.0",
     "glob": "^7.1.6",
     "mocha": "^8.1.3",
     "ts-loader": "^8.0.3",
