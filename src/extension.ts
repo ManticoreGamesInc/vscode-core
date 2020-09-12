@@ -1,4 +1,4 @@
-import * as vscode from 'vscode';
+import * as vscode from "vscode";
 import * as api from "./CoreLuaAPI.json";
 
 const SCHEME = { scheme: "file", language: "lua" };
@@ -140,22 +140,16 @@ export function activate(context: vscode.ExtensionContext): void {
                     ci.documentation = new vscode.MarkdownString("`" + api.Classes[i].Name + "." + api.Classes[i].Properties[j].Name + " | " + api.Classes[i].Properties[j].Type + "`");
                     completions.push(ci);
                 }
-                const numEvents = api.Classes[i].Events;
-                if (numEvents !== undefined) {
-                    for (let j = 0; j < numEvents.length; j++) {
-                        const ci: vscode.CompletionItem = new vscode.CompletionItem(numEvents[j].Name, vscode.CompletionItemKind.Field);
-                        let docString = "`" + api.Classes[i].Name + "." + numEvents[j].Name;
-                        if (numEvents[j].Parameters !== undefined) {
-                            docString += "(";
-                            for (let k = 0; k < numEvents[j].Parameters.length; k++) {
-                                if (k > 0) {
-                                    docString += ", ";
-                                }
-                                docString += numEvents[j].Parameters[k].Type;
-                            }
-                            docString += ")";
+                const classEvents = api.Classes[i].Events;
+                if (classEvents !== undefined) {
+                    for (let j = 0; j < classEvents.length; j++) {
+                        const event = classEvents[j];
+                        const ci: vscode.CompletionItem = new vscode.CompletionItem(event.Name, vscode.CompletionItemKind.Field);
+                        let params = '';
+                        if (event.Parameters !== undefined) {
+                            params = `(${event.Parameters.map(p => p.Type).join(', ')})`;
                         }
-                        docString += "`";
+                        const docString = `${api.Classes[i].Name}.${event.Name}${params}`;
                         ci.documentation = new vscode.MarkdownString(docString);
                         completions.push(ci);
                     }
