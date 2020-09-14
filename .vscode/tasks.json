@@ -26,6 +26,13 @@
             "problemMatcher": [],
             "label": "npm: test",
             "detail": "node ./out/test/runTest.js"
+        },
+        {
+            "type": "npm",
+            "script": "lint",
+            "problemMatcher": [],
+            "label": "npm: lint",
+            "detail": "eslint src --ext .js,.jsx,.ts,.tsx"
         }
     ]
 }
