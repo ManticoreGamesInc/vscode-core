@@ -1,7 +1,7 @@
 {
   "name": "vscode-core",
-  "displayName": "Core API Autocomplete",
-  "description": "Provides autocomplete support for the Core Games API",
+  "displayName": "Core Lua API Autocomplete",
+  "description": "Provides autocomplete support for the Core Games Lua API",
   "license": "MIT",
   "version": "0.2.0",
   "icon": "images/logo.png",
@@ -14,7 +14,7 @@
     "url": "https://github.com/ManticoreGamesInc/vscode-core/issues"
   },
   "galleryBanner": {
-    "color": "#E67E17",
+    "color": "#1A1E26",
     "theme": "dark"
   },
   "engines": {

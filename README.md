@@ -1,12 +1,14 @@
-# Core API Autocomplete for VS Code
+# Core Lua API Autocomplete for VS Code
 
 [![Build Status](https://github.com/ManticoreGamesInc/vscode-core/workflows/CI/badge.svg)](https://github.com/ManticoreGamesInc/vscode-core/actions?workflow=CI) ![Marketplace Version](https://img.shields.io/visual-studio-marketplace/v/manticoregames.vscode-core?label=Visual%20Studio%20Marketplace&logo=visual-studio-code "Current Version")
 
-A [Visual Studio Code](https://code.visualstudio.com/) [extension](https://marketplace.visualstudio.com/VSCode) that provides basic autocomplete support for the [Core Games](https://www.coregames.com) Lua API. To be used in conjunction with a [Lua linter](https://docs.coregames.com/extensions/#installing-a-linter) and `.luacheckrc` file for full effectiveness.
+A [Visual Studio Code](https://code.visualstudio.com/) [extension](https://marketplace.visualstudio.com/VSCode) that provides basic autocomplete support for the [Core Games](https://www.coregames.com) Lua API.
+
+For full effectiveness, use it together with a [Lua linter](https://docs.coregames.com/extensions/#installing-a-linter) and a `.luacheckrc` file for your project.
 
 ## Installation
 
-- Go to the Visual Studio Code Marketplace and install VSCode-Core.
+- Go to the Visual Studio Code Marketplace and click the "Install" button, that's it!
 
 ## Related Repositories
 
