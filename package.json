@@ -3,7 +3,7 @@
   "displayName": "Core Lua API Autocomplete",
   "description": "Provides autocomplete support for the Core Games Lua API",
   "license": "MIT",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "icon": "images/logo.png",
   "publisher": "ManticoreGames",
   "repository": {
