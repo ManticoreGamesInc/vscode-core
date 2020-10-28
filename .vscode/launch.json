@@ -16,7 +16,9 @@
             "outFiles": [
                 "${workspaceFolder}/dist/**/*.js"
             ],
-            "preLaunchTask": "npm: webpack"
+            "preLaunchTask": "npm: webpack",
+            "smartStep": true,
+			"sourceMaps": true
         },
         {
             "name": "Extension Tests",

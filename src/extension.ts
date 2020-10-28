@@ -1,5 +1,5 @@
 import * as vscode from "vscode";
-import * as api from "./CoreLuaAPI.json";
+import api from "./CoreLuaAPI.json";
 
 const SCHEME = { scheme: "file", language: "lua" };
 

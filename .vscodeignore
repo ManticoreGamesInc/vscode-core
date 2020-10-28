@@ -1,3 +1,4 @@
+.github
 .vscode/**
 .vscode-test/**
 out/
@@ -9,3 +10,4 @@ webpack.config.js
 **/*.map
 **/*.ts
 node_modules
+debug.log
