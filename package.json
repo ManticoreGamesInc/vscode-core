@@ -41,7 +41,7 @@
     "test": "node ./out/test/runTest.js"
   },
   "dependencies": {
-    "chai": "^4.3.0"
+    "chai": "^4.3.3"
   },
   "devDependencies": {
     "@types/chai": "^4.2.15",
