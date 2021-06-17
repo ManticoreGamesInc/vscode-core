@@ -24,6 +24,11 @@
     "Other",
     "Snippets"
   ],
+  "capabilities": {
+    "untrustedWorkspaces": {
+      "supported": true
+    }
+  },
   "extensionKind": [
     "ui"
   ],
