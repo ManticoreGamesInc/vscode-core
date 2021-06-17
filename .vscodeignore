@@ -1,7 +1,6 @@
 .github
 .vscode/**
 .vscode-test/**
-out/
 src/
 .gitignore
 .editorconfig
