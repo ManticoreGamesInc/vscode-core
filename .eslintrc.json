@@ -13,7 +13,6 @@
         "plugin:@typescript-eslint/recommended"
     ],
     "ignorePatterns": [
-        "**/dist/*.js",
         "**/out/*.js"
     ],
     "rules": {

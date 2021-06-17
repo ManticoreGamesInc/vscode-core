@@ -4,7 +4,7 @@
 out/
 src/
 .gitignore
-webpack.config.js
+.editorconfig
 **/tsconfig.json
 **/.eslintrc.json
 **/*.map
