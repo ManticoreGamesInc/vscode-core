@@ -11,3 +11,11 @@ updates:
   - dependency-name: "@types/vscode"
     versions:
     - "> 1.55.0"
+- package-ecosystem: "github-actions"
+  directory: "/"
+  schedule:
+    interval: "weekly"
+    day: "monday"
+    time: '08:00'
+  open-pull-requests-limit: 10
+  target-branch: "main"
