@@ -3,23 +3,24 @@ name: Release
 on:
   push:
     tags:
-      - '*'
+      - "*"
 
 jobs:
   release:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v2
-    - name: Use Node.js 14
-      uses: actions/setup-node@v2.1.5
-      with:
-        node-version: 14
-    - name: Install Dependencies
-      run: npm install
-    - name: Release Plugin
-      uses: jcofman/vscodeaction@master
-      env:
-        PUBLISHER_TOKEN: ${{ secrets.PUBLISHER_TOKEN }}
-      with:
-        args: publish -p $PUBLISHER_TOKEN
+      - uses: actions/checkout@v2
+      - name: Setup Node
+        uses: actions/setup-node@v2.2.0
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: npm
+      - run: npm install
+
+      - name: Release Plugin
+        uses: jcofman/vscodeaction@master
+        env:
+          PUBLISHER_TOKEN: ${{ secrets.PUBLISHER_TOKEN }}
+        with:
+          args: publish -p $PUBLISHER_TOKEN
