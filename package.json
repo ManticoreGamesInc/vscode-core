@@ -1,7 +1,7 @@
 {
   "name": "vscode-core",
-  "displayName": "Core Lua API Autocomplete",
-  "description": "Provides autocomplete support for the Core Games Lua API",
+  "displayName": "Core Lua API",
+  "description": "Adds support for the Core Games Lua API",
   "license": "MIT",
   "version": "0.20.0",
   "icon": "images/logo.png",
@@ -21,8 +21,8 @@
     "vscode": "^1.55.0"
   },
   "categories": [
-    "Other",
-    "Snippets"
+    "Linters",
+    "Programming Languages"
   ],
   "capabilities": {
     "untrustedWorkspaces": {
@@ -35,9 +35,12 @@
   "activationEvents": [
     "onLanguage:lua"
   ],
+  "extensionDependencies": [
+    "sumneko.lua"
+  ],
   "main": "./out/extension.js",
   "scripts": {
-    "vscode:prepublish": "npm run -S esbuild-base -- --minify",
+    "vscode:prepublish": "npm run -S esbuild-base -- --minify && cp -r ./src/EmmyLua ./out/EmmyLua",
     "esbuild-base": "esbuild ./src/extension.ts --bundle --outfile=out/extension.js --external:vscode --format=cjs --platform=node",
     "esbuild": "npm run -S esbuild-base -- --sourcemap",
     "esbuild-watch": "npm run -S esbuild-base -- --sourcemap --watch",
