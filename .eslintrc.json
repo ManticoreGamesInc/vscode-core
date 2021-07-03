@@ -17,6 +17,7 @@
     ],
     "rules": {
         "@typescript-eslint/class-name-casing": "off",
+        "@typescript-eslint/explicit-module-boundary-types": "off",
         "semi": "off",
         "@typescript-eslint/semi": "warn",
         "curly": "warn",
