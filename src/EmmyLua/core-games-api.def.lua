@@ -409,6 +409,7 @@ CoreGameCollectionEntry = {}
 --- @field description string 
 --- @field ownerId string 
 --- @field ownerName string 
+--- @field maxPlayers number 
 --- @field isQueueEnabled boolean 
 --- @field screenshotCount number 
 --- @field hasWorldCapture boolean 
@@ -1006,6 +1007,14 @@ function MaterialSlotInstance:SetColor(color) end
 --- @return Color 
 function MaterialSlotInstance:GetColor() end
 
+function MaterialSlotInstance:ResetColor() end
+
+function MaterialSlotInstance:ResetUVTiling() end
+
+function MaterialSlotInstance:ResetIsSmartMaterial() end
+
+function MaterialSlotInstance:ResetMaterialAssetId() end
+
 --- @param typeName string 
 --- @return boolean 
 function MaterialSlotInstance:IsA(typeName) end
@@ -1269,6 +1278,10 @@ function PlayerInstance:GetPerkCount(perkReference) end
 --- @return number 
 function PlayerInstance:GetPerkTimeRemaining(perkReference) end
 
+--- @param rewardPoints number 
+--- @param activityName string 
+function PlayerInstance:GrantRewardPoints(rewardPoints, activityName) end
+
 function PlayerInstance:ActivateFlying() end
 
 function PlayerInstance:ActivateWalking() end
@@ -1353,6 +1366,7 @@ PlayerSettings = {}
 --- @field team number 
 --- @field playerScaleMultiplier number 
 --- @field spawnTemplateId string 
+--- @field key string 
 --- @field type string 
 local PlayerStartInstance = {}
 --- @param typeName string 
@@ -1963,6 +1977,11 @@ function UIImageInstance:SetImage(player) end
 --- @param player Player 
 function UIImageInstance:SetPlayerProfile(player) end
 
+--- @overload fun(gameId: string)
+--- @param gameId string 
+--- @param screenshotIndex number 
+function UIImageInstance:SetGameScreenshot(gameId, screenshotIndex) end
+
 --- @return string 
 function UIImageInstance:GetImage() end
 
@@ -2226,6 +2245,7 @@ function Vector4.New(xy, zw) end
 --- @field maxSpeed number 
 --- @field accelerationRate number 
 --- @field brakeStrength number 
+--- @field coastBrakeStrength number 
 --- @field tireFriction number 
 --- @field gravityScale number 
 --- @field isDriverHidden boolean 
@@ -2772,6 +2792,14 @@ function UI.IsReticleVisible() end
 --- @param isVisible boolean 
 function UI.SetReticleVisible(isVisible) end
 
+--- @overload fun(isVisible: boolean)
+--- @param isVisible boolean 
+--- @param currentTab RewardsDialogTab 
+function UI.SetRewardsDialogVisible(isVisible, currentTab) end
+
+--- @return boolean 
+function UI.IsRewardsDialogVisible() end
+
 
 --- @class World 
 local WorldInstance = {}
@@ -2851,12 +2879,13 @@ Collision = {
     FORCE_ON = 1,
     FORCE_OFF = 2,
 }
---- @alias CoreModalType 1 | 2 | 3 | 4
+--- @alias CoreModalType 1 | 2 | 3 | 4 | 6
 CoreModalType = {
     PAUSE_MENU = 1,
     CHARACTER_PICKER = 2,
     MOUNT_PICKER = 3,
     EMOTE_PICKER = 4,
+    SOCIAL_MENU = 6,
 }
 --- @alias CurveExtrapolation 0 | 1 | 2 | 3 | 4
 CurveExtrapolation = {
@@ -2970,6 +2999,11 @@ RespawnMode = {
     FARTHEST_FROM_OTHER_PLAYERS = 4,
     FARTHEST_FROM_ENEMY = 5,
     RANDOM = 6,
+}
+--- @alias RewardsDialogTab 1 | 2
+RewardsDialogTab = {
+    QUESTS = 1,
+    GAMES = 2,
 }
 --- @alias RotationMode 0 | 1 | 2
 RotationMode = {
