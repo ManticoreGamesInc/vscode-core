@@ -4,7 +4,7 @@
 
 A [Visual Studio Code](https://code.visualstudio.com/) [extension](https://marketplace.visualstudio.com/VSCode) that adds support for the [Core Games](https://www.coregames.com) Lua API to the Lua Language Server.
 
-[![Open in VSCode](https://open.vscode.dev/badges/open-in-vscode.svg)](https://open.vscode.dev/ManticoreGames/vscode-core) [![Build Status](https://github.com/ManticoreGamesInc/vscode-core/workflows/CI/badge.svg)](https://github.com/ManticoreGamesInc/vscode-core/actions?workflow=CI) [![Marketplace Version](https://img.shields.io/visual-studio-marketplace/v/manticoregames.vscode-core?label=Visual%20Studio%20Marketplace&logo=visual-studio-code "Current Version")](https://marketplace.visualstudio.com/items?itemName=ManticoreGames.vscode-core)
+[![Build Status](https://github.com/ManticoreGamesInc/vscode-core/workflows/CI/badge.svg)](https://github.com/ManticoreGamesInc/vscode-core/actions?workflow=CI) [![Marketplace Version](https://img.shields.io/visual-studio-marketplace/v/manticoregames.vscode-core?label=Visual%20Studio%20Marketplace&logo=visual-studio-code "Current Version")](https://marketplace.visualstudio.com/items?itemName=ManticoreGames.vscode-core)
 
 ![Logo](https://i.imgur.com/4WSkkYF.jpg)
 </div>
