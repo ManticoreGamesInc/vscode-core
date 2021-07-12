@@ -64,7 +64,7 @@
     "glob": "^7.1.7",
     "mocha": "^9.0.2",
     "ts-loader": "^9.2.3",
-    "ts-node": "^10.0.0",
+    "ts-node": "^10.1.0",
     "typescript": "^4.3.5",
     "vscode-test": "^1.5.2"
   }
