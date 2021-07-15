@@ -1,5 +1,25 @@
 # Changelog
 
+## 1.1.0
+
+### Minor Changes
+
+- Add workaround for Tick() and time(): f833fcd0fc1a7954d08ebf44bd31e3d71ab9b13a
+
+### Patches
+
+- Bump @types/node from 16.0.0 to 16.3.1: 87dc227f8c96697cfe5c50e7c236670c61a8d1da
+- Bump @types/glob from 7.1.3 to 7.1.4: 6853a4054bfddb88c63e81600bcb985d54781c78
+- Bump @typescript-eslint/typescript-estree from 4.28.1 to 4.28.2: 6f84bc7df1bf6ced68e3e5ec7d288228dbcc704b
+- Bump ts-node from 10.0.0 to 10.1.0: 46b5e81dd485b8ea4e76b148f2fc92af0e10c523
+- Bump @types/mocha from 8.2.2 to 8.2.3: bdedbd6832a31ba16494806a80747a5d5d08463c
+- Bump esbuild from 0.12.14 to 0.12.15: 73fe49f32020f47daa5183fb7890a7c8a753e2c1
+- Bump @typescript-eslint/eslint-plugin from 4.28.1 to 4.28.2: bbc69153679490581e9f702b2a926c80505c070d
+- Bump @typescript-eslint/parser from 4.28.1 to 4.28.2: 7a67b4d6ad56b5a8adc4bad9a5de19587b119487
+- Bump @types/chai from 4.2.19 to 4.2.21: 42b953491f7fdac3b3a7f7a2d9c751af04358a35
+- CI: node 15-&gt;16: 761d019c3f1bb6ad3c6b69ec75d6c526c96251b2
+- Update Changelog: 68c8d2d5df2dbd8fe20353e1d3e42b58a1340012
+
 ## 1.0.1
 
 ### Major Changes
