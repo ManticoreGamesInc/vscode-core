@@ -313,6 +313,26 @@ Camera = {}
 --- @field b number
 --- @field a number
 --- @field type string
+--- @field WHITE Color
+--- @field GRAY Color
+--- @field BLACK Color
+--- @field TRANSPARENT Color
+--- @field RED Color
+--- @field GREEN Color
+--- @field BLUE Color
+--- @field CYAN Color
+--- @field MAGENTA Color
+--- @field YELLOW Color
+--- @field ORANGE Color
+--- @field PURPLE Color
+--- @field BROWN Color
+--- @field PINK Color
+--- @field TAN Color
+--- @field RUBY Color
+--- @field EMERALD Color
+--- @field SAPPHIRE Color
+--- @field SILVER Color
+--- @field SMOKE Color
 local ColorInstance = {}
 --- @param desaturation number
 --- @return Color
@@ -1460,6 +1480,7 @@ function Projectile.Spawn(templateId, startPosition, direction) end
 --- @field z number
 --- @field w number
 --- @field type string
+--- @field IDENTITY Quaternion
 local QuaternionInstance = {}
 --- @return Rotation
 function QuaternionInstance:GetRotation() end
@@ -1542,6 +1563,7 @@ function RandomStream.New(seed) end
 --- @field y number
 --- @field z number
 --- @field type string
+--- @field ZERO Rotation
 local RotationInstance = {}
 --- @param typeName string
 --- @return boolean
@@ -1761,6 +1783,7 @@ Terrain = {}
 
 --- @class Transform
 --- @field type string
+--- @field IDENTITY Transform
 local TransformInstance = {}
 --- @return Rotation
 function TransformInstance:GetRotation() end
@@ -2142,6 +2165,8 @@ UIText = {}
 --- @field size number
 --- @field sizeSquared number
 --- @field type string
+--- @field ZERO Vector2
+--- @field ONE Vector2
 local Vector2Instance = {}
 --- @return Vector2
 function Vector2Instance:GetNormalized() end
@@ -2174,6 +2199,11 @@ function Vector2.New(xy) end
 --- @field size number
 --- @field sizeSquared number
 --- @field type string
+--- @field ZERO Vector3
+--- @field ONE Vector3
+--- @field FORWARD Vector3
+--- @field UP Vector3
+--- @field RIGHT Vector3
 local Vector3Instance = {}
 --- @return Vector3
 function Vector3Instance:GetNormalized() end
@@ -2208,6 +2238,8 @@ function Vector3.New(xyz) end
 --- @field size number
 --- @field sizeSquared number
 --- @field type string
+--- @field ZERO Vector4
+--- @field ONE Vector4
 local Vector4Instance = {}
 --- @return Vector4
 function Vector4Instance:GetNormalized() end
@@ -2381,11 +2413,6 @@ function WorldTextInstance:IsA(typeName) end
 --- @class GlobalWorldText : CoreObject
 WorldText = {}
 
-
-
-
-
-
 --- @class Chat
 local ChatInstance = {}
 --- @class GlobalChat
@@ -2400,7 +2427,6 @@ function Chat.BroadcastMessage(message, optionalParams) end
 --- @param message string
 --- @param optionalParams table
 function Chat.LocalMessage(message, optionalParams) end
-
 
 --- @class CoreDebug
 local CoreDebugInstance = {}
@@ -2431,7 +2457,6 @@ function CoreDebug.GetStackTrace() end
 --- @return string
 function CoreDebug.GetTaskStackTrace() end
 
-
 --- @class CoreMath
 local CoreMathInstance = {}
 --- @class GlobalCoreMath
@@ -2456,7 +2481,6 @@ function CoreMath.Lerp(from, to, progress) end
 --- @return number
 function CoreMath.Clamp(x, min, max) end
 
-
 --- @class CorePlatform
 local CorePlatformInstance = {}
 --- @class GlobalCorePlatform
@@ -2473,7 +2497,6 @@ function CorePlatform.GetGameCollection(collectionId) end
 --- @return CorePlayerProfile
 function CorePlatform.GetPlayerProfile(playerId) end
 
-
 --- @class CoreSocial
 local CoreSocialInstance = {}
 --- @class GlobalCoreSocial
@@ -2486,7 +2509,6 @@ function CoreSocial.IsFriendsWithLocalPlayer(playerId) end
 --- @param player Player
 --- @return CoreFriendCollection
 function CoreSocial.GetFriends(player) end
-
 
 --- @class CoreString
 local CoreStringInstance = {}
@@ -2510,7 +2532,6 @@ function CoreString.Join(delimiter, strings) end
 --- @param trimmedStrings any
 --- @return string
 function CoreString.Trim(string, trimmedStrings) end
-
 
 --- @class Environment
 local EnvironmentInstance = {}
@@ -2536,7 +2557,6 @@ function Environment.IsLocalGame() end
 
 --- @return boolean
 function Environment.IsHostedGame() end
-
 
 --- @class Events
 local EventsInstance = {}
@@ -2579,7 +2599,6 @@ function Events.BroadcastToAllPlayers(eventName, argumentList) end
 --- @param argumentList any
 --- @return BroadcastEventResultCode|string
 function Events.BroadcastToPlayer(player, eventName, argumentList) end
-
 
 --- @class Game
 local GameInstance = {}
@@ -2655,7 +2674,6 @@ function Game.IsAcceptingPlayers() end
 --- @param gameCollectionEntry CoreGameCollectionEntry
 function Game.TransferAllPlayersToGame(gameCollectionEntry) end
 
-
 --- @class Leaderboards
 local LeaderboardsInstance = {}
 --- @class GlobalLeaderboards
@@ -2673,7 +2691,6 @@ function Leaderboards.GetLeaderboard(leaderboardReference, leaderboardType) end
 
 --- @return boolean
 function Leaderboards.HasLeaderboards() end
-
 
 --- @class Storage
 local StorageInstance = {}
@@ -2712,7 +2729,6 @@ function Storage.GetOfflinePlayerData(playerId) end
 --- @return table
 function Storage.GetSharedOfflinePlayerData(sharedStorageKey, playerId) end
 
-
 --- @class Teams
 local TeamsInstance = {}
 --- @class GlobalTeams
@@ -2726,7 +2742,6 @@ function Teams.AreTeamsFriendly(team1, team2) end
 --- @param team2 number
 --- @return boolean
 function Teams.AreTeamsEnemies(team1, team2) end
-
 
 --- @class UI
 local UIInstance = {}
@@ -2800,7 +2815,6 @@ function UI.SetRewardsDialogVisible(isVisible, currentTab) end
 --- @return boolean
 function UI.IsRewardsDialogVisible() end
 
-
 --- @class World
 local WorldInstance = {}
 --- @class GlobalWorld
@@ -2836,12 +2850,6 @@ function World.SpawnAsset(assetId, optionalParameters) end
 --- @param optionalParameters table
 --- @return HitResult
 function World.Raycast(startPosition, endPosition, optionalParameters) end
-
-
-
-
-
-
 
 --- @alias AbilityFacingMode 0 | 1 | 2
 AbilityFacingMode = {
@@ -3068,4 +3076,5 @@ script = nil
 function time() end
 
 --- @param deltaTime number
+--- @return number
 function Tick(deltaTime) end

@@ -15,6 +15,7 @@
         "UNCREATABLE",
         "agincel",
         "codeql",
+        "esbuild",
         "estree",
         "luacheckrc"
     ],

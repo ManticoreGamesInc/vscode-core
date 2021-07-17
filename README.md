@@ -17,6 +17,10 @@ If you have previously been using `vscode-core` together with the `Lua Coder Ass
 
 Sumneko's Lua extension also comes with it's own "**Diagnostics**" feature, so if you have been using other extensions that use Luacheck and a `.luacheckrc` file, you might want to either disable those extensions or the "Diagnostics" feature in Sumneko's.
 
+## Known Issues
+
+- There is currently no support for Core operators.
+
 ## Installation
 
 - Go to the Visual Studio Code Marketplace and click the "**Install**" button, that's it!
