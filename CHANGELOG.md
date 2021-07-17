@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.2.0
+
+- Add support for Core's constants: 1ebb8ad3c31664146d0720db4532a921a86f4c4a
+
 ## 1.1.0
 
 ### Minor Changes
