@@ -66,6 +66,6 @@
     "ts-loader": "^9.2.3",
     "ts-node": "^10.1.0",
     "typescript": "^4.3.5",
-    "vscode-test": "^1.5.2"
+    "vscode-test": "^1.6.1"
   }
 }
