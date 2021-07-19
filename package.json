@@ -29,9 +29,7 @@
       "supported": true
     }
   },
-  "extensionKind": [
-    "ui"
-  ],
+  "extensionKind": ["ui", "workspace"],
   "activationEvents": [
     "onLanguage:lua"
   ],
