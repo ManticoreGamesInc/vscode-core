@@ -1,5 +1,24 @@
 # Changelog
 
+## 1.2.3
+
+### Minor Changes
+
+- Switch extensionKind to ui + workspace: e3b38368765207f9f6f91ae2f4eed8b4ccc71b70
+- Update vscode min-requirement: 0c40d344cba54d8599533203fe9f42afa71b09c7
+
+### Patches
+
+- Bump @typescript-eslint/eslint-plugin from 4.28.2 to 4.28.3: ad9bc20f377e787ba61bebcfb6e7d4aae52e54ba
+- Bump @types/node from 16.3.1 to 16.3.3: 303b200beba4f05e19b47c9e77afa0578096af65
+- Bump @typescript-eslint/parser from 4.28.2 to 4.28.3: 2dd63c88f37b3062348c74b6bc03ac98c711ece2
+- Bump vscode-test from 1.5.2 to 1.6.1: f05150a9f9ec7dd4dc9d54cb63d186b7fa3c3136
+- Bump eslint from 7.30.0 to 7.31.0: 34891f53b81bebe24a81d281b6f7122c7e56bba0
+
+## 1.2.1
+
+- Same as 1.2.0
+
 ## 1.2.0
 
 - Add support for Core's constants: 1ebb8ad3c31664146d0720db4532a921a86f4c4a
