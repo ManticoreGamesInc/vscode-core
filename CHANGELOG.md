@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.3.2
+
+- Switch extensionKind to `["workspace", "ui"]`
+
 ## 1.3.1
 
 - Update Packages

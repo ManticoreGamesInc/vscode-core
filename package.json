@@ -30,8 +30,8 @@
     }
   },
   "extensionKind": [
-    "ui",
-    "workspace"
+    "workspace",
+    "ui"
   ],
   "activationEvents": [
     "onLanguage:lua"
