@@ -207,6 +207,9 @@ function AnimatedMeshInstance:GetMaterialSlot(slotName) end
 --- @return table<number, MaterialSlot>
 function AnimatedMeshInstance:GetMaterialSlots() end
 
+--- @param slotName string
+function AnimatedMeshInstance:ResetMaterialSlot(slotName) end
+
 --- @param typeName string
 --- @return boolean
 function AnimatedMeshInstance:IsA(typeName) end
@@ -284,6 +287,8 @@ Audio = {}
 --- @field currentYaw number
 --- @field minYaw number
 --- @field maxYaw number
+--- @field useAsAudioListener boolean
+--- @field audioListenerOffset Vector3
 --- @field lerpTime number
 --- @field isUsingCameraRotation boolean
 --- @field type string
@@ -786,6 +791,38 @@ CurveKey = {}
 function CurveKey.New(other) end
 
 
+--- @class CustomMaterial
+--- @field type string
+local CustomMaterialInstance = {}
+--- @overload fun(propertyName: string,value: boolean)
+--- @overload fun(propertyName: string,value: Vector3)
+--- @overload fun(propertyName: string,value: Color)
+--- @overload fun(propertyName: string,value: number)
+--- @param propertyName string
+--- @param value Vector2
+function CustomMaterialInstance:SetProperty(propertyName, value) end
+
+--- @param propertyName string
+--- @return any
+function CustomMaterialInstance:GetProperty(propertyName) end
+
+--- @return table<number, string>
+function CustomMaterialInstance:GetPropertyNames() end
+
+--- @return string
+function CustomMaterialInstance:GetBaseMaterialId() end
+
+--- @param typeName string
+--- @return boolean
+function CustomMaterialInstance:IsA(typeName) end
+
+--- @class GlobalCustomMaterial
+CustomMaterial = {}
+--- @param assetId string
+--- @return CustomMaterial
+function CustomMaterial.Find(assetId) end
+
+
 --- @class Damage
 --- @field amount number
 --- @field reason DamageReason
@@ -947,6 +984,34 @@ function HookListenerInstance:IsA(typeName) end
 --- @class GlobalHookListener
 HookListener = {}
 
+--- @class IKAnchor : CoreObject
+--- @field activatedEvent Event
+--- @field deactivatedEvent Event
+--- @field target string
+--- @field anchorType IKAnchorType
+--- @field blendInTime number
+--- @field blendOutTime number
+--- @field weight number
+--- @field type string
+local IKAnchorInstance = {}
+--- @param target Player
+function IKAnchorInstance:Activate(target) end
+
+function IKAnchorInstance:Deactivate() end
+
+--- @return Vector3
+function IKAnchorInstance:GetAimOffset() end
+
+--- @param aim offset Vector3
+function IKAnchorInstance:SetAimOffset(aim offset) end
+
+--- @param typeName string
+--- @return boolean
+function IKAnchorInstance:IsA(typeName) end
+
+--- @class GlobalIKAnchor : CoreObject
+IKAnchor = {}
+
 --- @class ImpactData
 --- @field targetObject Object
 --- @field projectile Projectile
@@ -1010,6 +1075,7 @@ Light = {}
 --- @class MaterialSlot
 --- @field slotName string
 --- @field mesh CoreMesh
+--- @field materialAssetName string
 --- @field materialAssetId string
 --- @field isSmartMaterial boolean
 --- @field type string
@@ -1034,6 +1100,9 @@ function MaterialSlotInstance:ResetUVTiling() end
 function MaterialSlotInstance:ResetIsSmartMaterial() end
 
 function MaterialSlotInstance:ResetMaterialAssetId() end
+
+--- @return CustomMaterial
+function MaterialSlotInstance:GetCustomMaterial() end
 
 --- @param typeName string
 --- @return boolean
@@ -1090,6 +1159,31 @@ Object = {}
 function Object.IsValid(object) end
 
 
+--- @class PartyInfo
+--- @field id string
+--- @field name string
+--- @field partySize number
+--- @field maxPartySize number
+--- @field partyLeaderId string
+--- @field isPlayAsParty boolean
+--- @field type string
+local PartyInfoInstance = {}
+--- @return table<number, string>
+function PartyInfoInstance:GetTags() end
+
+--- @return table<number, string>
+function PartyInfoInstance:GetMemberIds() end
+
+--- @return boolean
+function PartyInfoInstance:IsFull() end
+
+--- @param typeName string
+--- @return boolean
+function PartyInfoInstance:IsA(typeName) end
+
+--- @class GlobalPartyInfo
+PartyInfo = {}
+
 --- @class Player
 --- @field damagedEvent Event
 --- @field diedEvent Event
@@ -1107,6 +1201,8 @@ function Object.IsValid(object) end
 --- @field id string
 --- @field name string
 --- @field team number
+--- @field isInParty boolean
+--- @field isPartyLeader boolean
 --- @field hitPoints number
 --- @field maxHitPoints number
 --- @field kills number
@@ -1165,6 +1261,13 @@ function Object.IsValid(object) end
 --- @field defaultRotationRate number
 --- @field type string
 local PlayerInstance = {}
+--- @return PartyInfo
+function PlayerInstance:GetPartyInfo() end
+
+--- @param player Player
+--- @return boolean
+function PlayerInstance:IsInPartyWith(player) end
+
 --- @return Transform
 function PlayerInstance:GetWorldTransform() end
 
@@ -1200,6 +1303,9 @@ function PlayerInstance:GetEquipment() end
 
 --- @return table<number, CoreObject>
 function PlayerInstance:GetAttachedObjects() end
+
+--- @return table<number, IKAnchor>
+function PlayerInstance:GetIKAnchors() end
 
 --- @param impulse Vector3
 function PlayerInstance:AddImpulse(impulse) end
@@ -1733,6 +1839,9 @@ function StaticMeshInstance:GetMaterialSlot(slotName) end
 --- @return table<number, MaterialSlot>
 function StaticMeshInstance:GetMaterialSlots() end
 
+--- @param slotName string
+function StaticMeshInstance:ResetMaterialSlot(slotName) end
+
 --- @param typeName string
 --- @return boolean
 function StaticMeshInstance:IsA(typeName) end
@@ -2099,6 +2208,16 @@ function UIProgressBarInstance:IsA(typeName) end
 --- @class GlobalUIProgressBar : UIControl
 UIProgressBar = {}
 
+--- @class UIRewardPointsMeter : UIControl
+--- @field type string
+local UIRewardPointsMeterInstance = {}
+--- @param typeName string
+--- @return boolean
+function UIRewardPointsMeterInstance:IsA(typeName) end
+
+--- @class GlobalUIRewardPointsMeter : UIControl
+UIRewardPointsMeter = {}
+
 --- @class UIScrollPanel : UIControl
 --- @field orientation Orientation
 --- @field scrollPosition number
@@ -2308,6 +2427,12 @@ function VehicleInstance:GetDriverPosition() end
 
 --- @return Rotation
 function VehicleInstance:GetDriverRotation() end
+
+--- @return Vector3
+function VehicleInstance:GetCenterOfMassOffset() end
+
+--- @param offset Vector3
+function VehicleInstance:SetCenterOfMassOffset(offset) end
 
 --- @param typeName string
 --- @return boolean
@@ -2748,6 +2873,9 @@ local UIInstance = {}
 --- @class GlobalUI
 --- @field coreModalChangedEvent Event
 UI = {}
+--- @return CoreModalType
+function UI.GetCoreModalType() end
+
 --- @overload fun(text: string,worldPosition: Vector3)
 --- @param text string
 --- @param worldPosition Vector3
@@ -2814,6 +2942,12 @@ function UI.SetRewardsDialogVisible(isVisible, currentTab) end
 
 --- @return boolean
 function UI.IsRewardsDialogVisible() end
+
+--- @param isEnabled boolean
+function UI.SetSocialMenuEnabled(isEnabled) end
+
+--- @return boolean
+function UI.IsSocialMenuEnabled() end
 
 --- @class World
 local WorldInstance = {}
@@ -2922,6 +3056,14 @@ FacingMode = {
     FACE_AIM_WHEN_ACTIVE = 0,
     FACE_AIM_ALWAYS = 1,
     FACE_MOVEMENT = 2,
+}
+--- @alias IKAnchorType 0 | 1 | 2 | 3 | 4
+IKAnchorType = {
+    LEFT_HAND = 0,
+    RIGHT_HAND = 1,
+    PELVIS = 2,
+    LEFT_FOOT = 3,
+    RIGHT_FOOT = 4,
 }
 --- @alias ImageTileType 0 | 1 | 2 | 3
 ImageTileType = {
