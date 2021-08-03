@@ -3,7 +3,7 @@
   "displayName": "Core Lua API",
   "description": "Adds support for the Core Games Lua API",
   "license": "MIT",
-  "version": "1.3.3",
+  "version": "1.4.0",
   "icon": "images/logo.png",
   "publisher": "ManticoreGames",
   "repository": {
@@ -49,7 +49,7 @@
     "test": "node ./out/test/runTest.js",
     "pretest": "npm run test-compile && npm run lint",
     "lint": "eslint src --ext .js,.jsx,.ts,.tsx",
-    "changelog": "auto-changelog --template keepachangelog --hide-credit"
+    "changelog": "auto-changelog --template keepachangelog --hide-credit --commit-limit false"
   },
   "devDependencies": {
     "@types/chai": "^4.2.21",
