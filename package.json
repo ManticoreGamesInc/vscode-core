@@ -48,7 +48,8 @@
     "test-compile": "tsc -p ./",
     "test": "node ./out/test/runTest.js",
     "pretest": "npm run test-compile && npm run lint",
-    "lint": "eslint src --ext .js,.jsx,.ts,.tsx"
+    "lint": "eslint src --ext .js,.jsx,.ts,.tsx",
+    "changelog": "auto-changelog --template keepachangelog --hide-credit"
   },
   "devDependencies": {
     "@types/chai": "^4.2.21",
