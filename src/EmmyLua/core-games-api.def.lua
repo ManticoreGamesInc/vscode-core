@@ -318,6 +318,22 @@ Camera = {}
 --- @field b number
 --- @field a number
 --- @field type string
+local ColorInstance = {}
+--- @param desaturation number
+--- @return Color
+function ColorInstance:GetDesaturated(desaturation) end
+
+--- @return string
+function ColorInstance:ToStandardHex() end
+
+--- @return string
+function ColorInstance:ToLinearHex() end
+
+--- @param typeName string
+--- @return boolean
+function ColorInstance:IsA(typeName) end
+
+--- @class GlobalColor
 --- @field WHITE Color
 --- @field GRAY Color
 --- @field BLACK Color
@@ -338,22 +354,6 @@ Camera = {}
 --- @field SAPPHIRE Color
 --- @field SILVER Color
 --- @field SMOKE Color
-local ColorInstance = {}
---- @param desaturation number
---- @return Color
-function ColorInstance:GetDesaturated(desaturation) end
-
---- @return string
-function ColorInstance:ToStandardHex() end
-
---- @return string
-function ColorInstance:ToLinearHex() end
-
---- @param typeName string
---- @return boolean
-function ColorInstance:IsA(typeName) end
-
---- @class GlobalColor
 Color = {}
 --- @return Color
 function Color.Random() end
@@ -886,11 +886,9 @@ Equipment = {}
 --- @class Event
 --- @field type string
 local EventInstance = {}
---- @overload fun(listener: function): EventListener
 --- @param listener function
---- @param additionalParameters any
 --- @return EventListener
-function EventInstance:Connect(listener, additionalParameters) end
+function EventInstance:Connect(listener, ...) end
 
 --- @param typeName string
 --- @return boolean
@@ -957,11 +955,9 @@ HitResult = {}
 --- @class Hook
 --- @field type string
 local HookInstance = {}
---- @overload fun(listener: function): HookListener
 --- @param listener function
---- @param additionalParameters any
 --- @return HookListener
-function HookInstance:Connect(listener, additionalParameters) end
+function HookInstance:Connect(listener, ...) end
 
 --- @param typeName string
 --- @return boolean
@@ -1002,8 +998,8 @@ function IKAnchorInstance:Deactivate() end
 --- @return Vector3
 function IKAnchorInstance:GetAimOffset() end
 
---- @param aim offset Vector3
-function IKAnchorInstance:SetAimOffset(aim offset) end
+--- @param aimOffset Vector3
+function IKAnchorInstance:SetAimOffset(aimOffset) end
 
 --- @param typeName string
 --- @return boolean
@@ -1586,7 +1582,6 @@ function Projectile.Spawn(templateId, startPosition, direction) end
 --- @field z number
 --- @field w number
 --- @field type string
---- @field IDENTITY Quaternion
 local QuaternionInstance = {}
 --- @return Rotation
 function QuaternionInstance:GetRotation() end
@@ -1605,6 +1600,7 @@ function QuaternionInstance:GetUpVector() end
 function QuaternionInstance:IsA(typeName) end
 
 --- @class GlobalQuaternion
+--- @field IDENTITY Quaternion
 Quaternion = {}
 --- @param from Quaternion
 --- @param to Quaternion
@@ -1669,13 +1665,13 @@ function RandomStream.New(seed) end
 --- @field y number
 --- @field z number
 --- @field type string
---- @field ZERO Rotation
 local RotationInstance = {}
 --- @param typeName string
 --- @return boolean
 function RotationInstance:IsA(typeName) end
 
 --- @class GlobalRotation
+--- @field ZERO Rotation
 Rotation = {}
 --- @overload fun(rotation: Rotation): Rotation
 --- @overload fun(quaternion: Quaternion): Rotation
@@ -1892,7 +1888,6 @@ Terrain = {}
 
 --- @class Transform
 --- @field type string
---- @field IDENTITY Transform
 local TransformInstance = {}
 --- @return Rotation
 function TransformInstance:GetRotation() end
@@ -1943,6 +1938,7 @@ function TransformInstance:TransformDirection(direction) end
 function TransformInstance:IsA(typeName) end
 
 --- @class GlobalTransform
+--- @field IDENTITY Transform
 Transform = {}
 --- @overload fun(xAxis: Vector3,yAxis: Vector3,zAxis: Vector3,position: Vector3): Transform
 --- @overload fun(rotation: Rotation,position: Vector3,scale: Vector3): Transform
@@ -1975,9 +1971,9 @@ TreadedVehicle = {}
 --- @field isEnemyCollisionEnabled boolean
 --- @field type string
 local TriggerInstance = {}
---- @param OtherObject Object
+--- @param otherObject Object
 --- @return boolean
-function TriggerInstance:IsOverlapping(OtherObject) end
+function TriggerInstance:IsOverlapping(otherObject) end
 
 --- @return table<number, Object>
 function TriggerInstance:GetOverlappingObjects() end
@@ -2284,8 +2280,6 @@ UIText = {}
 --- @field size number
 --- @field sizeSquared number
 --- @field type string
---- @field ZERO Vector2
---- @field ONE Vector2
 local Vector2Instance = {}
 --- @return Vector2
 function Vector2Instance:GetNormalized() end
@@ -2295,6 +2289,8 @@ function Vector2Instance:GetNormalized() end
 function Vector2Instance:IsA(typeName) end
 
 --- @class GlobalVector2
+--- @field ZERO Vector2
+--- @field ONE Vector2
 Vector2 = {}
 --- @param from Vector2
 --- @param to Vector2
@@ -2318,11 +2314,6 @@ function Vector2.New(xy) end
 --- @field size number
 --- @field sizeSquared number
 --- @field type string
---- @field ZERO Vector3
---- @field ONE Vector3
---- @field FORWARD Vector3
---- @field UP Vector3
---- @field RIGHT Vector3
 local Vector3Instance = {}
 --- @return Vector3
 function Vector3Instance:GetNormalized() end
@@ -2332,6 +2323,11 @@ function Vector3Instance:GetNormalized() end
 function Vector3Instance:IsA(typeName) end
 
 --- @class GlobalVector3
+--- @field ZERO Vector3
+--- @field ONE Vector3
+--- @field FORWARD Vector3
+--- @field UP Vector3
+--- @field RIGHT Vector3
 Vector3 = {}
 --- @param from Vector3
 --- @param to Vector3
@@ -2357,8 +2353,6 @@ function Vector3.New(xyz) end
 --- @field size number
 --- @field sizeSquared number
 --- @field type string
---- @field ZERO Vector4
---- @field ONE Vector4
 local Vector4Instance = {}
 --- @return Vector4
 function Vector4Instance:GetNormalized() end
@@ -2368,6 +2362,8 @@ function Vector4Instance:GetNormalized() end
 function Vector4Instance:IsA(typeName) end
 
 --- @class GlobalVector4
+--- @field ZERO Vector4
+--- @field ONE Vector4
 Vector4 = {}
 --- @param from Vector4
 --- @param to Vector4
@@ -2646,17 +2642,13 @@ CoreString = {}
 --- @return any
 function CoreString.Split(string) end
 
---- @overload fun(delimiter: string): string
 --- @param delimiter string
---- @param strings any
 --- @return string
-function CoreString.Join(delimiter, strings) end
+function CoreString.Join(delimiter, ...) end
 
---- @overload fun(string: string): string
 --- @param string string
---- @param trimmedStrings any
 --- @return string
-function CoreString.Trim(string, trimmedStrings) end
+function CoreString.Trim(string, ...) end
 
 --- @class Environment
 local EnvironmentInstance = {}
@@ -2687,43 +2679,31 @@ function Environment.IsHostedGame() end
 local EventsInstance = {}
 --- @class GlobalEvents
 Events = {}
---- @overload fun(eventName: string,listener: function): EventListener
 --- @param eventName string
 --- @param listener function
---- @param additionalParameters any
 --- @return EventListener
-function Events.Connect(eventName, listener, additionalParameters) end
+function Events.Connect(eventName, listener, ...) end
 
---- @overload fun(eventName: string,listener: function): EventListener
 --- @param eventName string
 --- @param listener function
---- @param additionalParameters any
 --- @return EventListener
-function Events.ConnectForPlayer(eventName, listener, additionalParameters) end
+function Events.ConnectForPlayer(eventName, listener, ...) end
 
---- @overload fun(eventName: string)
 --- @param eventName string
---- @param argumentList any
-function Events.Broadcast(eventName, argumentList) end
+function Events.Broadcast(eventName, ...) end
 
---- @overload fun(eventName: string): BroadcastEventResultCode|string
 --- @param eventName string
---- @param argumentList any
 --- @return BroadcastEventResultCode|string
-function Events.BroadcastToServer(eventName, argumentList) end
+function Events.BroadcastToServer(eventName, ...) end
 
---- @overload fun(eventName: string): BroadcastEventResultCode|string
 --- @param eventName string
---- @param argumentList any
 --- @return BroadcastEventResultCode|string
-function Events.BroadcastToAllPlayers(eventName, argumentList) end
+function Events.BroadcastToAllPlayers(eventName, ...) end
 
---- @overload fun(player: Player,eventName: string): BroadcastEventResultCode|string
 --- @param player Player
 --- @param eventName string
---- @param argumentList any
 --- @return BroadcastEventResultCode|string
-function Events.BroadcastToPlayer(player, eventName, argumentList) end
+function Events.BroadcastToPlayer(player, eventName, ...) end
 
 --- @class Game
 local GameInstance = {}
