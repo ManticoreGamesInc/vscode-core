@@ -305,12 +305,43 @@ function CameraInstance:GetRotationOffset() end
 --- @param rotationOffset Rotation
 function CameraInstance:SetRotationOffset(rotationOffset) end
 
+--- @return Vector3
+function CameraInstance:GetAudioListenerOffset() end
+
+--- @param offset Vector3
+function CameraInstance:SetAudioListenerOffset(offset) end
+
+--- @overload fun(resolution: CameraCaptureResolution): CameraCapture
+--- @param resolution CameraCaptureResolution
+--- @param optionalParameters table
+--- @return CameraCapture
+function CameraInstance:Capture(resolution, optionalParameters) end
+
 --- @param typeName string
 --- @return boolean
 function CameraInstance:IsA(typeName) end
 
 --- @class GlobalCamera : CoreObject
 Camera = {}
+
+--- @class CameraCapture
+--- @field resolution CameraCaptureResolution
+--- @field camera Camera
+--- @field type string
+local CameraCaptureInstance = {}
+--- @return boolean
+function CameraCaptureInstance:IsValid() end
+
+function CameraCaptureInstance:Refresh() end
+
+function CameraCaptureInstance:Release() end
+
+--- @param typeName string
+--- @return boolean
+function CameraCaptureInstance:IsA(typeName) end
+
+--- @class GlobalCameraCapture
+CameraCapture = {}
 
 --- @class Color
 --- @field r number
@@ -1162,6 +1193,7 @@ function Object.IsValid(object) end
 --- @field maxPartySize number
 --- @field partyLeaderId string
 --- @field isPlayAsParty boolean
+--- @field isPublic boolean
 --- @field type string
 local PartyInfoInstance = {}
 --- @return table<number, string>
@@ -1179,6 +1211,19 @@ function PartyInfoInstance:IsA(typeName) end
 
 --- @class GlobalPartyInfo
 PartyInfo = {}
+
+--- @class PhysicsObject : CoreObject
+--- @field team number
+--- @field isTeamCollisionEnabled boolean
+--- @field isEnemyCollisionEnabled boolean
+--- @field type string
+local PhysicsObjectInstance = {}
+--- @param typeName string
+--- @return boolean
+function PhysicsObjectInstance:IsA(typeName) end
+
+--- @class GlobalPhysicsObject : CoreObject
+PhysicsObject = {}
 
 --- @class Player
 --- @field damagedEvent Event
@@ -2055,8 +2100,15 @@ UIButton = {}
 
 --- @class UIContainer : UIControl
 --- @field opacity number
+--- @field cylinderArcAngle number
 --- @field type string
 local UIContainerInstance = {}
+--- @return Vector2
+function UIContainerInstance:GetCanvasSize() end
+
+--- @param size Vector2
+function UIContainerInstance:SetCanvasSize(size) end
+
 --- @param typeName string
 --- @return boolean
 function UIContainerInstance:IsA(typeName) end
@@ -2124,6 +2176,9 @@ function UIImageInstance:GetShadowOffset() end
 
 --- @param vector2 Vector2
 function UIImageInstance:SetShadowOffset(vector2) end
+
+--- @param cameraCapture CameraCapture
+function UIImageInstance:SetCameraCapture(cameraCapture) end
 
 --- @param typeName string
 --- @return boolean
@@ -2779,6 +2834,10 @@ function Game.IsAcceptingPlayers() end
 --- @param gameCollectionEntry CoreGameCollectionEntry
 function Game.TransferAllPlayersToGame(gameCollectionEntry) end
 
+--- @class Input
+local InputInstance = {}
+--- @class GlobalInput
+Input = {}
 --- @class Leaderboards
 local LeaderboardsInstance = {}
 --- @class GlobalLeaderboards
@@ -2929,6 +2988,16 @@ function UI.SetSocialMenuEnabled(isEnabled) end
 --- @return boolean
 function UI.IsSocialMenuEnabled() end
 
+--- @class VoiceChat
+local VoiceChatInstance = {}
+--- @class GlobalVoiceChat
+VoiceChat = {}
+--- @return VoiceChatMode
+function VoiceChat.GetVoiceChatMode() end
+
+--- @param voiceChatMode VoiceChatMode
+function VoiceChat.SetVoiceChatMode(voiceChatMode) end
+
 --- @class World
 local WorldInstance = {}
 --- @class GlobalWorld
@@ -2994,6 +3063,14 @@ BroadcastMessageResultCode = {
     EXCEEDED_SIZE_LIMIT = 2,
     EXCEEDED_RATE_WARNING_LIMIT = 3,
     EXCEEDED_RATE_LIMIT = 4,
+}
+--- @alias CameraCaptureResolution 0 | 1 | 2 | 3 | 4
+CameraCaptureResolution = {
+    VERY_SMALL = 0,
+    SMALL = 1,
+    MEDIUM = 2,
+    LARGE = 3,
+    VERY_LARGE = 4,
 }
 --- @alias Collision 0 | 1 | 2
 Collision = {
@@ -3190,6 +3267,12 @@ Visibility = {
     INHERIT = 0,
     FORCE_ON = 1,
     FORCE_OFF = 2,
+}
+--- @alias VoiceChatMode 0 | 1 | 2
+VoiceChatMode = {
+    NONE = 0,
+    TEAM = 1,
+    ALL = 2,
 }
 --- @type CoreObject
 script = nil
