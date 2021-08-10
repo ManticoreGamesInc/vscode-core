@@ -5,6 +5,17 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.5.0](https://github.com/ManticoreGamesInc/vscode-core/compare/1.4.0...1.5.0) - 2021-08-10
+
+### Commits
+
+- Bump ts-node from 10.1.0 to 10.2.0 [`22e8b7a`](https://github.com/ManticoreGamesInc/vscode-core/commit/22e8b7a7698162daf194ca30114c5f7368e15030)
+- Update API [`14c3fa9`](https://github.com/ManticoreGamesInc/vscode-core/commit/14c3fa9b691fb4194a3a41985ea66f8a6a4dfb98)
+- Bump @types/node from 16.4.10 to 16.4.13 [`1303369`](https://github.com/ManticoreGamesInc/vscode-core/commit/13033692f3d8781f970dbe4aa775cf319bf73da7)
+- Bump ts-loader from 9.2.4 to 9.2.5 [`11bb3d0`](https://github.com/ManticoreGamesInc/vscode-core/commit/11bb3d0fb53dc84bb31784a9ecc08b627e0cbbdc)
+- Bump esbuild from 0.12.17 to 0.12.19 [`6aa73a8`](https://github.com/ManticoreGamesInc/vscode-core/commit/6aa73a8f72afc186c233619535b601edd8607894)
+- Bump actions/setup-node from 2.3.0 to 2.4.0 [`2e2df63`](https://github.com/ManticoreGamesInc/vscode-core/commit/2e2df638cfc15169a5742a0dd5533d7d2ecc4743)
+
 ## [1.4.0](https://github.com/ManticoreGamesInc/vscode-core/compare/1.3.3...1.4.0) - 2021-08-03
 
 ### Commits
