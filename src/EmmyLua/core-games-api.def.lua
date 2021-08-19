@@ -505,7 +505,7 @@ function CoreMeshInstance:IsA(typeName) end
 --- @class GlobalCoreMesh : CoreObject
 CoreMesh = {}
 
---- @class CoreObject
+--- @class CoreObject : Object
 --- @field childAddedEvent Event
 --- @field childRemovedEvent Event
 --- @field descendantAddedEvent Event
@@ -1225,7 +1225,7 @@ function PhysicsObjectInstance:IsA(typeName) end
 --- @class GlobalPhysicsObject : CoreObject
 PhysicsObject = {}
 
---- @class Player
+--- @class Player : CoreObject
 --- @field damagedEvent Event
 --- @field diedEvent Event
 --- @field spawnedEvent Event
