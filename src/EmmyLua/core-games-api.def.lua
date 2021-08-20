@@ -1433,6 +1433,11 @@ function PlayerInstance:GetResourceNamesStartingWith(resourceNamePrefix) end
 --- @param gameCollectionEntry CoreGameCollectionEntry
 function PlayerInstance:TransferToGame(gameCollectionEntry) end
 
+--- @overload fun(sceneName: string)
+--- @param sceneName string
+--- @param optionalParams table
+function PlayerInstance:TransferToScene(sceneName, optionalParams) end
+
 --- @param perkReference NetReference
 --- @return boolean
 function PlayerInstance:HasPerk(perkReference) end
@@ -1546,6 +1551,7 @@ PlayerStart = {}
 --- @class PlayerTransferData
 --- @field reason PlayerTransferReason
 --- @field gameId string
+--- @field sceneId string
 --- @field type string
 local PlayerTransferDataInstance = {}
 --- @param typeName string
@@ -2834,6 +2840,14 @@ function Game.IsAcceptingPlayers() end
 --- @param gameCollectionEntry CoreGameCollectionEntry
 function Game.TransferAllPlayersToGame(gameCollectionEntry) end
 
+--- @overload fun(sceneName: string)
+--- @param sceneName string
+--- @param optionalParams table
+function Game.TransferAllPlayersToScene(sceneName, optionalParams) end
+
+--- @return string
+function Game.GetCurrentSceneName() end
+
 --- @class Input
 local InputInstance = {}
 --- @class GlobalInput
@@ -3034,6 +3048,45 @@ function World.SpawnAsset(assetId, optionalParameters) end
 --- @return HitResult
 function World.Raycast(startPosition, endPosition, optionalParameters) end
 
+--- @overload fun(startPosition: Vector3,endPosition: Vector3): table<number, HitResult>
+--- @param startPosition Vector3
+--- @param endPosition Vector3
+--- @param optionalParameters table
+--- @return table<number, HitResult>
+function World.RaycastAll(startPosition, endPosition, optionalParameters) end
+
+--- @overload fun(startPosition: Vector3,endPosition: Vector3,radius: number): HitResult
+--- @param startPosition Vector3
+--- @param endPosition Vector3
+--- @param radius number
+--- @param optionalParameters table
+--- @return HitResult
+function World.Spherecast(startPosition, endPosition, radius, optionalParameters) end
+
+--- @overload fun(startPosition: Vector3,endPosition: Vector3,radius: number): table<number, HitResult>
+--- @param startPosition Vector3
+--- @param endPosition Vector3
+--- @param radius number
+--- @param optionalParameters table
+--- @return table<number, HitResult>
+function World.SpherecastAll(startPosition, endPosition, radius, optionalParameters) end
+
+--- @overload fun(startPosition: Vector3,endPosition: Vector3,boxSize: Vector3): HitResult
+--- @param startPosition Vector3
+--- @param endPosition Vector3
+--- @param boxSize Vector3
+--- @param optionalParameters table
+--- @return HitResult
+function World.Boxcast(startPosition, endPosition, boxSize, optionalParameters) end
+
+--- @overload fun(startPosition: Vector3,endPosition: Vector3,boxSize: Vector3): table<number, HitResult>
+--- @param startPosition Vector3
+--- @param endPosition Vector3
+--- @param boxSize Vector3
+--- @param optionalParameters table
+--- @return table<number, HitResult>
+function World.BoxcastAll(startPosition, endPosition, boxSize, optionalParameters) end
+
 --- @alias AbilityFacingMode 0 | 1 | 2
 AbilityFacingMode = {
     NONE = 0,
@@ -3171,7 +3224,7 @@ Orientation = {
     HORIZONTAL = 0,
     VERTICAL = 1,
 }
---- @alias PlayerTransferReason 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8
+--- @alias PlayerTransferReason 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9
 PlayerTransferReason = {
     UNKNOWN = 0,
     CHARACTER = 1,
@@ -3182,6 +3235,7 @@ PlayerTransferReason = {
     PORTAL = 6,
     AFK = 7,
     EXIT = 8,
+    PORTAL_SCENE = 9,
 }
 --- @alias PrivateNetworkedDataResultCode 0 | 1 | 2
 PrivateNetworkedDataResultCode = {
