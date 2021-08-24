@@ -15,9 +15,12 @@
         "UNCREATABLE",
         "agincel",
         "codeql",
+        "dependabot",
         "esbuild",
         "estree",
-        "luacheckrc"
+        "luacheckrc",
+        "variadics",
+        "xvfb"
     ],
     "spellright.language": [
         "en"
