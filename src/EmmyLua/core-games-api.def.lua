@@ -879,6 +879,34 @@ Damage = {}
 function Damage.New(amount) end
 
 
+--- @class DamageableObject : CoreObject
+--- @field damagedEvent Event
+--- @field diedEvent Event
+--- @field hitPoints number
+--- @field maxHitPoints number
+--- @field isDead boolean
+--- @field isImmortal boolean
+--- @field isInvulnerable boolean
+--- @field destroyOnDeath boolean
+--- @field destroyOnDeathDelay number
+--- @field destroyOnDeathClientTemplateId string
+--- @field destroyOnDeathNetworkedTemplateId string
+--- @field type string
+local DamageableObjectInstance = {}
+--- @param damage Damage
+function DamageableObjectInstance:ApplyDamage(damage) end
+
+--- @overload fun()
+--- @param damage Damage
+function DamageableObjectInstance:Die(damage) end
+
+--- @param typeName string
+--- @return boolean
+function DamageableObjectInstance:IsA(typeName) end
+
+--- @class GlobalDamageableObject : CoreObject
+DamageableObject = {}
+
 --- @class Decal : SmartObject
 --- @field type string
 local DecalInstance = {}
@@ -1213,11 +1241,29 @@ function PartyInfoInstance:IsA(typeName) end
 PartyInfo = {}
 
 --- @class PhysicsObject : CoreObject
+--- @field damagedEvent Event
+--- @field diedEvent Event
 --- @field team number
 --- @field isTeamCollisionEnabled boolean
 --- @field isEnemyCollisionEnabled boolean
+--- @field hitPoints number
+--- @field maxHitPoints number
+--- @field isDead boolean
+--- @field isImmortal boolean
+--- @field isInvulnerable boolean
+--- @field destroyOnDeath boolean
+--- @field destroyOnDeathDelay number
+--- @field destroyOnDeathClientTemplateId string
+--- @field destroyOnDeathNetworkedTemplateId string
 --- @field type string
 local PhysicsObjectInstance = {}
+--- @param damage Damage
+function PhysicsObjectInstance:ApplyDamage(damage) end
+
+--- @overload fun()
+--- @param damage Damage
+function PhysicsObjectInstance:Die(damage) end
+
 --- @param typeName string
 --- @return boolean
 function PhysicsObjectInstance:IsA(typeName) end
@@ -1239,6 +1285,7 @@ PhysicsObject = {}
 --- @field emoteStoppedEvent Event
 --- @field perkChangedEvent Event
 --- @field privateNetworkedDataChangedEvent Event
+--- @field movementHook Hook
 --- @field id string
 --- @field name string
 --- @field team number
@@ -1265,6 +1312,7 @@ PhysicsObject = {}
 --- @field maxAcceleration number
 --- @field brakingDecelerationFalling number
 --- @field brakingDecelerationWalking number
+--- @field brakingDecelerationFlying number
 --- @field groundFriction number
 --- @field brakingFrictionFactor number
 --- @field walkableFloorAngle number
@@ -1279,6 +1327,7 @@ PhysicsObject = {}
 --- @field jumpVelocity number
 --- @field gravityScale number
 --- @field maxSwimSpeed number
+--- @field maxFlySpeed number
 --- @field touchForceFactor number
 --- @field isCrouchEnabled boolean
 --- @field buoyancy number
@@ -1539,6 +1588,7 @@ PlayerSettings = {}
 --- @field playerScaleMultiplier number
 --- @field spawnTemplateId string
 --- @field key string
+--- @field shouldDecrowdPlayers boolean
 --- @field type string
 local PlayerStartInstance = {}
 --- @param typeName string
@@ -2447,6 +2497,10 @@ function Vector4.New(xy, zw) end
 --- @class Vehicle : CoreObject
 --- @field driverEnteredEvent Event
 --- @field driverExitedEvent Event
+--- @field damagedEvent Event
+--- @field diedEvent Event
+--- @field clientMovementHook Hook
+--- @field serverMovementHook Hook
 --- @field isAccelerating boolean
 --- @field driver Player
 --- @field mass number
@@ -2463,6 +2517,15 @@ function Vector4.New(xy, zw) end
 --- @field driverAnimationStance string
 --- @field enterTrigger Trigger
 --- @field camera Camera
+--- @field hitPoints number
+--- @field maxHitPoints number
+--- @field isDead boolean
+--- @field isImmortal boolean
+--- @field isInvulnerable boolean
+--- @field destroyOnDeath boolean
+--- @field destroyOnDeathDelay number
+--- @field destroyOnDeathClientTemplateId string
+--- @field destroyOnDeathNetworkedTemplateId string
 --- @field type string
 local VehicleInstance = {}
 --- @return Vector3
@@ -2491,6 +2554,13 @@ function VehicleInstance:GetCenterOfMassOffset() end
 --- @param offset Vector3
 function VehicleInstance:SetCenterOfMassOffset(offset) end
 
+--- @param damage Damage
+function VehicleInstance:ApplyDamage(damage) end
+
+--- @overload fun()
+--- @param damage Damage
+function VehicleInstance:Die(damage) end
+
 --- @param typeName string
 --- @return boolean
 function VehicleInstance:IsA(typeName) end
@@ -2515,6 +2585,35 @@ function VfxInstance:IsA(typeName) end
 
 --- @class GlobalVfx : SmartObject
 Vfx = {}
+
+--- @class VoiceChatChannel
+--- @field name string
+--- @field channelType VoiceChannelType
+--- @field type string
+local VoiceChatChannelInstance = {}
+--- @return table<number, Player>
+function VoiceChatChannelInstance:GetPlayers() end
+
+--- @param player Player
+--- @return boolean
+function VoiceChatChannelInstance:IsPlayerInChannel(player) end
+
+--- @param player Player
+--- @return boolean
+function VoiceChatChannelInstance:IsPlayerMuted(player) end
+
+--- @param player Player
+function VoiceChatChannelInstance:MutePlayer(player) end
+
+--- @param player Player
+function VoiceChatChannelInstance:UnmutePlayer(player) end
+
+--- @param typeName string
+--- @return boolean
+function VoiceChatChannelInstance:IsA(typeName) end
+
+--- @class GlobalVoiceChatChannel
+VoiceChatChannel = {}
 
 --- @class Weapon : Equipment
 --- @field projectileSpawnedEvent Event
@@ -2598,6 +2697,8 @@ WorldText = {}
 --- @class Chat
 local ChatInstance = {}
 --- @class GlobalChat
+--- @field receiveMessageHook Hook
+--- @field sendMessageHook Hook
 Chat = {}
 --- @overload fun(message: string): BroadcastMessageResultCode|string
 --- @param message string
@@ -2851,6 +2952,7 @@ function Game.GetCurrentSceneName() end
 --- @class Input
 local InputInstance = {}
 --- @class GlobalInput
+--- @field escapeHook Hook
 Input = {}
 --- @class Leaderboards
 local LeaderboardsInstance = {}
@@ -3012,6 +3114,43 @@ function VoiceChat.GetVoiceChatMode() end
 --- @param voiceChatMode VoiceChatMode
 function VoiceChat.SetVoiceChatMode(voiceChatMode) end
 
+--- @param channelName string
+--- @return VoiceChatChannel
+function VoiceChat.GetChannel(channelName) end
+
+--- @return table<number, VoiceChatChannel>
+function VoiceChat.GetChannels() end
+
+--- @param player Player
+--- @return table<number, VoiceChatChannel>
+function VoiceChat.GetChannelsForPlayer(player) end
+
+--- @param player Player
+--- @param channelName string
+--- @return boolean
+function VoiceChat.IsPlayerInChannel(player, channelName) end
+
+--- @param player Player
+--- @param channelName string
+function VoiceChat.MutePlayerInChannel(player, channelName) end
+
+--- @param player Player
+--- @param channelName string
+function VoiceChat.UnmutePlayerInChannel(player, channelName) end
+
+--- @param player Player
+--- @param channelName string
+--- @return boolean
+function VoiceChat.IsPlayerMutedInChannel(player, channelName) end
+
+--- @param player Player
+--- @return boolean
+function VoiceChat.IsPlayerSpeaking(player) end
+
+--- @param player Player
+--- @return number
+function VoiceChat.GetPlayerSpeakingVolume(player) end
+
 --- @class World
 local WorldInstance = {}
 --- @class GlobalWorld
@@ -3086,6 +3225,20 @@ function World.Boxcast(startPosition, endPosition, boxSize, optionalParameters) 
 --- @param optionalParameters table
 --- @return table<number, HitResult>
 function World.BoxcastAll(startPosition, endPosition, boxSize, optionalParameters) end
+
+--- @overload fun(position: Vector3,radius: number): table<number, Object>
+--- @param position Vector3
+--- @param radius number
+--- @param optionalParameters table
+--- @return table<number, Object>
+function World.FindObjectsOverlappingSphere(position, radius, optionalParameters) end
+
+--- @overload fun(position: Vector3,boxSize: Vector3): table<number, Object>
+--- @param position Vector3
+--- @param boxSize Vector3
+--- @param optionalParameters table
+--- @return table<number, Object>
+function World.FindObjectsOverlappingBox(position, boxSize, optionalParameters) end
 
 --- @alias AbilityFacingMode 0 | 1 | 2
 AbilityFacingMode = {
@@ -3321,6 +3474,11 @@ Visibility = {
     INHERIT = 0,
     FORCE_ON = 1,
     FORCE_OFF = 2,
+}
+--- @alias VoiceChannelType 0 | 1
+VoiceChannelType = {
+    NORMAL = 0,
+    POSITIONAL = 1,
 }
 --- @alias VoiceChatMode 0 | 1 | 2
 VoiceChatMode = {
