@@ -5,6 +5,26 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.7.0](https://github.com/ManticoreGamesInc/vscode-core/compare/1.6.0...1.7.0) - 2021-09-07
+
+### Fixed
+
+- Update API for Patch 1.0.211 [`#425`](https://github.com/ManticoreGamesInc/vscode-core/issues/425)
+
+### Commits
+
+- Bump @typescript-eslint/parser from 4.29.3 to 4.30.0 [`761b0d6`](https://github.com/ManticoreGamesInc/vscode-core/commit/761b0d6af1217568ababc947c0a68b14fb652272)
+- Bump @typescript-eslint/parser from 4.29.2 to 4.29.3 [`49a8242`](https://github.com/ManticoreGamesInc/vscode-core/commit/49a824277f2c1eb822d9778eae4d903d8715f76b)
+- Bump @typescript-eslint/eslint-plugin from 4.29.3 to 4.30.0 [`3d7b84d`](https://github.com/ManticoreGamesInc/vscode-core/commit/3d7b84dd65f657adf2898ed3c8964ba86d1968e1)
+- Bump @typescript-eslint/eslint-plugin from 4.29.2 to 4.29.3 [`8395aac`](https://github.com/ManticoreGamesInc/vscode-core/commit/8395aac63f037618ec8ea4d62b88adecb2312106)
+- Bump @typescript-eslint/typescript-estree from 4.29.3 to 4.30.0 [`aa7b9e6`](https://github.com/ManticoreGamesInc/vscode-core/commit/aa7b9e6e7d0a6678919ba9d62807cfe1d8fe6061)
+- Bump esbuild from 0.12.24 to 0.12.25 [`910de0e`](https://github.com/ManticoreGamesInc/vscode-core/commit/910de0e731cba7b4e61c39aae09a7f0b5d4b0f10)
+- Bump @types/node from 16.7.6 to 16.7.10 [`737522a`](https://github.com/ManticoreGamesInc/vscode-core/commit/737522a4c080f50cc7554a63adc5ec749f1dcbac)
+- Bump mocha from 9.1.0 to 9.1.1 [`3e4d214`](https://github.com/ManticoreGamesInc/vscode-core/commit/3e4d2143b48d41f9782ff3bbb78ecf6049c87256)
+- Bump typescript from 4.3.5 to 4.4.2 [`2075cdc`](https://github.com/ManticoreGamesInc/vscode-core/commit/2075cdcd00d3153e83ec8518671de836005d59b0)
+- Bump @types/node from 16.7.1 to 16.7.6 [`17f4063`](https://github.com/ManticoreGamesInc/vscode-core/commit/17f4063303a18f50b2e0045c042853339d067005)
+- Bump esbuild from 0.12.22 to 0.12.24 [`2b105c9`](https://github.com/ManticoreGamesInc/vscode-core/commit/2b105c936490d16b352757d2f581314cabf158a2)
+
 ## [1.6.0](https://github.com/ManticoreGamesInc/vscode-core/compare/1.5.0...1.6.0) - 2021-08-24
 
 ### Commits
