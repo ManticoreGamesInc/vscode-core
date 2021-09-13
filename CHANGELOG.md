@@ -5,6 +5,14 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.7.1](https://github.com/ManticoreGamesInc/vscode-core/compare/1.7.0...1.7.1) - 2021-09-13
+
+### Commits
+
+- Update vscode tasks for esbuild [`f2a98f8`](https://github.com/ManticoreGamesInc/vscode-core/commit/f2a98f865b2353b4980a323e2e0096b567f6fe16)
+- Fix auto cleanup on upgrade function [`a503f0a`](https://github.com/ManticoreGamesInc/vscode-core/commit/a503f0a28249c288c067fbcc3082d41324b54bb1)
+- Switch to grey version of the Core logo [`2c646c1`](https://github.com/ManticoreGamesInc/vscode-core/commit/2c646c18e68c37ef7231717793421a1b7d0a053a)
+
 ## [1.7.0](https://github.com/ManticoreGamesInc/vscode-core/compare/1.6.0...1.7.0) - 2021-09-07
 
 ### Fixed
