@@ -5,9 +5,17 @@
     "tasks": [
         {
             "type": "npm",
-            "script": "webpack-dev",
-            "problemMatcher": "$ts-webpack-watch",
-            "isBackground": false,
+            "script": "watch",
+            "label": "npm: watch",
+            "isBackground": true,
+            "problemMatcher": "$esbuild-watch",
+            "group": "build",
+        },
+        {
+            "type": "npm",
+            "script": "build",
+            "label": "npm: build",
+            "problemMatcher": "$esbuild",
             "presentation": {
                 "reveal": "always"
             },
@@ -19,19 +27,19 @@
         {
             "type": "npm",
             "script": "test",
+            "label": "npm: test",
             "group": {
                 "kind": "test",
                 "isDefault": true
             },
             "problemMatcher": [],
-            "label": "npm: test",
             "detail": "node ./out/test/runTest.js"
         },
         {
             "type": "npm",
             "script": "lint",
-            "problemMatcher": [],
             "label": "npm: lint",
+            "problemMatcher": [],
             "detail": "eslint src --ext .js,.jsx,.ts,.tsx"
         }
     ]

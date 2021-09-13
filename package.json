@@ -43,8 +43,8 @@
   "scripts": {
     "vscode:prepublish": "npm run -S esbuild-base -- --minify && cp -r ./src/EmmyLua ./out/EmmyLua",
     "esbuild-base": "esbuild ./src/extension.ts --bundle --outfile=out/extension.js --external:vscode --format=cjs --platform=node",
-    "esbuild": "npm run -S esbuild-base -- --sourcemap",
-    "esbuild-watch": "npm run -S esbuild-base -- --sourcemap --watch",
+    "build": "npm run -S esbuild-base -- --sourcemap",
+    "watch": "npm run -S esbuild-base -- --sourcemap --watch",
     "test-compile": "tsc -p ./",
     "test": "node ./out/test/runTest.js",
     "pretest": "npm run test-compile && npm run lint",
