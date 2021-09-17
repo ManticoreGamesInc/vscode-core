@@ -1,4 +1,4 @@
---- @class AIActivity
+--- @class AIActivity : Object
 --- @field name string
 --- @field owner AIActivityHandler
 --- @field priority number
@@ -11,7 +11,7 @@ local AIActivityInstance = {}
 --- @return boolean
 function AIActivityInstance:IsA(typeName) end
 
---- @class GlobalAIActivity
+--- @class GlobalAIActivity : Object
 AIActivity = {}
 
 --- @class AIActivityHandler : CoreObject
@@ -60,7 +60,7 @@ AIActivityHandler = {}
 --- @field recoveryPhaseSettings AbilityPhaseSettings
 --- @field cooldownPhaseSettings AbilityPhaseSettings
 --- @field isEnabled boolean
---- @field owner Object
+--- @field owner CoreObject|Player
 --- @field type string
 local AbilityInstance = {}
 --- @return AbilityTarget
@@ -88,7 +88,7 @@ function AbilityInstance:IsA(typeName) end
 --- @class GlobalAbility : CoreObject
 Ability = {}
 
---- @class AbilityPhaseSettings
+--- @class AbilityPhaseSettings : Object
 --- @field duration number
 --- @field canMove boolean
 --- @field canJump boolean
@@ -102,12 +102,12 @@ local AbilityPhaseSettingsInstance = {}
 --- @return boolean
 function AbilityPhaseSettingsInstance:IsA(typeName) end
 
---- @class GlobalAbilityPhaseSettings
+--- @class GlobalAbilityPhaseSettings : Object
 AbilityPhaseSettings = {}
 
 --- @class AbilityTarget
 --- @field hitPlayer Player
---- @field hitObject Object
+--- @field hitObject CoreObject|Player
 --- @field spreadHalfAngle number
 --- @field spreadRandomSeed number
 --- @field type string
@@ -267,6 +267,16 @@ function AudioInstance:IsA(typeName) end
 
 --- @class GlobalAudio : CoreObject
 Audio = {}
+
+--- @class BindingSet : CoreObject
+--- @field type string
+local BindingSetInstance = {}
+--- @param typeName string
+--- @return boolean
+function BindingSetInstance:IsA(typeName) end
+
+--- @class GlobalBindingSet : CoreObject
+BindingSet = {}
 
 --- @class Camera : CoreObject
 --- @field followPlayer Player
@@ -764,7 +774,7 @@ function CoreObjectInstance:SetNetworkedCustomProperty(propertyName, propertyVal
 --- @return boolean
 function CoreObjectInstance:IsA(typeName) end
 
---- @class GlobalCoreObject
+--- @class GlobalCoreObject : Object
 CoreObject = {}
 
 --- @class CoreObjectReference
@@ -991,7 +1001,7 @@ function FourWheeledVehicleInstance:IsA(typeName) end
 FourWheeledVehicle = {}
 
 --- @class HitResult
---- @field other Object
+--- @field other CoreObject|Player
 --- @field socketName string
 --- @field type string
 local HitResultInstance = {}
@@ -1068,7 +1078,7 @@ function IKAnchorInstance:IsA(typeName) end
 IKAnchor = {}
 
 --- @class ImpactData
---- @field targetObject Object
+--- @field targetObject CoreObject|Player
 --- @field projectile Projectile
 --- @field sourceAbility Ability
 --- @field weapon Weapon
@@ -1271,7 +1281,7 @@ function PhysicsObjectInstance:IsA(typeName) end
 --- @class GlobalPhysicsObject : CoreObject
 PhysicsObject = {}
 
---- @class Player : CoreObject
+--- @class Player : Object
 --- @field damagedEvent Event
 --- @field diedEvent Event
 --- @field spawnedEvent Event
@@ -1567,7 +1577,7 @@ function PlayerInstance:GetPrivateNetworkedDataKeys() end
 --- @return boolean
 function PlayerInstance:IsA(typeName) end
 
---- @class GlobalPlayer
+--- @class GlobalPlayer : Object
 Player = {}
 
 --- @class PlayerSettings : CoreObject
@@ -1625,7 +1635,7 @@ function PointLightInstance:IsA(typeName) end
 --- @class GlobalPointLight : Light
 PointLight = {}
 
---- @class Projectile
+--- @class Projectile : Object
 --- @field impactEvent Event
 --- @field lifeSpanEndedEvent Event
 --- @field homingFailedEvent Event
@@ -1643,7 +1653,7 @@ PointLight = {}
 --- @field lifeSpan number
 --- @field capsuleRadius number
 --- @field capsuleLength number
---- @field homingTarget Object
+--- @field homingTarget CoreObject|Player
 --- @field homingAcceleration number
 --- @field type string
 local ProjectileInstance = {}
@@ -1668,7 +1678,7 @@ function ProjectileInstance:Destroy() end
 --- @return boolean
 function ProjectileInstance:IsA(typeName) end
 
---- @class GlobalProjectile
+--- @class GlobalProjectile : Object
 Projectile = {}
 --- @param templateId string
 --- @param startPosition Vector3
@@ -1786,6 +1796,7 @@ function Rotation.New(forwardVector, upVector) end
 
 --- @class Script : CoreObject
 --- @field context table
+--- @field scriptAssetId string
 --- @field type string
 local ScriptInstance = {}
 --- @param typeName string
@@ -1795,7 +1806,7 @@ function ScriptInstance:IsA(typeName) end
 --- @class GlobalScript : CoreObject
 Script = {}
 
---- @class ScriptAsset
+--- @class ScriptAsset : Object
 --- @field name string
 --- @field id string
 --- @field type string
@@ -1811,7 +1822,7 @@ function ScriptAssetInstance:GetCustomProperty(propertyName) end
 --- @return boolean
 function ScriptAssetInstance:IsA(typeName) end
 
---- @class GlobalScriptAsset
+--- @class GlobalScriptAsset : Object
 ScriptAsset = {}
 
 --- @class SimpleCurve
@@ -2952,8 +2963,32 @@ function Game.GetCurrentSceneName() end
 --- @class Input
 local InputInstance = {}
 --- @class GlobalInput
+--- @field actionPressedEvent Event
+--- @field actionReleasedEvent Event
+--- @field inputTypeChangedEvent Event
 --- @field escapeHook Hook
 Input = {}
+--- @param player Player
+--- @param action string
+--- @return any
+function Input.GetActionValue(player, action) end
+
+--- @param player Player
+--- @param action string
+--- @return boolean
+function Input.IsActionHeld(player, action) end
+
+--- @return InputType
+function Input.GetCurrentInputType() end
+
+--- @param inputType InputType
+--- @return boolean
+function Input.IsYAxisInverted(inputType) end
+
+--- @param action string
+--- @return string
+function Input.GetActionDescription(action) end
+
 --- @class Leaderboards
 local LeaderboardsInstance = {}
 --- @class GlobalLeaderboards
@@ -3334,6 +3369,11 @@ ImageTileType = {
     HORIZONTAL = 1,
     VERTICAL = 2,
     BOTH = 3,
+}
+--- @alias InputType 0 | 1
+InputType = {
+    KEYBOARD_AND_MOUSE = 0,
+    CONTROLLER = 1,
 }
 --- @alias LeaderboardType 0 | 1 | 2 | 3
 LeaderboardType = {
