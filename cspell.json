@@ -1,0 +1,38 @@
+{
+    "version": "0.2",
+    "language": "en-GB,en-US,fr",
+    "ignoreRegExpList": [
+        "\\((.+?)\\)"
+    ],
+    "words": [
+        "agincel",
+        "codeql",
+        "dependabot",
+        "esbuild",
+        "estree",
+        "Lerp",
+        "Luacheck",
+        "luacheckrc",
+        "Sargnt",
+        "Sumneko's",
+        "UNCREATABLE",
+        "variadics",
+        "xvfb",
+        "Desaturated",
+        "desaturation",
+        "equippable",
+        "Intelli",
+        "lerp",
+        "Luanalysis",
+        "RGBA",
+        "RRGGBB",
+        "RRGGBBAA",
+        "Slerp",
+        "Spatialization",
+        "spatialized",
+        "tonk",
+        "Unequip",
+        "unhovered",
+        "unsplit"
+    ]
+}

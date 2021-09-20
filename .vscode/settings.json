@@ -8,28 +8,6 @@
     },
     // Turn off tsc task auto detection since we have the necessary tasks as npm scripts
     "typescript.tsc.autoDetect": "off",
-    "cSpell.words": [
-        "Luacheck",
-        "Sargnt",
-        "Sumneko's",
-        "UNCREATABLE",
-        "agincel",
-        "codeql",
-        "dependabot",
-        "esbuild",
-        "estree",
-        "luacheckrc",
-        "variadics",
-        "xvfb"
-    ],
-    "spellright.language": [
-        "en"
-    ],
-    "spellright.documentTypes": [
-        "markdown",
-        "latex",
-        "plaintext"
-    ],
     "typescript.tsdk": "node_modules/typescript/lib",
     "workbench.colorCustomizations": {
         "activityBar.activeBackground": "#2f3644",
@@ -48,5 +26,9 @@
         "titleBar.inactiveForeground": "#e7e7e799"
     },
     "peacock.remoteColor": "#1a1e26",
-    "peacock.color": "#1a1e26"
+    "peacock.color": "#1a1e26",
+    "Lua.diagnostics.disable": [
+        "lowercase-global",
+        "duplicate-doc-class"
+    ]
 }
