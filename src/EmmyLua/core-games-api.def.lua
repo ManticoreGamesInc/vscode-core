@@ -1067,6 +1067,85 @@ function DamageableObjectInstance:IsA(typeName) end
 --- @class GlobalDamageableObject : CoreObject @DamageableObject is a CoreObject which implements the [Damageable](damageable.md) interface.
 DamageableObject = {}
 
+--- @class DateTime @An immutable representation of a date and time, which may be either local time or UTC.
+--- @field year number @The year component of this DateTime.
+--- @field month number @The month component of this DateTime, from 1 to 12.
+--- @field day number @The day component of this DateTime, from 1 to 31.
+--- @field hour number @The hour component of this DateTime, from 0 to 23.
+--- @field minute number @The minute component of this DateTime, from 0 to 59.
+--- @field second number @The second component of this DateTime, from 0 to 59.
+--- @field millisecond number @The millisecond component of this DateTime, from 0 to 999.
+--- @field isLocal boolean @True if this DateTime is in the local time zone, false if it's UTC.
+--- @field secondsSinceEpoch number @Returns the number of seconds since midnight, January 1, 1970, UTC. Note that this ignores the millisecond component of this DateTime.
+--- @field millisecondsSinceEpoch number @Returns the number of milliseconds since midnight, January 1, 1970, UTC.
+--- @field type string
+local DateTimeInstance = {}
+--- Returns a copy of this DateTime adjusted to local time. If this DateTime is already in local time, simply returns a copy of this DateTime.
+--- @return DateTime
+function DateTimeInstance:ToLocalTime() end
+
+--- Returns a copy of this DateTime adjusted to UTC. If this DateTime is already in UTC, simply returns a copy of this DateTime.
+--- @return DateTime
+function DateTimeInstance:ToUtcTime() end
+
+--- Returns this date and time, adjusted to UTC, formatted as an ISO 8601 string (`YYYY-mm-ddTHH:MM:SS.sssZ`)
+--- @return string
+function DateTimeInstance:ToIsoString() end
+
+--- @param typeName string
+--- @return boolean
+function DateTimeInstance:IsA(typeName) end
+
+--- @class GlobalDateTime @An immutable representation of a date and time, which may be either local time or UTC.
+DateTime = {}
+--- Returns the current date and time in UTC. The `optionalParameters` table may contain the following values to change the date and time returned:
+---
+--- `isLocal (boolean)`: If true, the current local time will be returned instead of UTC.
+--- @overload fun(): DateTime
+--- @param optionalParameters table
+--- @return DateTime
+function DateTime.CurrentTime(optionalParameters) end
+
+--- Returns the date and time that is `secondsSinceEpoch` seconds since midnight, January 1, 1970, UTC.
+--- @param timestampInSeconds number
+--- @return DateTime
+function DateTime.FromSecondsSinceEpoch(timestampInSeconds) end
+
+--- Returns the date and time that is `millisecondsSinceEpoch` milliseconds since midnight, January 1, 1970, UTC.
+--- @param timestampInMs number
+--- @return DateTime
+function DateTime.FromMillisecondsSinceEpoch(timestampInMs) end
+
+--- Parses the given string as an ISO 8601 formatted date (`YYYY-MM-DD`) or date and time (`YYYY-mm-ddTHH:MM:SS(.sss)(Z/+hh:mm/+hhmm/-hh:mm/-hhmm)`). Returns the parsed UTC DateTime, or `nil` if the string was an invalid format.
+--- @param timeString string
+--- @return DateTime
+function DateTime.FromIsoString(timeString) end
+
+--- Constructs a new DateTime instance, defaulting to midnight on January 1, 1970, UTC. The `parameters` table may contain the following values to specify the date and time:
+---
+--- `year (integer)`: Specifies the year.
+---
+--- `month (integer)`: Specifies the month, from 1 to 12.
+---
+--- `day (integer)`: Specifies the day of the month, from 1 to the last day of the specified month.
+---
+--- `hour (integer)`: Specifies the hour of the day, from 0 to 23.
+---
+--- `minute (integer)`: Specifies the minute, from 0 to 59.
+---
+--- `second (integer)`: Specifies the second, from 0 to 59.
+---
+--- `millisecond (integer)`: Specifies the millisecond, from 0 to 999.
+---
+--- `isLocal (boolean)`: If true, the new DateTime will be in local time. Defaults to false for UTC.
+---
+--- Values outside of the supported range for each field will be clamped, and a warning will be logged.
+--- @overload fun(): DateTime
+--- @param timeParameterTable table
+--- @return DateTime
+function DateTime.New(timeParameterTable) end
+
+
 --- @class Decal : SmartObject @A Decal is a SmartObject representing a decal that is projected onto nearby surfaces.
 --- @field type string
 local DecalInstance = {}
