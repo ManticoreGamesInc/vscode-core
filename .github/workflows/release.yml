@@ -19,7 +19,7 @@ jobs:
       - run: npm install
 
       - name: Release Plugin
-        uses: jcofman/vscodeaction@master
+        uses: lannonbr/vsce-action@3.0.0
         env:
           PUBLISHER_TOKEN: ${{ secrets.PUBLISHER_TOKEN }}
         with:
