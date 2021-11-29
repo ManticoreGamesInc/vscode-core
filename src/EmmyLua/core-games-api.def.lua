@@ -186,7 +186,7 @@ function AbilityTarget.New() end
 --- @class AnimatedMesh : CoreMesh @AnimatedMesh objects are skeletal CoreMeshes with parameterized animations baked into them. They also have sockets exposed to which any CoreObject can be attached.
 --- @field animationEvent Event @Some animations have events specified at important points of the animation (e.g. the impact point in a punch animation). This event is fired with the animated mesh that triggered it, the name of the event at those points, and the name of the animation itself.
 --- @field animationStance string @The stance the animated mesh plays.
---- @field animationStancePlaybackRate number @The playback rate for the animation stance being played. Negative values will play the animation in reverse.
+--- @field animationStancePlaybackRate number @The playback rate for the animation stance being played.
 --- @field animationStanceShouldLoop boolean @If `true`, the animation stance will keep playing in a loop. If `false` the animation will stop playing once completed.
 --- @field playbackRateMultiplier number @Rate multiplier for all animations played on the animated mesh. Setting this to `0` will stop all animations on the mesh.
 --- @field type string
@@ -1513,6 +1513,27 @@ NetReference = {}
 --- @class NetworkContext : CoreObject @NetworkContext is a CoreObject representing a special folder containing client-only, server-only, or static objects.. . They have no properties or functions of their own, but inherit everything from CoreObject.
 --- @field type string
 local NetworkContextInstance = {}
+--- Spawns an instance of an asset into the world as a child of a networked Static Context, also spawning copies of the asset on clients without the overhead of additional networked objects. Any object spawned this way cannot be modified, as with other objects within a Static Context, but they may be destroyed by calling `DestroySharedAsset()` on the same `NetworkContext` instance. Raises an error if called on a non-networked Static Context or a Static Context which is a descendant of a Client Context or Server Context. Optional parameters can specify a transform for the spawned object.
+--- 
+--- Supported parameters include:
+--- 
+--- `position (Vector3)`: Position of the spawned object, relative to the parent NetworkContext.
+--- 
+--- `rotation (Rotation or Quaternion)`: Local rotation of the spawned object.
+--- 
+--- `scale (Vector3 or number)`: Scale of the spawned object, may be specified as a `Vector3` or as a `number` for uniform scale.
+--- 
+--- `transform (Transform)`: The full transform of the spawned object. If `transform` is specified, it is an error to also specify `position`, `rotation`, or `scale`.
+--- @overload fun(assetId: string): CoreObject
+--- @param assetId string
+--- @param optionalParameters table
+--- @return CoreObject
+function NetworkContextInstance:SpawnSharedAsset(assetId, optionalParameters) end
+
+--- Destroys an object that was spawned using `SpawnSharedAsset()`. Raises an error if `coreObject` was not created by this `NetworkContext`.
+--- @param coreObject CoreObject
+function NetworkContextInstance:DestroySharedAsset(coreObject) end
+
 --- @param typeName string
 --- @return boolean
 function NetworkContextInstance:IsA(typeName) end
@@ -1970,6 +1991,10 @@ function PlayerInstance:GetPrivateNetworkedData(key) end
 --- Returns an array of all keys with private data set.
 --- @return table
 function PlayerInstance:GetPrivateNetworkedDataKeys() end
+
+--- Returns the number of bytes used by private networked data on this player. Returns 0 if private networked data is not available.
+--- @return number
+function PlayerInstance:GetPrivateNetworkedDataSize() end
 
 --- @param typeName string
 --- @return boolean
@@ -3234,6 +3259,7 @@ VoiceChatChannel = {}
 --- @field spreadDecreaseSpeed number @Speed at which the spread contracts back from its current value to the minimum cone size.
 --- @field spreadIncreasePerShot number @Amount the spread increases each time the Weapon attacks.
 --- @field spreadPenaltyPerShot number @Cumulative penalty to the spread size for successive attacks. Penalty cools off based on `spreadDecreaseSpeed`.
+--- @field attackSoundTemplateId string @Asset reference for a sound effect to be played each time the Weapon attacks.
 --- @field type string
 local WeaponInstance = {}
 --- Informs whether the Weapon is able to attack or not.
@@ -3629,7 +3655,7 @@ function Game.IsAcceptingPlayers() end
 --- @param gameCollectionEntry CoreGameCollectionEntry
 function Game.TransferAllPlayersToGame(gameCollectionEntry) end
 
---- Similar to `Player:TransferToGame()`, transfers the specified list of players to the game specified by the passed in game ID. Note that if a party leader is included in the list of players to transfer, the "Play as Party" party setting is ignored, and other party members will only be transfered if also included in the list of players. Does not work in preview mode or in games played locally.
+--- Similar to `Player:TransferToGame()`, transfers the specified list of players to the game specified by the passed in game ID. Note that if a party leader is included in the list of players to transfer, the "Play as Party" party setting is ignored, and other party members will only be transferred if also included in the list of players. Does not work in preview mode or in games played locally.
 --- @overload fun(gameInfo: CoreGameInfo,players: table<number, Player>)
 --- @overload fun(gameId: string,players: table<number, Player>)
 --- @param gameCollectionEntry CoreGameCollectionEntry
@@ -3646,7 +3672,7 @@ function Game.TransferPlayersToGame(gameCollectionEntry, players) end
 --- @param optionalParams table
 function Game.TransferAllPlayersToScene(sceneName, optionalParams) end
 
---- Similar to `Player:TransferToScene()`, transfers the specified list of players to the scene specified by the passed in scene name. Note that if a party leader is included in the list of players to transfer, the "Play as Party" party setting is ignored, and other party members will only be transfered if also included in the list of players. Does not work in preview mode or in games played locally.
+--- Similar to `Player:TransferToScene()`, transfers the specified list of players to the scene specified by the passed in scene name. Note that if a party leader is included in the list of players to transfer, the "Play as Party" party setting is ignored, and other party members will only be transferred if also included in the list of players. Does not work in preview mode or in games played locally.
 --- 
 --- The following optional parameters are supported:
 --- 
@@ -3660,6 +3686,10 @@ function Game.TransferPlayersToScene(sceneName, players, optionalParams) end
 --- Returns the name of the current scene.
 --- @return string
 function Game.GetCurrentSceneName() end
+
+--- Returns the ID of the current game. When called in preview mode, returns `nil` if the game has not been published, otherwise returns the published game ID.
+--- @return string
+function Game.GetCurrentGameId() end
 
 --- @class Input
 local InputInstance = {}
@@ -3743,6 +3773,76 @@ function Storage.GetPlayerData(player) end
 --- @param data table
 --- @return StorageResultCode|string
 function Storage.SetPlayerData(player, data) end
+
+--- Requests the concurrent player data associated with the specified player. This function may yield until data is available. Returns the data (`nil` if not available), a result code, and an optional error message if an error occurred.
+--- @param playerId string
+--- @return table|StorageResultCode|string
+function Storage.GetConcurrentPlayerData(playerId) end
+
+--- Updates the concurrent player data associated with the specified player. This function retrieves the most recent copy of the player's data, then calls the creator-provided `callback` function with the data table as a parameter. `callback` is expected to return the player's updated data table, which will then be saved. This function yields until the entire process is complete, returning a copy of the player's updated data (`nil` if not available), a result code, and an optional error message if an error occurred.
+--- @param playerId string
+--- @param callback function
+--- @return table|StorageResultCode|string
+function Storage.SetConcurrentPlayerData(playerId, callback) end
+
+--- Requests the concurrent player data associated with the specified player and storage key. The storage key must be of type `CONCURRENT_SHARED_PLAYER_STORAGE`. This function may yield until data is available. Returns the data (`nil` if not available), a result code, and an optional error message if an error occurred.
+--- @param netReference NetReference
+--- @param playerId string
+--- @return table|StorageResultCode|string
+function Storage.GetConcurrentSharedPlayerData(netReference, playerId) end
+
+--- Updates the concurrent player data associated with the specified player and storage key. The storage key must be of type `CONCURRENT_SHARED_PLAYER_STORAGE`. This function retrieves the most recent copy of the player's data, then calls the creator-provided `callback` function with the data table as a parameter. `callback` is expected to return the player's updated data table, which will then be saved. This function yields until the entire process is complete, returning a copy of the player's updated data (`nil` if not available), a result code, and an optional error message if an error occurred.
+--- @param netReference NetReference
+--- @param playerId string
+--- @param callback function
+--- @return table|StorageResultCode|string
+function Storage.SetConcurrentSharedPlayerData(netReference, playerId, callback) end
+
+--- Requests the concurrent data associated with the given storage key. The storage key must be of type `CONCURRENT_CREATOR_STORAGE`. This data is player- and game-agnostic. This function may yield until data is available. Returns the data (`nil` if not available), a result code, and an optional error message if an error occurred.
+--- @param netReference NetReference
+--- @return table|StorageResultCode|string
+function Storage.GetConcurrentCreatorData(netReference) end
+
+--- Updates the concurrent data associated with the given storage key. The storage key must be of type `CONCURRENT_CREATOR_STORAGE`. This data is player- and game-agnostic. This function retrieves the most recent copy of the creator data, then calls the creator-provided `callback` function with the data table as a parameter. `callback` is expected to return the updated data table, which will then be saved. This function yields until the entire process is complete, returning a copy of the updated data (`nil` if not available), a result code, and an optional error message if an error occurred.
+--- @param netReference NetReference
+--- @param callback function
+--- @return table|StorageResultCode|string
+function Storage.SetConcurrentCreatorData(netReference, callback) end
+
+--- Listens for any changes to the concurrent data associated with `playerId` for this game. Calls to `Storage.SetConcurrentPlayerData()` from this or other game servers will trigger this listener. The listener function parameters should be: `string` player ID, `table` player data. Accepts any number of additional arguments after the listener function, those arguments will be provided, in order, after the `table` argument. Returns an EventListener which can be used to disconnect from the event or check if the event is still connected.
+--- @param playerId string
+--- @param callback function
+--- @return EventListener
+function Storage.ConnectToConcurrentPlayerDataChanged(playerId, callback, ...) end
+
+--- Listens for any changes to the concurrent shared data associated with `playerId` and `concurrentSharedStorageKey`. Calls to `Storage.SetConcurrentSharedPlayerData()` from this or other game servers will trigger this listener. The listener function parameters should be: `NetReference` storage key, `string` player ID, `table` shared player data. Accepts any number of additional arguments after the listener function, those arguments will be provided, in order, after the `table` argument. Returns an EventListener which can be used to disconnect from the event or check if the event is still connected.
+--- @param netReference NetReference
+--- @param playerId string
+--- @param callback function
+--- @return EventListener
+function Storage.ConnectToConcurrentSharedPlayerDataChanged(netReference, playerId, callback, ...) end
+
+--- Listens for any changes to the concurrent data associated with `concurrentCreatorStorageKey`. Calls to `Storage.SetConcurrentCreatorData()` from this or other game servers will trigger this listener. The listener function parameters should be: `NetReference` storage key, `table` creator data. Accepts any number of additional arguments after the listener function, those arguments will be provided, in order, after the `table` argument. Returns an EventListener which can be used to disconnect from the event or check if the event is still connected.
+--- @param netReference NetReference
+--- @param callback function
+--- @return EventListener
+function Storage.ConnectToConcurrentCreatorDataChanged(netReference, callback, ...) end
+
+--- Returns `true` if this server has a pending call to `Storage.SetConcurrentPlayerData()` either waiting to be processed or actively running for the specified player ID.
+--- @param playerId string
+--- @return boolean
+function Storage.HasPendingSetConcurrentPlayerData(playerId) end
+
+--- Returns `true` if this server has a pending call to `Storage.SetConcurrentSharedPlayerData()` either waiting to be processed or actively running for the specified player ID and shared storage key.
+--- @param netReference NetReference
+--- @param playerId string
+--- @return boolean
+function Storage.HasPendingSetConcurrentSharedPlayerData(netReference, playerId) end
+
+--- Returns `true` if this server has a pending call to `Storage.SetConcurrentCreatorData()` either waiting to be processed or actively running for the specified creator storage key.
+--- @param netReference NetReference
+--- @return boolean
+function Storage.HasPendingSetConcurrentCreatorData(netReference) end
 
 --- Returns the shared player data associated with `player` and `sharedStorageKey`. This returns a copy of the data that has already been retrieved for the player, so calling this function does not incur any additional network cost. Changes to the data in the returned table will not be persisted without calling `Storage.SetSharedPlayerData()`.
 --- @param sharedStorageKey NetReference
@@ -3982,11 +4082,11 @@ function World.FindObjectsByType(typeName) end
 --- 
 --- `rotation (Rotation or Quaternion)`: Rotation of the spawned object.
 --- 
---- `scale (Vector3)`: Scale of the spawned object.
+--- `scale (Vector3 or number)`: Scale of the spawned object, may be specified as a `Vector3` or as a `number` for uniform scale.
 --- 
 --- `transform (Transform)`: The full transform of the spawned object. If `transform` is specified, it is an error to also specify `position`, `rotation`, or `scale`.
 --- 
---- `networkContext (NetworkContext)`: Overrides the network context of the spawned object. This may be used, for example, to spawn networked or static objects from a server only context, or client-only objects from a client script running in a static context, but it cannot spawn client only objects from a server script or networked objects from a client script. If an invalid context is specified, an error will be raised.
+--- `networkContext` ([NetworkContextType](../api/enums#networkcontexttype)): Overrides the network context of the spawned object. This may be used, for example, to spawn networked or static objects from a server only context, or client-only objects from a client script running in a static context, but it cannot spawn client only objects from a server script or networked objects from a client script. If an invalid context is specified, an error will be raised.
 --- 
 --- `name (string)`: Set the name of the spawned object.
 --- 
@@ -4247,6 +4347,9 @@ MovementMode = {
 NetReferenceType = {
     LEADERBOARD = 1,
     SHARED_STORAGE = 2,
+    SHARED_PLAYER_STORAGE = 2,
+    CONCURRENT_SHARED_PLAYER_STORAGE = 4,
+    CONCURRENT_CREATOR_STORAGE = 5,
     CREATOR_PERK = 3,
     UNKNOWN = 0,
 }
@@ -4323,6 +4426,7 @@ StorageResultCode = {
     FAILURE = 2,
     STORAGE_DISABLED = 1,
     EXCEEDED_SIZE_LIMIT = 3,
+    REQUEST_ALREADY_QUEUED = 4,
 }
 --- @class TaskStatus @Indicates the status of a script `Task`.
 TaskStatus = {
