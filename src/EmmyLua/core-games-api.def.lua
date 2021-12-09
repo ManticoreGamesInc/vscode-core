@@ -900,7 +900,7 @@ function CoreObjectInstance:LookAt(worldPosition) end
 --- @param speed number
 function CoreObjectInstance:LookAtContinuous(target, isPitchLocked, speed) end
 
---- Continuously looks at the local camera. The boolean parameter is optional and locks the pitch. (Client-only)
+--- Continuously looks at the local camera. The boolean parameter is optional and locks the pitch.
 --- @overload fun()
 --- @param isPitchLocked boolean
 function CoreObjectInstance:LookAtLocalView(isPitchLocked) end
@@ -1269,14 +1269,14 @@ function EventListenerInstance:IsA(typeName) end
 --- @class GlobalEventListener @EventListeners are returned by Events when you connect a listener function to them.
 EventListener = {}
 
---- @class Folder : CoreObject @Folder is a CoreObject representing a folder containing other objects.. . They have no properties or functions of their own, but inherit everything from CoreObject.
+--- @class Folder : CoreObject @Folder is a [CoreObject](coreobject.md) representing a folder containing other objects.. . They have no properties or functions of their own, but inherit everything from [CoreObject](coreobject.md).
 --- @field type string
 local FolderInstance = {}
 --- @param typeName string
 --- @return boolean
 function FolderInstance:IsA(typeName) end
 
---- @class GlobalFolder : CoreObject @Folder is a CoreObject representing a folder containing other objects.. . They have no properties or functions of their own, but inherit everything from CoreObject.
+--- @class GlobalFolder : CoreObject @Folder is a [CoreObject](coreobject.md) representing a folder containing other objects.. . They have no properties or functions of their own, but inherit everything from [CoreObject](coreobject.md).
 Folder = {}
 
 --- @class FourWheeledVehicle : Vehicle @FourWheeledVehicle is a Vehicle with wheels. (Four of them.)
@@ -1302,6 +1302,10 @@ function HitResultInstance:GetImpactPosition() end
 --- Normal direction of the surface which was impacted.
 --- @return Vector3
 function HitResultInstance:GetImpactNormal() end
+
+--- For HitResults returned by box casts and sphere casts, returns the world position of the center of the cast shape when the collision occurred. Otherwise returns the world position where the impact occurred.
+--- @return Vector3
+function HitResultInstance:GetShapePosition() end
 
 --- Returns a Transform composed of the position of the impact in world space, the rotation of the normal, and a uniform scale of 1.
 --- @return Transform
@@ -1590,6 +1594,7 @@ PartyInfo = {}
 --- @class PhysicsObject : CoreObject @A CoreObject with simulated physics that can interact with players and other objects. PhysicsObject also implements the [Damageable](damageable.md) interface.
 --- @field damagedEvent Event @Fired when the object takes damage.
 --- @field diedEvent Event @Fired when the object dies.
+--- @field collidedEvent Event @Fired when the object collides with another object. The `HitResult` parameter describes the collision that occurred.
 --- @field team number @Assigns the physics object to a team. Value range from `0` to `4`. `0` is neutral team.
 --- @field isTeamCollisionEnabled boolean @If `false`, and the physics object has been assigned to a valid team, players on that team will not collide with the object.
 --- @field isEnemyCollisionEnabled boolean @If `false`, and the physics object has been assigned to a valid team, players on other teams will not collide with the object.
@@ -1621,6 +1626,7 @@ function PhysicsObjectInstance:IsA(typeName) end
 PhysicsObject = {}
 
 --- @class Player : Object @Player is an object representation of the state of a player connected to the game, as well as their avatar in the world. Player also implements the [Damageable](damageable.md) interface.
+--- @field collidedEvent Event @Fired when a player collides with another object. The `HitResult` parameter describes the collision that occurred.
 --- @field damagedEvent Event @Fired when the Player takes damage.
 --- @field diedEvent Event @Fired when the Player dies.
 --- @field spawnedEvent Event @Fired when the Player spawns. Indicates the start point at which they spawned and the spawn key used to select the start point. The start point may be nil if a position was specified when spawning the player.
@@ -2599,6 +2605,7 @@ Trigger = {}
 --- @field isInteractable boolean @Returns whether the Button can interact with the cursor (click, hover, etc).
 --- @field shouldClipToSize boolean @Whether or not the button and its shadow should be clipped when exceeding the bounds of this control.
 --- @field shouldScaleToFit boolean @Whether or not the button's label should scale down to fit within the bounds of this control.
+--- @field boundAction string @Returns the name of the action binding that is toggled when the button is pressed or released, or `nil` if no binding has been set.
 --- @field type string
 local UIButtonInstance = {}
 --- Sets the image to a new MUID. You can get this MUID from an Asset Reference.
@@ -2891,6 +2898,7 @@ UIRewardPointsMeter = {}
 --- @field orientation Orientation @Determines whether the panel scrolls horizontally or vertically. Default is `Orientation.VERTICAL`.
 --- @field scrollPosition number @The position in UI space of the scroll panel content. Defaults to 0, which is scrolled to the top or left, depending on orientation. Set to the value of `contentLength` to scroll to the end.
 --- @field contentLength number @Returns the height or width of the scroll panel content, depending on orientation. This is the maximum value of `scrollPosition`.
+--- @field isInteractable boolean @When `true`, panel scrolling is enabled. When `false`, scrolling is disabled. Defaults to `true`.
 --- @field type string
 local UIScrollPanelInstance = {}
 --- @param typeName string
