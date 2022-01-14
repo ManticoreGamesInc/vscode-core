@@ -3,6 +3,7 @@ import * as path from "path";
 
 export function activate() {
     setExternalLibrary(path.join("out", "EmmyLua"), true);
+    updateConfig()
 }
 
 export function deactivate() {
@@ -39,4 +40,10 @@ export function setExternalLibrary(folder: string, enable: boolean) {
         }
         config.update("workspace.library", library, true);
     }
+}
+
+function updateConfig() {
+    const sumneko = vscode.workspace.getConfiguration("Lua")
+    // increase preloadFileSize to make sure our config gets loaded
+    sumneko.update("Lua.workspace.preloadFileSize", 400, true)
 }
