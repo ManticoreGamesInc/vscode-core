@@ -1303,7 +1303,7 @@ function HitResultInstance:GetImpactPosition() end
 --- @return Vector3
 function HitResultInstance:GetImpactNormal() end
 
---- For HitResults returned by box casts and sphere casts, returns the world position of the center of the cast shape when the collision occurred. Otherwise returns the world position where the impact occurred.
+--- For HitResults returned by box casts and sphere casts, returns the world position of the center of the cast shape when the collision occurred. In the case of HitResults not related to a box cast or sphere cast, returns the world position where the impact occurred.
 --- @return Vector3
 function HitResultInstance:GetShapePosition() end
 
@@ -1504,7 +1504,7 @@ MergedModel = {}
 
 --- @class NetReference @A reference to a network resource, such as a player leaderboard. NetReferences are not created directly, but may be returned by `CoreObject:GetCustomProperty()`.
 --- @field isAssigned boolean @Returns true if this reference has been assigned a value. This does not necessarily mean the reference is valid, but does mean it is at least not empty.
---- @field referenceType NetReferenceType @Returns one of `NetReferenceType.LEADERBOARD`, `NetReferenceType.SHARED_STORAGE`, or `NetReferenceType.UNKNOWN` to indicate which type of NetReference this is.
+--- @field referenceType NetReferenceType @Returns one of the following to indicate the type of NetReference: `NetReferenceType.LEADERBOARD`, `NetReferenceType.SHARED_STORAGE`, `NetReferenceType.SHARED_PLAYER_STORAGE`, `NetReferenceType.CONCURRENT_SHARED_PLAYER_STORAGE`, `NetReferenceType.CONCURRENT_CREATOR_STORAGE`, `NetReferenceType.CREATOR_PERK` or `NetReferenceType.UNKNOWN`.
 --- @field type string
 local NetReferenceInstance = {}
 --- @param typeName string
@@ -1661,7 +1661,6 @@ PhysicsObject = {}
 --- @field isMounted boolean @True if the Player is mounted on another object.
 --- @field isSwimming boolean @True if the Player is swimming in water.
 --- @field isWalking boolean @True if the Player is in walking mode.
---- @field isSliding boolean
 --- @field maxWalkSpeed number @Maximum speed while the player is on the ground. Clients can only read. Default = 640.
 --- @field stepHeight number @Maximum height in centimeters the Player can step up. Range is 0-100. Default = 45.
 --- @field maxAcceleration number @Max Acceleration (rate of change of velocity). Clients can only read. Default = 1800. Acceleration is expressed in centimeters per second squared.
@@ -1677,8 +1676,7 @@ PhysicsObject = {}
 --- @field currentFacingMode FacingMode @Current mode applied to player, including possible overrides. Possible values are FacingMode.FACE_AIM_WHEN_ACTIVE, FacingMode.FACE_AIM_ALWAYS, and FacingMode.FACE_MOVEMENT. See desiredFacingMode for details.
 --- @field desiredFacingMode FacingMode @Which controls mode to use for this Player. May be overridden by certain movement modes like MovementMode.SWIMMING or when mounted. Possible values are FacingMode.FACE_AIM_WHEN_ACTIVE, FacingMode.FACE_AIM_ALWAYS, and FacingMode.FACE_MOVEMENT.
 --- @field maxJumpCount number @Max number of jumps, to enable multiple jumps. Set to 0 to disable jumping.
---- @field flipOnMultiJump boolean
---- @field shouldFlipOnMultiJump boolean
+--- @field shouldFlipOnMultiJump boolean @Set to `false` to disable flip animation when player performs double-jump, triple-jump, etc. Defaults to `true`, enabling flip animation.
 --- @field jumpVelocity number @Vertical speed applied to Player when they jump. Default = 900. Speed is expressed in centimeters per second.
 --- @field gravityScale number @Multiplier on gravity applied. Default = 1.9.
 --- @field maxSwimSpeed number @Maximum speed while the player is swimming. Default = 420.
@@ -2972,6 +2970,10 @@ UIText = {}
 --- @field sizeSquared number @The squared magnitude of the Vector2.
 --- @field type string
 local Vector2Instance = {}
+--- Returns a new Vector2 with each component the absolute value of the component from this Vector2.
+--- @return Vector2
+function Vector2Instance:GetAbs() end
+
 --- Returns a new Vector2 with size 1, but still pointing in the same direction. Returns (0, 0) if the vector is too small to be normalized.
 --- @return Vector2
 function Vector2Instance:GetNormalized() end
@@ -3009,6 +3011,10 @@ function Vector2.New(xy) end
 --- @field sizeSquared number @The squared magnitude of the Vector3.
 --- @field type string
 local Vector3Instance = {}
+--- Returns a new Vector3 with each component the absolute value of the component from this Vector3.
+--- @return Vector3
+function Vector3Instance:GetAbs() end
+
 --- Returns a new Vector3 with size 1, but still pointing in the same direction. Returns (0, 0, 0) if the vector is too small to be normalized.
 --- @return Vector3
 function Vector3Instance:GetNormalized() end
@@ -3051,6 +3057,10 @@ function Vector3.New(xyz) end
 --- @field sizeSquared number @The squared magnitude of the Vector4.
 --- @field type string
 local Vector4Instance = {}
+--- Returns a new Vector4 with each component the absolute value of the component from this Vector4.
+--- @return Vector4
+function Vector4Instance:GetAbs() end
+
 --- Returns a new Vector4 with size 1, but still pointing in the same direction. Returns (0, 0, 0, 0) if the vector is too small to be normalized.
 --- @return Vector4
 function Vector4Instance:GetNormalized() end
@@ -3733,6 +3743,10 @@ function Input.IsYAxisInverted(inputType) end
 --- @return string
 function Input.GetActionDescription(action) end
 
+--- Returns a list of the names of each action from currently active binding sets. Actions are included in this list regardless of whether the action is currently held or not.
+--- @return table<number, string>
+function Input.GetActions() end
+
 --- @class Leaderboards
 local LeaderboardsInstance = {}
 --- @class GlobalLeaderboards
@@ -3914,12 +3928,12 @@ function UI.ShowFlyUpText(text, worldPosition, optionalParameters) end
 --- @param sourceObject CoreObject
 function UI.ShowDamageDirection(sourceObject) end
 
---- Calculates the location that worldPosition appears on the screen. Returns a Vector2 with the `x`, `y` coordinates, or `nil` if worldPosition is behind the camera. Only gives results from a client context.
+--- Calculates the location that worldPosition appears on the screen. Returns a Vector2 with the `x`, `y` coordinates, or `nil` if worldPosition is behind the camera.
 --- @param worldPosition Vector3
 --- @return Vector2
 function UI.GetScreenPosition(worldPosition) end
 
---- Returns a Vector2 with the size of the Player's screen in the `x`, `y` coordinates. Only gives results from a client context. May return `nil` if the screen size cannot be determined.
+--- Returns a Vector2 with the size of the Player's screen in the `x`, `y` coordinates. May return `nil` if the screen size cannot be determined.
 --- @return Vector2
 function UI.GetScreenSize() end
 
@@ -3929,20 +3943,33 @@ function UI.GetScreenSize() end
 --- @param color Color
 function UI.PrintToScreen(message, color) end
 
---- Returns a Vector2 with the `x`, `y` coordinates of the mouse cursor on the screen. Only gives results from a client context. May return `nil` if the cursor position cannot be determined.
+--- Returns a Vector2 with the `x`, `y` coordinates of the mouse cursor on the screen. May return `nil` if the cursor position cannot be determined.
 --- @return Vector2
 function UI.GetCursorPosition() end
 
---- Return hit result from local client's view in direction of the Projected cursor position. Meant for client-side use only, for Ability cast, please use `ability:GetTargetData():GetHitPosition()`, which would contain cursor hit position at time of cast, when in top-down camera mode.
+--- *This function is deprecated. Please use UI.GetHitResult() instead.* Return hit result from local client's view in direction of the Projected cursor position. Meant for client-side use only, for Ability cast, please use `ability:GetTargetData():GetHitPosition()`, which would contain cursor hit position at time of cast, when in top-down camera mode.
 --- @return HitResult
 function UI.GetCursorHitResult() end
 
---- Return intersection from local client's camera direction to given plane, specified by point on plane and optionally its normal. Meant for client-side use only. Example usage: `local hitPos = UI.GetCursorPlaneIntersection(Vector3.New(0, 0, 0))`.
+--- Return hit result from local client's view from the given screen position cast in the camera direction.
+--- @param screenPos Vector2
+--- @return HitResult
+function UI.GetHitResult(screenPos) end
+
+--- *This function is deprecated. Please use UI.GetPlaneIntersection() instead.* Return intersection from local client's camera direction to given plane, specified by point on plane and optionally its normal. Meant for client-side use only. Example usage: `local hitPos = UI.GetCursorPlaneIntersection(Vector3.New(0, 0, 0))`.
 --- @overload fun(pointOnPlane: Vector3): Vector3
 --- @param pointOnPlane Vector3
 --- @param planeNormal Vector3
 --- @return Vector3
 function UI.GetCursorPlaneIntersection(pointOnPlane, planeNormal) end
+
+--- Return intersection from local client's view from the given screen position case in the camera direction to the given plane, specified by point on plane and optionally its normal. Example usage: `local hitPos = UI.GetPlaneIntersection(UI.GetScreenSize()/2, Vector3.ZERO)`.
+--- @overload fun(screenPos: Vector2,pointOnPlane: Vector3): Vector3
+--- @param screenPos Vector2
+--- @param pointOnPlane Vector3
+--- @param planeNormal Vector3
+--- @return Vector3
+function UI.GetPlaneIntersection(screenPos, pointOnPlane, planeNormal) end
 
 --- Returns whether the cursor is visible.
 --- @return boolean
@@ -4349,7 +4376,6 @@ MovementMode = {
     FALLING = 3,
     SWIMMING = 4,
     FLYING = 5,
-    SLIDING = 6,
 }
 --- @class NetReferenceType @Indicates the specific type of a `NetReference`.
 NetReferenceType = {
