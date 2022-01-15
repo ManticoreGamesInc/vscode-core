@@ -44,6 +44,10 @@ export function setExternalLibrary(folder: string, enable: boolean) {
 
 function updateConfig() {
     const sumneko = vscode.workspace.getConfiguration("Lua")
-    // increase preloadFileSize to make sure our config gets loaded
-    sumneko.update("Lua.workspace.preloadFileSize", 400, true)
+    const currentSize: number = sumneko.get("workspace.preloadFileSize") || 150
+    if (currentSize < 400) {
+        // increase preloadFileSize to make sure our config gets loaded
+        sumneko.update("workspace.preloadFileSize", 400, true)
+        console.log("Bumping preloadFileSize")
+    }
 }
