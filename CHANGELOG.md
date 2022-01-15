@@ -5,6 +5,34 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.8.6](https://github.com/ManticoreGamesInc/vscode-core/compare/1.8.5...1.8.6) - 2022-01-15
+
+### Commits
+
+- Bump esbuild from 0.14.6 to 0.14.8 [`793f702`](https://github.com/ManticoreGamesInc/vscode-core/commit/793f702097a69f0212cdca761ab00216d691dbc3)
+- Bump @typescript-eslint/parser from 5.7.0 to 5.8.1 [`2da25ba`](https://github.com/ManticoreGamesInc/vscode-core/commit/2da25ba167acb7e4e4a2ff0f34d38f4a27f8755e)
+- Bump @typescript-eslint/parser from 5.6.0 to 5.7.0 [`acdebef`](https://github.com/ManticoreGamesInc/vscode-core/commit/acdebef00554e8ed99100a80f316cdc254995292)
+- Bump esbuild from 0.14.10 to 0.14.11 [`47f51db`](https://github.com/ManticoreGamesInc/vscode-core/commit/47f51db61752c7627e6b03725b7cae08d80731d9)
+- Bump esbuild from 0.14.8 to 0.14.10 [`c554ae4`](https://github.com/ManticoreGamesInc/vscode-core/commit/c554ae4ec028589acb908f2e41254f19430cd953)
+- Bump esbuild from 0.14.3 to 0.14.6 [`5669c29`](https://github.com/ManticoreGamesInc/vscode-core/commit/5669c2982d601979822c41f16b34d6606c0f3e40)
+- Bump @typescript-eslint/parser from 5.8.1 to 5.9.0 [`403fa64`](https://github.com/ManticoreGamesInc/vscode-core/commit/403fa642cc925f92f83c571eec91f06d77e2a4f5)
+- Bump @typescript-eslint/eslint-plugin from 5.8.1 to 5.9.0 [`1ec3a2d`](https://github.com/ManticoreGamesInc/vscode-core/commit/1ec3a2df416e4c3d607e27c9fafe1d74493d78ae)
+- Bump @typescript-eslint/eslint-plugin from 5.7.0 to 5.8.1 [`0597ff3`](https://github.com/ManticoreGamesInc/vscode-core/commit/0597ff38c5580e33b480d7acd7d6b7d68e7ea960)
+- Bump @typescript-eslint/eslint-plugin from 5.6.0 to 5.7.0 [`0c5aa8b`](https://github.com/ManticoreGamesInc/vscode-core/commit/0c5aa8b229e1d8f0037f3d7ee9a5538fe676fb11)
+- Bump @typescript-eslint/typescript-estree from 5.7.0 to 5.8.0 [`ec48901`](https://github.com/ManticoreGamesInc/vscode-core/commit/ec489013a78cb66407a7768bca2a786dc2a5b1e0)
+- Bump @typescript-eslint/typescript-estree from 5.6.0 to 5.7.0 [`5599316`](https://github.com/ManticoreGamesInc/vscode-core/commit/5599316e1a7d006896adea4c42e61e84ccb07af2)
+- Bump @typescript-eslint/typescript-estree from 5.8.0 to 5.8.1 [`4bc8d63`](https://github.com/ManticoreGamesInc/vscode-core/commit/4bc8d63b49a24de338266fb9266489492fdd95eb)
+- Add Patch 1.0.227 API [`9e3d187`](https://github.com/ManticoreGamesInc/vscode-core/commit/9e3d187782e0b27c35428c581e5396cacf62f5ff)
+- Bump eslint from 8.5.0 to 8.6.0 [`f1e05a5`](https://github.com/ManticoreGamesInc/vscode-core/commit/f1e05a5ee621f1c4f2d32667d9e446805f9a0070)
+- Bump @types/node from 17.0.7 to 17.0.8 [`3fc99c1`](https://github.com/ManticoreGamesInc/vscode-core/commit/3fc99c1ddce3cedcdd2c37728510ead1cda65311)
+- Bump @types/node from 17.0.5 to 17.0.7 [`409e17e`](https://github.com/ManticoreGamesInc/vscode-core/commit/409e17eda9a58314d0255ada7951006c1c50c997)
+- Bump @types/node from 17.0.1 to 17.0.5 [`8116420`](https://github.com/ManticoreGamesInc/vscode-core/commit/8116420c9582bbcf815819b7974a830f162ef5f2)
+- Bump eslint from 8.4.1 to 8.5.0 [`f18349f`](https://github.com/ManticoreGamesInc/vscode-core/commit/f18349f91951fb43708094af69dfc289145e46c1)
+- Bump typescript from 4.5.3 to 4.5.4 [`03fbb05`](https://github.com/ManticoreGamesInc/vscode-core/commit/03fbb05b9080a0bd7ae273f893cac9ccba49fb9b)
+- Bump @types/node from 16.11.12 to 17.0.1 [`3792fb9`](https://github.com/ManticoreGamesInc/vscode-core/commit/3792fb99ca92904cee440561922c3d8a69dbdd10)
+- Set Lua preloadFileSize to 400 so our file can get loaded [`b2af3bc`](https://github.com/ManticoreGamesInc/vscode-core/commit/b2af3bcc48e9ef3047f64601b64347a704582334)
+- Bump actions/setup-node from 2.5.0 to 2.5.1 [`b5d9299`](https://github.com/ManticoreGamesInc/vscode-core/commit/b5d9299d5d0e22250f6450b02e1005f2bb62ff4f)
+
 ## [1.8.5](https://github.com/ManticoreGamesInc/vscode-core/compare/1.8.4...1.8.5) - 2021-12-14
 
 ### Commits
