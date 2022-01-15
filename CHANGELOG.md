@@ -5,6 +5,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.8.7](https://github.com/ManticoreGamesInc/vscode-core/compare/1.8.6...1.8.7) - 2022-01-15
+
+### Commits
+
+- Make preloadFileSize bumping smarter [`1b08a0b`](https://github.com/ManticoreGamesInc/vscode-core/commit/1b08a0b7065193565ef68182a22c3eb83e88f3bc)
+
 ## [1.8.6](https://github.com/ManticoreGamesInc/vscode-core/compare/1.8.5...1.8.6) - 2022-01-15
 
 ### Commits

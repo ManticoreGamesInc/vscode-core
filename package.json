@@ -3,7 +3,7 @@
   "displayName": "Core Lua API",
   "description": "Adds support for the Core Games Lua API",
   "license": "MIT",
-  "version": "1.8.6",
+  "version": "1.8.7",
   "icon": "images/logo.png",
   "publisher": "ManticoreGames",
   "repository": {
