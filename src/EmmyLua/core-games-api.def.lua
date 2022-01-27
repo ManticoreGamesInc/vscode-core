@@ -1095,6 +1095,7 @@ function Damage.New(amount) end
 --- @class DamageableObject : CoreObject @DamageableObject is a CoreObject which implements the [Damageable](damageable.md) interface.
 --- @field damagedEvent Event @Fired when the object takes damage.
 --- @field diedEvent Event @Fired when the object dies.
+--- @field damageHook Hook @Hook called when applying damage from a call to `ApplyDamage()`. The incoming damage may be modified or prevented by modifying properties on the `damage` parameter.
 --- @field hitPoints number @Current amount of hit points.
 --- @field maxHitPoints number @Maximum amount of hit points.
 --- @field isDead boolean @True if the object is dead, otherwise false. Death occurs when damage is applied which reduces hit points to 0, or when the `Die()` function is called.
@@ -1595,6 +1596,7 @@ PartyInfo = {}
 --- @field damagedEvent Event @Fired when the object takes damage.
 --- @field diedEvent Event @Fired when the object dies.
 --- @field collidedEvent Event @Fired when the object collides with another object. The `HitResult` parameter describes the collision that occurred.
+--- @field damageHook Hook @Hook called when applying damage from a call to `ApplyDamage()`. The incoming damage may be modified or prevented by modifying properties on the `damage` parameter.
 --- @field team number @Assigns the physics object to a team. Value range from `0` to `4`. `0` is neutral team.
 --- @field isTeamCollisionEnabled boolean @If `false`, and the physics object has been assigned to a valid team, players on that team will not collide with the object.
 --- @field isEnemyCollisionEnabled boolean @If `false`, and the physics object has been assigned to a valid team, players on other teams will not collide with the object.
@@ -1641,6 +1643,7 @@ PhysicsObject = {}
 --- @field perkChangedEvent Event @Fired when a player's list of owned perks has changed, indicating which perk's amount has changed. Do not expect this event to fire for perks that a player already has when they join a game. Use the `HasPerk(NetReference)` or `GetPerkCount(NetReference)` function for any initial logic that needs to be handled when joining. Also, this event may not actively fire when a perk expires, but it may fire for an expired perk as a result of purchasing a different perk.
 --- @field privateNetworkedDataChangedEvent Event @Fired when the player's private data changes. On the client, only the local player's private data is available.
 --- @field movementHook Hook @Hook called when processing a Player's movement. The `parameters` table contains a `Vector3` named "direction", indicating the direction the player will move.
+--- @field damageHook Hook @Hook called when applying damage from a call to `ApplyDamage()`. The incoming damage may be modified or prevented by modifying properties on the `damage` parameter.
 --- @field id string @The unique id of the Player. Consistent across sessions.
 --- @field name string @The Player's name.
 --- @field team number @The number of the team to which the Player is assigned. By default, this value is 255 in FFA mode.
@@ -2707,6 +2710,22 @@ UIContainer = {}
 --- @field dock UIPivot @The pivot point on this control to which children attach. Can be one of `UIPivot.TOP_LEFT`, `UIPivot.TOP_CENTER`, `UIPivot.TOP_RIGHT`, `UIPivot.MIDDLE_LEFT`, `UIPivot.MIDDLE_CENTER`, `UIPivot.MIDDLE_RIGHT`, `UIPivot.BOTTOM_LEFT`, `UIPivot.BOTTOM_CENTER`, `UIPivot.BOTTOM_RIGHT`, or `UIPivot.CUSTOM`.
 --- @field type string
 local UIControlInstance = {}
+--- Returns the absolute screen position of the pivot for this control.
+--- @return Vector2
+function UIControlInstance:GetAbsolutePosition() end
+
+--- Sets the absolute screen position of the pivot for this control.
+--- @param position Vector2
+function UIControlInstance:SetAbsolutePosition(position) end
+
+--- Returns the absolute rotation in degrees (clockwise) for this control.
+--- @return number
+function UIControlInstance:GetAbsoluteRotation() end
+
+--- Sets the absolute rotation in degrees (clockwise) for this control.
+--- @param rotation number
+function UIControlInstance:SetAbsoluteRotation(rotation) end
+
 --- @param typeName string
 --- @return boolean
 function UIControlInstance:IsA(typeName) end
@@ -3100,6 +3119,7 @@ function Vector4.New(xy, zw) end
 --- @field diedEvent Event @Fired when the vehicle dies.
 --- @field clientMovementHook Hook @Hook called when processing the driver's input. The `parameters` table contains "throttleInput", "steeringInput", and "isHandbrakeEngaged". This is only called on the driver's client. "throttleInput" is a number -1.0, to 1.0, with positive values indicating forward input. "steeringInput" is the same, and positive values indicate turning to the right. "isHandbrakeEngaged" is a boolean.
 --- @field serverMovementHook Hook @Hook called when on the server for a vehicle with no driver. This has the same parameters as clientMovementHook.
+--- @field damageHook Hook @Hook called when applying damage from a call to `ApplyDamage()`. The incoming damage may be modified or prevented by modifying properties on the `damage` parameter.
 --- @field isAccelerating boolean @Returns `true` if the vehicle is currently accelerating.
 --- @field driver Player @The Player currently driving the vehicle, or `nil` if there is no driver.
 --- @field mass number @Returns the mass of the vehicle in kilograms.
@@ -4393,6 +4413,7 @@ NetworkContextType = {
     CLIENT_CONTEXT = 3,
     SERVER_CONTEXT = 4,
     STATIC_CONTEXT = 5,
+    LOCAL_CONTEXT = 6,
 }
 --- @class Orientation @Determines the orientation of a `UIScrollPanel`.
 Orientation = {
