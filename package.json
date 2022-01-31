@@ -60,7 +60,7 @@
     "@typescript-eslint/eslint-plugin": "^5.10.1",
     "@typescript-eslint/parser": "^5.10.0",
     "@typescript-eslint/typescript-estree": "^5.9.1",
-    "chai": "^4.3.4",
+    "chai": "^4.3.6",
     "esbuild": "^0.14.14",
     "eslint": "^8.7.0",
     "glob": "^7.2.0",
