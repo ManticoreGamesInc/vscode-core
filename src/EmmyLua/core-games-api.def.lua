@@ -56,7 +56,7 @@ function AIActivityHandlerInstance:IsA(typeName) end
 --- @class GlobalAIActivityHandler : CoreObject @AIActivityHandle is a CoreObject which can manage one or more `AIActivity`. Each tick, the handler calls a function on each of its registered activities to give them a chance to reevaluate their priorities. It then ticks the highest priority activity again, allowing it to perform additional work.
 AIActivityHandler = {}
 
---- @class Ability : CoreObject @Abilities are CoreObjects that can be added to Players and guide the Player's animation in sync with the Ability's state machine. Spawn an Ability with `World.SpawnAsset()` or add an Ability as a child of an Equipment/Weapon to have it be assigned to the Player automatically when that item is equipped.. . Abilities can be activated by association with an Action Binding. Their internal state machine flows through the phases: Ready, Cast, Execute, Recovery and Cooldown. An Ability begins in the Ready state and transitions to Cast when its Binding (e.g. Left mouse click) is activated by the owning player. It then automatically flows from Cast to Execute, then Recovery and finally Cooldown. At each of these state transitions it fires a corresponding event.. . Only one ability can be active at a time. By default, activating an ability will interrupt the currently active ability. The `canBePrevented` and `preventsOtherAbilities` properties can be used to customize interruption rules for competing abilities.. . If an ability is interrupted during the Cast phase, it will immediately reset to the Ready state. If an ability is interrupted during the Execute or Recovery phase, the ability will immediately transition to the Cooldown phase.
+--- @class Ability : CoreObject @Abilities are CoreObjects that can be added to Players and guide the Player's animation in sync with the Ability's state machine. Spawn an Ability with `World.SpawnAsset()` or add an Ability as a child of an Equipment/Weapon to have it be assigned to the Player automatically when that item is equipped.. . Abilities can be activated by association with an Action Binding. Their internal state machine flows through the phases: Ready, Cast, Execute, Recovery, and Cooldown. An Ability begins in the Ready state and transitions to Cast when its Binding (for example Left mouse click) is activated by the owning player. It then automatically flows from Cast to Execute, then Recovery and finally Cooldown. At each of these state transitions it fires a corresponding event.. . Only one ability can be active at a time. By default, activating an ability will interrupt the currently active ability. The `canBePrevented` and `preventsOtherAbilities` properties can be used to customize interruption rules for competing abilities.. . If an ability is interrupted during the Cast phase, it will immediately reset to the Ready state. If an ability is interrupted during the Execute or Recovery phase, the ability will immediately transition to the Cooldown phase.
 --- @field readyEvent Event @Fired when the Ability becomes ready. In this phase it is possible to activate it again.
 --- @field castEvent Event @Fired when the Ability enters the Cast phase.
 --- @field executeEvent Event @Fired when the Ability enters Execute phase.
@@ -64,7 +64,8 @@ AIActivityHandler = {}
 --- @field cooldownEvent Event @Fired when the Ability enters Cooldown.
 --- @field interruptedEvent Event @Fired when the Ability is interrupted.
 --- @field tickEvent Event @Fired every tick while the Ability is active (isEnabled = true and phase is not ready).
---- @field actionBinding string @Which action binding will cause the Ability to activate. Possible values of the bindings are listed on the [Ability binding](../api/key_bindings.md) page.
+--- @field actionBinding string @*This property is deprecated. Please use `actionName` instead, but note that `actionBinding` and `actionName` use different values.*  Which action binding will cause the Ability to activate. Possible values of the bindings are listed on the [Ability binding](../api/key_bindings.md) page.
+--- @field actionName string @Which binding set action name will cause the Ability to activate.
 --- @field canActivateWhileDead boolean @Indicates if the Ability can be used while the owning Player is dead. False by default.
 --- @field animation string @Name of the animation the Player will play when the Ability is activated. Possible values: See [Ability Animation](../api/animations.md) for strings and other info.
 --- @field canBePrevented boolean @Used in conjunction with the phase property `preventsOtherAbilities` so multiple abilities on the same Player can block each other during specific phases. True by default.
@@ -105,7 +106,7 @@ function AbilityInstance:AdvancePhase() end
 --- @return boolean
 function AbilityInstance:IsA(typeName) end
 
---- @class GlobalAbility : CoreObject @Abilities are CoreObjects that can be added to Players and guide the Player's animation in sync with the Ability's state machine. Spawn an Ability with `World.SpawnAsset()` or add an Ability as a child of an Equipment/Weapon to have it be assigned to the Player automatically when that item is equipped.. . Abilities can be activated by association with an Action Binding. Their internal state machine flows through the phases: Ready, Cast, Execute, Recovery and Cooldown. An Ability begins in the Ready state and transitions to Cast when its Binding (e.g. Left mouse click) is activated by the owning player. It then automatically flows from Cast to Execute, then Recovery and finally Cooldown. At each of these state transitions it fires a corresponding event.. . Only one ability can be active at a time. By default, activating an ability will interrupt the currently active ability. The `canBePrevented` and `preventsOtherAbilities` properties can be used to customize interruption rules for competing abilities.. . If an ability is interrupted during the Cast phase, it will immediately reset to the Ready state. If an ability is interrupted during the Execute or Recovery phase, the ability will immediately transition to the Cooldown phase.
+--- @class GlobalAbility : CoreObject @Abilities are CoreObjects that can be added to Players and guide the Player's animation in sync with the Ability's state machine. Spawn an Ability with `World.SpawnAsset()` or add an Ability as a child of an Equipment/Weapon to have it be assigned to the Player automatically when that item is equipped.. . Abilities can be activated by association with an Action Binding. Their internal state machine flows through the phases: Ready, Cast, Execute, Recovery, and Cooldown. An Ability begins in the Ready state and transitions to Cast when its Binding (for example Left mouse click) is activated by the owning player. It then automatically flows from Cast to Execute, then Recovery and finally Cooldown. At each of these state transitions it fires a corresponding event.. . Only one ability can be active at a time. By default, activating an ability will interrupt the currently active ability. The `canBePrevented` and `preventsOtherAbilities` properties can be used to customize interruption rules for competing abilities.. . If an ability is interrupted during the Cast phase, it will immediately reset to the Ready state. If an ability is interrupted during the Execute or Recovery phase, the ability will immediately transition to the Cooldown phase.
 Ability = {}
 
 --- @class AbilityPhaseSettings : Object @Each phase of an Ability can be configured differently, allowing complex and different Abilities. AbilityPhaseSettings is an Object.
@@ -184,7 +185,7 @@ function AbilityTarget.New() end
 
 
 --- @class AnimatedMesh : CoreMesh @AnimatedMesh objects are skeletal CoreMeshes with parameterized animations baked into them. They also have sockets exposed to which any CoreObject can be attached.
---- @field animationEvent Event @Some animations have events specified at important points of the animation (e.g. the impact point in a punch animation). This event is fired with the animated mesh that triggered it, the name of the event at those points, and the name of the animation itself.
+--- @field animationEvent Event @Some animations have events specified at important points of the animation (for example the impact point in a punch animation). This event is fired with the animated mesh that triggered it, the name of the event at those points, and the name of the animation itself.
 --- @field animationStance string @The stance the animated mesh plays.
 --- @field animationStancePlaybackRate number @The playback rate for the animation stance being played.
 --- @field animationStanceShouldLoop boolean @If `true`, the animation stance will keep playing in a loop. If `false` the animation will stop playing once completed.
@@ -1064,11 +1065,11 @@ CustomMaterial = {}
 function CustomMaterial.Find(assetId) end
 
 
---- @class Damage @To damage a Player, you can simply write e.g.: `whichPlayer:ApplyDamage(Damage.New(10))`. Alternatively, create a Damage object and populate it with all the following properties to get full use out of the system:
+--- @class Damage @To damage a Player, you can simply write for example: `whichPlayer:ApplyDamage(Damage.New(10))`. Alternatively, create a Damage object and populate it with all the following properties to get full use out of the system:
 --- @field amount number @The numeric amount of damage to inflict.
 --- @field reason DamageReason @What is the context for this Damage? DamageReason.UNKNOWN (default value), DamageReason.COMBAT, DamageReason.FRIENDLY_FIRE, DamageReason.MAP, DamageReason.NPC.
---- @field sourceAbility Ability @Reference to the Ability which caused the Damage. Setting this allows other systems to react to the damage event, e.g. a kill feed can show what killed a Player.
---- @field sourcePlayer Player @Reference to the Player who caused the Damage. Setting this allows other systems to react to the damage event, e.g. a kill feed can show who killed a Player.
+--- @field sourceAbility Ability @Reference to the Ability which caused the Damage. Setting this allows other systems to react to the damage event, for example a kill feed can show what killed a Player.
+--- @field sourcePlayer Player @Reference to the Player who caused the Damage. Setting this allows other systems to react to the damage event, for example a kill feed can show who killed a Player.
 --- @field type string
 local DamageInstance = {}
 --- Get the HitResult information if this damage was caused by a Projectile impact.
@@ -1083,7 +1084,7 @@ function DamageInstance:SetHitResult(hitResult) end
 --- @return boolean
 function DamageInstance:IsA(typeName) end
 
---- @class GlobalDamage @To damage a Player, you can simply write e.g.: `whichPlayer:ApplyDamage(Damage.New(10))`. Alternatively, create a Damage object and populate it with all the following properties to get full use out of the system:
+--- @class GlobalDamage @To damage a Player, you can simply write for example: `whichPlayer:ApplyDamage(Damage.New(10))`. Alternatively, create a Damage object and populate it with all the following properties to get full use out of the system:
 Damage = {}
 --- Constructs a damage object with the given number, defaults to 0.
 --- @overload fun(): Damage
@@ -1241,7 +1242,7 @@ function EquipmentInstance:IsA(typeName) end
 --- @class GlobalEquipment : CoreObject @Equipment is a CoreObject representing an equippable item for players. They generally have a visual component that attaches to the Player, but a visual component is not a requirement. Any Ability objects added as children of the Equipment are added/removed from the Player automatically as it becomes equipped/unequipped.
 Equipment = {}
 
---- @class Event @Events appear as properties on several objects. The goal is to register a function that will be fired whenever that event happens. E.g. `playerA.damagedEvent:Connect(OnPlayerDamaged)` chooses the function `OnPlayerDamaged` to be fired whenever `playerA` takes damage.
+--- @class Event @Events appear as properties on several objects. The goal is to register a function that will be fired whenever that event happens. For example `playerA.damagedEvent:Connect(OnPlayerDamaged)` chooses the function `OnPlayerDamaged` to be fired whenever `playerA` takes damage.
 --- @field type string
 local EventInstance = {}
 --- Registers the given function which will be called every time the event is fired. Returns an EventListener which can be used to disconnect from the event or check if the event is still connected. Accepts any number of additional arguments after the listener function, those arguments will be provided after the event's own parameters.
@@ -1253,7 +1254,7 @@ function EventInstance:Connect(listener, ...) end
 --- @return boolean
 function EventInstance:IsA(typeName) end
 
---- @class GlobalEvent @Events appear as properties on several objects. The goal is to register a function that will be fired whenever that event happens. E.g. `playerA.damagedEvent:Connect(OnPlayerDamaged)` chooses the function `OnPlayerDamaged` to be fired whenever `playerA` takes damage.
+--- @class GlobalEvent @Events appear as properties on several objects. The goal is to register a function that will be fired whenever that event happens. For example `playerA.damagedEvent:Connect(OnPlayerDamaged)` chooses the function `OnPlayerDamaged` to be fired whenever `playerA` takes damage.
 Event = {}
 
 --- @class EventListener @EventListeners are returned by Events when you connect a listener function to them.
@@ -1319,7 +1320,7 @@ function HitResultInstance:IsA(typeName) end
 --- @class GlobalHitResult @Contains data pertaining to an impact or raycast.
 HitResult = {}
 
---- @class Hook @Hooks appear as properties on several objects. Similar to Events, functions may be registered that will be called whenever that hook is fired, but Hooks allow those functions to modify the parameters given to them. E.g. `player.movementHook:Connect(OnPlayerMovement)` calls the function `OnPlayerMovement` each tick, which may modify the direction in which a player will move.
+--- @class Hook @Hooks appear as properties on several objects. Similar to Events, functions may be registered that will be called whenever that hook is fired, but Hooks allow those functions to modify the parameters given to them. For example `player.movementHook:Connect(OnPlayerMovement)` calls the function `OnPlayerMovement` each tick, which may modify the direction in which a player will move.
 --- @field type string
 local HookInstance = {}
 --- Registers the given function which will be called every time the hook is fired. Returns a HookListener which can be used to disconnect from the hook or change the listener's priority. Accepts any number of additional arguments after the listener function, those arguments will be provided after the hook's own parameters.
@@ -1331,7 +1332,7 @@ function HookInstance:Connect(listener, ...) end
 --- @return boolean
 function HookInstance:IsA(typeName) end
 
---- @class GlobalHook @Hooks appear as properties on several objects. Similar to Events, functions may be registered that will be called whenever that hook is fired, but Hooks allow those functions to modify the parameters given to them. E.g. `player.movementHook:Connect(OnPlayerMovement)` calls the function `OnPlayerMovement` each tick, which may modify the direction in which a player will move.
+--- @class GlobalHook @Hooks appear as properties on several objects. Similar to Events, functions may be registered that will be called whenever that hook is fired, but Hooks allow those functions to modify the parameters given to them. For example `player.movementHook:Connect(OnPlayerMovement)` calls the function `OnPlayerMovement` each tick, which may modify the direction in which a player will move.
 Hook = {}
 
 --- @class HookListener @HookListeners are returned by Hooks when you connect a listener function to them.
@@ -1395,7 +1396,7 @@ local ImpactDataInstance = {}
 --- @return HitResult
 function ImpactDataInstance:GetHitResult() end
 
---- Table with multiple HitResults that hit the same object, in the case of Weapons with multi-shot (e.g. Shotguns). If a single attack hits multiple targets you receive a separate interaction event for each object hit.
+--- Table with multiple HitResults that hit the same object, in the case of Weapons with multi-shot (for example Shotguns). If a single attack hits multiple targets you receive a separate interaction event for each object hit.
 --- @return table<number, HitResult>
 function ImpactDataInstance:GetHitResults() end
 
@@ -1405,6 +1406,320 @@ function ImpactDataInstance:IsA(typeName) end
 
 --- @class GlobalImpactData @A data structure containing all information about a specific Weapon interaction, such as collision with a character.
 ImpactData = {}
+
+--- @class Inventory : CoreObject @Inventory is a CoreObject that represents a container of InventoryItems. Items can be added directly to an inventory, picked up from an ItemObject in the world, or transferred between inventories. An Inventory may be assigned to a Player, and Players may have any number of Inventories.
+--- @field ownerChangedEvent Event @Fired when the inventory's owner has changed.
+--- @field resizedEvent Event @Fired when the inventory's size has changed.
+--- @field changedEvent Event @Fired when the contents of an inventory slot have changed. This includes when the item in that slot is added, given, received, dropped, moved, resized, or removed.
+--- @field itemPropertyChangedEvent Event @Fired when an inventory item's dynamic custom property value has changed.
+--- @field owner Player @The Player who currently owns the inventory. May be `nil`. Change owners with `Assign()` or `Unassign()`.
+--- @field slotCount number @The number of unique inventory item stacks this inventory can hold. Zero or negative numbers indicate no limit.
+--- @field emptySlotCount number @The number of slots in the inventory that do not contain an inventory item stack.
+--- @field occupiedSlotCount number @The number of slots in the inventory that contain an inventory item stack.
+--- @field type string
+local InventoryInstance = {}
+--- Sets the owner property of the inventory to the specified player. When a networked inventory is assigned to a player, only that player's client will be able to access the inventory contents.
+--- @param player Player
+function InventoryInstance:Assign(player) end
+
+--- Clears the owner property of the inventory. The given inventory will now be accessible to all clients.
+function InventoryInstance:Unassign() end
+
+--- Returns the contents of the specified slot. Returns `nil` if the slot is empty.
+--- @param slot number
+--- @return InventoryItem
+function InventoryInstance:GetItem(slot) end
+
+--- Returns a list of all items in the inventory. Returns an empty list if the inventory is empty.
+--- 
+--- Supported parameters include:
+--- 
+--- `itemAssetId (string)`: If specified, filters the results by the specified item asset reference. Useful for getting all inventory items of a specific type.
+--- @overload fun(): table
+--- @param optionalParameters table
+--- @return table
+function InventoryInstance:GetItems(optionalParameters) end
+
+--- Removes all items from the inventory.
+function InventoryInstance:ClearItems() end
+
+--- Reorganizes inventory items into sequential slots starting with slot 1. Does not perform any consolidation of item stacks of the same type. Use `ConsolidateItems()` first if this behavior is desired.
+function InventoryInstance:SortItems() end
+
+--- Combines stacks of inventory items into as few slots as possible based on the `maximumStackCount` of each item. Slots may be emptied by this operation, but are otherwise not sorted or reorganized.
+function InventoryInstance:ConsolidateItems() end
+
+--- Checks if there are enough slots for all current contents of the inventory if the inventory were to be resized. Returns `true` if the inventory can be resized to the new size or `false` if it cannot.
+--- @param newSize number
+--- @return boolean
+function InventoryInstance:CanResize(newSize) end
+
+--- Changes the number of slots of the inventory. There must be enough slots to contain all of the items currently in the inventory or the operation will fail. This operation will move items into empty slots if necessary, but it will not consolidate item stacks, even if doing so would create sufficient space for the operation to succeed. Use `ConsolidateItems()` first if this behavior is desired. Returns `true` if the operation succeeded. Returns `false` and logs a warning if the operation failed.
+--- @param newSize number
+--- @return boolean
+function InventoryInstance:Resize(newSize) end
+
+--- Checks for room to add the specified item to this inventory. If the item can be added to the inventory, returns `true`. If the inventory is full or the item otherwise cannot be added, returns `false`. Supports the same parameters as `AddItem()`.
+--- @overload fun(itemAssetId: string): boolean
+--- @param itemAssetId string
+--- @param optionalParameters table
+--- @return boolean
+function InventoryInstance:CanAddItem(itemAssetId, optionalParameters) end
+
+--- Attempts to add the specified item to this inventory. If the item was successfully added to the inventory, returns `true`. If the inventory was full or the item otherwise wasn't added, returns `false`.
+--- 
+--- Supported parameters include:
+--- 
+--- `count (integer)`: Specifies the number of items to create and add to the inventory. Defaults to 1.
+--- 
+--- `slot (integer)`: Attempts to create the item directly into the specified slot. If unspecified, the inventory will either look to stack this item with other items of the same `itemAssetId`, or will look to find the first empty slot.
+--- 
+--- `customProperties (table)`: Applies initial property values to any dynamic properties on the item. Attempting to specify a property that does not exist will yield a warning. Attempting to specify a property that does exist and is not dynamic will raise an error. Providing a property value of the incorrect type will raise an error.
+--- @overload fun(itemAssetId: string): boolean
+--- @param itemAssetId string
+--- @param optionalParameters table
+--- @return boolean
+function InventoryInstance:AddItem(itemAssetId, optionalParameters) end
+
+--- Checks for room in an existing stack or free inventory slots to add the given item to the inventory. If the item can be added to the inventory, returns `true`. If the inventory is full or the item otherwise cannot be added, returns `false`. Supports the same parameters as `PickUpItem()`.
+--- @overload fun(itemObject: ItemObject): boolean
+--- @param itemObject ItemObject
+--- @param optionalParameters table
+--- @return boolean
+function InventoryInstance:CanPickUpItem(itemObject, optionalParameters) end
+
+--- Creates an inventory item from an ItemObject that exists in the world, taking 1 count from the ItemObject. Destroys the ItemObject if the inventory item is successfully created and the ItemObject count has been reduced to zero. Returns `true` if the item was picked up. Returns `false` and logs a warning if the item could not be picked up.
+--- 
+--- Supported parameters include:
+--- 
+--- `count (integer)`: Determines the number of items taken from the specified ItemObject. If the ItemObject still has a count greater than zero after this operation, it is not destroyed. Defaults to 1.
+--- 
+--- `all (boolean)`: If `true`, picks up all of the given item's count instead of just 1. Overrides `count` if both are specified.
+--- @overload fun(itemObject: ItemObject): boolean
+--- @param itemObject ItemObject
+--- @param optionalParameters table
+--- @return boolean
+function InventoryInstance:PickUpItem(itemObject, optionalParameters) end
+
+--- Checks if an item can be moved from one slot to another. If the item can be moved, returns `true`. Returns `false` if it cannot be moved. Supports the same parameters as `MoveFromSlot()`.
+--- @overload fun(fromSlot: number,toSlot: number): boolean
+--- @param fromSlot number
+--- @param toSlot number
+--- @param optionalParameters table
+--- @return boolean
+function InventoryInstance:CanMoveFromSlot(fromSlot, toSlot, optionalParameters) end
+
+--- Moves an inventory item and its entire count from one slot to another. If the target slot is empty, the stack is moved. If the target slot is occupied by a matching item, the stack will merge as much as it can up to its `maximumStackCount`. If the target slot is occupied by a non-matching item, the stacks will swap. Returns `true` if the operation succeeded. Returns `false` and logs a warning if the operation failed.
+--- 
+--- Supported parameters include:
+--- 
+--- `count (integer)`: Specifies the number of items to move. When swapping with another stack containing a non-matching item, this operation will fail unless `count` is the entire stack.
+--- @overload fun(fromSlot: number,toSlot: number): boolean
+--- @param fromSlot number
+--- @param toSlot number
+--- @param optionalParameters table
+--- @return boolean
+function InventoryInstance:MoveFromSlot(fromSlot, toSlot, optionalParameters) end
+
+--- Checks if an item can be removed from the inventory. If the item can be removed, returns `true`. Returns `false` if it cannot be removed. Supports the same parameters as `RemoveItem()`.
+--- @overload fun(itemAssetId: string): boolean
+--- @param itemAssetId string
+--- @param optionalParameters table
+--- @return boolean
+function InventoryInstance:CanRemoveItem(itemAssetId, optionalParameters) end
+
+--- Deletes 1 item of the specified asset from the inventory. Returns `true` if the operation succeeded. Returns `false` and logs a warning if the operation failed.
+--- 
+--- Supported parameters include:
+--- 
+--- `count (integer)`: Specifies the number of the item to be removed. Defaults to 1.
+--- 
+--- `all (boolean)`: If `true`, removes all of the specified items instead of just 1. Overrides `count` if both are specified.
+--- @overload fun(itemAssetId: string): boolean
+--- @param itemAssetId string
+--- @param optionalParameters table
+--- @return boolean
+function InventoryInstance:RemoveItem(itemAssetId, optionalParameters) end
+
+--- Checks if an item can be removed from an inventory slot. If the item can be removed, returns `true`. Returns `false` if it cannot be removed. Supports the same parameters as `RemoveFromSlot()`.
+--- @overload fun(slot: number): boolean
+--- @param slot number
+--- @param optionalParameters table
+--- @return boolean
+function InventoryInstance:CanRemoveFromSlot(slot, optionalParameters) end
+
+--- Deletes the inventory item and its entire count from the specified inventory slot. Returns `true` if the operation succeeded. Returns `false` and logs a warning if the operation failed.
+--- 
+--- Supported parameters include:
+--- 
+--- `count (integer)`: Specifies the number of the item to be removed. Defaults to the total count in the specified slot.
+--- @overload fun(slot: number): boolean
+--- @param slot number
+--- @param optionalParameters table
+--- @return boolean
+function InventoryInstance:RemoveFromSlot(slot, optionalParameters) end
+
+--- Checks if an item can be dropped from the inventory. If the item can be dropped, returns `true`. Returns `false` if it cannot be dropped. Supports the same parameters as `DropItem()`.
+--- @overload fun(itemAssetId: string): boolean
+--- @param itemAssetId string
+--- @param optionalParameters table
+--- @return boolean
+function InventoryInstance:CanDropItem(itemAssetId, optionalParameters) end
+
+--- Removes 1 item of the specified asset from the inventory and creates an ItemObject with the item's properties. Spawns the ItemObject at the position of the inventory in the world, or at the position of the owner player's feet if the inventory has been assigned to a player. Returns `true` if the operation succeeded. Returns `false` and logs a warning if the operation failed.
+--- 
+--- Supported parameters include:
+--- 
+--- `count (integer)`: Specifies the number of the item to be dropped. Defaults to 1.
+--- 
+--- `all (boolean)`: If `true`, drops all of the specified items instead of just 1. Overrides `count` if both are specified.
+--- 
+--- `dropTo (ItemObject)`: Specifies a pre-existing ItemObject to drop the items onto. Doing this will add to that ItemObject's count. If the ItemObject's maximum stack count would be exceeded by this operation, it will fail, and this function will return false.
+--- 
+--- `parent (CoreObject)`: Creates the new ItemObject as a child of the specified CoreObject. Can only be used if `dropTo` is not specified.
+--- 
+--- `position (Vector3)`: Specifies the world position at which the ItemObject is spawned, or the relative position if a parent is specified. Can only be used if `dropTo` is not specified.
+--- 
+--- `rotation (Rotation or Quaternion)`: Specifies the world rotation at which the ItemObject is spawned, or the relative rotation if a parent is specified. Can only be used if `dropTo` is not specified.
+--- 
+--- `scale (Vector3)`: Specifies the world scale with which the ItemObject is spawned, or the relative scale if a parent is specified. Can only be used if `dropTo` is not specified.
+--- 
+--- `transform (Transform)`: Specifies the world transform at which the ItemObject is spawned, or the relative transform if a parent is specified. Can only be used if `dropTo` is not specified, and is mutually exclusive with `position`, `rotation`, and `scale`.
+--- 
+--- Additional parameters supported by `World.SpawnAsset()` may also be supported here.
+--- @overload fun(itemAssetId: string): boolean
+--- @param itemAssetId string
+--- @param optionalParameters table
+--- @return boolean
+function InventoryInstance:DropItem(itemAssetId, optionalParameters) end
+
+--- Checks if an item can be dropped from an inventory slot. If the item can be dropped, returns `true`. Returns `false` if it cannot be dropped. Supports the same parameters as `DropFromSlot()`.
+--- @overload fun(slot: number): boolean
+--- @param slot number
+--- @param optionalParameters table
+--- @return boolean
+function InventoryInstance:CanDropFromSlot(slot, optionalParameters) end
+
+--- Drops the entire contents of a specified slot, creating an ItemObject with the item's properties. Spawns the ItemObject at the position of the inventory in the world, or at the position of the owner player's feet if the inventory has been assigned to a player. Returns `true` if the operation succeeded. Returns `false` and logs a warning if the operation failed. If the full item count is successfully dropped, the slot will be left empty.
+--- 
+--- Supported parameters include:
+--- 
+--- `count (integer)`: Specifies the number of the item to be dropped. If not specified, the total number of items in this slot will be dropped.
+--- 
+--- `dropTo (ItemObject)`: Specifies a pre-existing ItemObject to drop the items onto. Doing this will add to that ItemObject's count. If the ItemObject's max stack count would be exceeded by this operation, it will fail, and this function will return false.
+--- 
+--- `parent (CoreObject)`: Creates the new ItemObject as a child of the specified CoreObject. Can only be used if `dropTo` is not specified.
+--- 
+--- `position (Vector3)`: Specifies the world position at which the ItemObject is spawned, or the relative position if a parent is specified. Can only be used if `dropTo` is not specified.
+--- 
+--- `rotation (Rotation or Quaternion)`: Specifies the world rotation at which the ItemObject is spawned, or the relative rotation if a parent is specified. Can only be used if `dropTo` is not specified.
+--- 
+--- `scale (Vector3)`: Specifies the world scale with which the ItemObject is spawned, or the relative scale if a parent is specified. Can only be used if `dropTo` is not specified.
+--- 
+--- `transform (Transform)`: Specifies the world transform at which the ItemObject is spawned, or the relative transform if a parent is specified. Can only be used if `dropTo` is not specified, and is mutually exclusive with `position`, `rotation`, and `scale`.
+--- 
+--- Additional parameters supported by `World.SpawnAsset()` may also be supported here.
+--- @overload fun(slot: number): boolean
+--- @param slot number
+--- @param optionalParameters table
+--- @return boolean
+function InventoryInstance:DropFromSlot(slot, optionalParameters) end
+
+--- Checks if an item can be transferred to the specified recipient inventory. If the item can be transferred, returns `true`. Returns `false` if it cannot be transferred. Supports the same parameters as `GiveItem()`.
+--- @overload fun(itemAssetId: string,recipient: Inventory): boolean
+--- @param itemAssetId string
+--- @param recipient Inventory
+--- @param optionalParameters table
+--- @return boolean
+function InventoryInstance:CanGiveItem(itemAssetId, recipient, optionalParameters) end
+
+--- Transfers an item, specified by item asset ID, from this inventory to the given recipient inventory. Returns `true` if the operation succeeded. Returns `false` and logs a warning if the operation failed.
+--- 
+--- Supported parameters include:
+--- 
+--- `count (integer)`: Specifies the number of the item to be transferred. Defaults to 1.
+--- 
+--- `all (boolean)`: If `true`, transfers all of the specified items instead of just 1. Overrides `count` if both are specified.
+--- @overload fun(itemAssetId: string,recipient: Inventory): boolean
+--- @param itemAssetId string
+--- @param recipient Inventory
+--- @param optionalParameters table
+--- @return boolean
+function InventoryInstance:GiveItem(itemAssetId, recipient, optionalParameters) end
+
+--- Checks if a slot can be transferred to the specified recipient inventory. If the item can be transferred, returns `true`. Returns `false` if it cannot be transferred. Supports the same parameters as `GiveFromSlot()`.
+--- @overload fun(slot: number,recipient: Inventory): boolean
+--- @param slot number
+--- @param recipient Inventory
+--- @param optionalParameters table
+--- @return boolean
+function InventoryInstance:CanGiveFromSlot(slot, recipient, optionalParameters) end
+
+--- Transfers the entire stack of a given slot to the given recipient inventory. Returns `true` if the operation succeeded. Returns `false` and logs a warning if the operation failed.
+--- 
+--- Supported parameters include:
+--- 
+--- `count (integer)`: Specifies the number of the item to be transferred. If not specified, the total number of items in this slot will be transferred.
+--- @overload fun(slot: number,recipient: Inventory): boolean
+--- @param slot number
+--- @param recipient Inventory
+--- @param optionalParameters table
+--- @return boolean
+function InventoryInstance:GiveFromSlot(slot, recipient, optionalParameters) end
+
+--- @param typeName string
+--- @return boolean
+function InventoryInstance:IsA(typeName) end
+
+--- @class GlobalInventory : CoreObject @Inventory is a CoreObject that represents a container of InventoryItems. Items can be added directly to an inventory, picked up from an ItemObject in the world, or transferred between inventories. An Inventory may be assigned to a Player, and Players may have any number of Inventories.
+Inventory = {}
+
+--- @class InventoryItem : Object @InventoryItem is an Object which implements the [Item](item.md) interface. It represents an Item stored in an Inventory and has no 3D representation in the world.
+--- @field name string @The name of this item, inherited from the Item asset.
+--- @field itemAssetId string @Asset ID defining this Item's properties.
+--- @field itemTemplateId string @Asset reference that is spawned as a child of an ItemObject when spawned in the world. May be `nil`.
+--- @field maximumStackCount number @The maximum number of items in one stack of this item. Zero or negative numbers indicate no limit.
+--- @field inventory Inventory @The Inventory which owns this item.
+--- @field slot number @The slot number to which this item has been assigned within its owning Inventory.
+--- @field count number @The number of items this object represents.
+--- @field type string
+local InventoryItemInstance = {}
+--- Sets the value of a custom property. The value must match the existing type of the property. Returns `true` if the property was successfully set. If the property could not be set, returns `false` or raises an error depending on the cause of the failure.
+--- @param propertyName string
+--- @param propertyValue any
+--- @return boolean
+function InventoryItemInstance:SetCustomProperty(propertyName, propertyValue) end
+
+--- Returns the value of a specific custom property or `nil` if the Item does not possess the custom property. The second return value is `true` if the property is found or `false` if it is not. Initial values are inherited from the Item asset defining this item.
+--- @param propertyName string
+--- @return any|boolean
+function InventoryItemInstance:GetCustomProperty(propertyName) end
+
+--- Returns a table containing the names and values of all custom properties on this item. Initial values are inherited from the Item asset defining this item.
+--- @return table
+function InventoryItemInstance:GetCustomProperties() end
+
+--- @param typeName string
+--- @return boolean
+function InventoryItemInstance:IsA(typeName) end
+
+--- @class GlobalInventoryItem : Object @InventoryItem is an Object which implements the [Item](item.md) interface. It represents an Item stored in an Inventory and has no 3D representation in the world.
+InventoryItem = {}
+
+--- @class ItemObject : CoreObject @ItemObject is a CoreObject which implements the [Item](item.md) interface. It represents an Item that has been spawned in the world.
+--- @field changedEvent Event @Fired when the count or a custom property value of an ItemObject has changed.
+--- @field itemAssetId string @Asset ID defining this ItemObject's properties.
+--- @field itemTemplateId string @Asset reference that is spawned as a child of the ItemObject when spawned in the world. This is inherited from the item asset's Item Template property. May be `nil`.
+--- @field maximumStackCount number @The maximum number of items in one stack of this item. This is inherited from the item asset's Maximum Stack Count property. Zero or negative numbers indicate no limit.
+--- @field count number @The number of items this object represents.
+--- @field type string
+local ItemObjectInstance = {}
+--- @param typeName string
+--- @return boolean
+function ItemObjectInstance:IsA(typeName) end
+
+--- @class GlobalItemObject : CoreObject @ItemObject is a CoreObject which implements the [Item](item.md) interface. It represents an Item that has been spawned in the world.
+ItemObject = {}
 
 --- @class LeaderboardEntry @A data structure containing a player's entry on a leaderboard. See the `Leaderboards` API for information on how to retrieve or update a `LeaderboardEntry`.
 --- @field id string @The ID of the `Player` whose entry this is.
@@ -1546,7 +1861,7 @@ function NetworkContextInstance:IsA(typeName) end
 --- @class GlobalNetworkContext : CoreObject @NetworkContext is a CoreObject representing a special folder containing client-only, server-only, or static objects.. . They have no properties or functions of their own, but inherit everything from CoreObject.
 NetworkContext = {}
 
---- @class Object @At a high level, Core Lua types can be divided into two groups: data structures and Objects. Data structures are owned by Lua, while Objects are owned by the engine and could be destroyed while still referenced by Lua. Any such object will inherit from this type. These include CoreObject, Player and Projectile.
+--- @class Object @At a high level, Core Lua types can be divided into two groups: data structures and Objects. Data structures are owned by Lua, while Objects are owned by the engine and could be destroyed while still referenced by Lua. Any such object will inherit from this type. These include CoreObject, Player, and Projectile.
 --- @field serverUserData table @Table in which users can store any data they want on the server.
 --- @field clientUserData table @Table in which users can store any data they want on the client.
 --- @field type string
@@ -1555,7 +1870,7 @@ local ObjectInstance = {}
 --- @return boolean
 function ObjectInstance:IsA(typeName) end
 
---- @class GlobalObject @At a high level, Core Lua types can be divided into two groups: data structures and Objects. Data structures are owned by Lua, while Objects are owned by the engine and could be destroyed while still referenced by Lua. Any such object will inherit from this type. These include CoreObject, Player and Projectile.
+--- @class GlobalObject @At a high level, Core Lua types can be divided into two groups: data structures and Objects. Data structures are owned by Lua, while Objects are owned by the engine and could be destroyed while still referenced by Lua. Any such object will inherit from this type. These include CoreObject, Player, and Projectile.
 Object = {}
 --- Returns true if object is still a valid Object, or false if it has been destroyed. Also returns false if passed a nil value or something that's not an Object, such as a Vector3 or a string.
 --- @param object any
@@ -1637,7 +1952,7 @@ PhysicsObject = {}
 --- @field bindingReleasedEvent Event @Fired when an action binding is released. Second parameter tells you which binding.
 --- @field resourceChangedEvent Event @Fired when a resource changed, indicating the type of the resource and its new amount.
 --- @field movementModeChangedEvent Event @Fired when a Player's movement mode changes. The first parameter is the Player being changed. The second parameter is the "new" movement mode. The third parameter is the "previous" movement mode. Possible values for MovementMode are: MovementMode.NONE, MovementMode.WALKING, MovementMode.FALLING, MovementMode.SWIMMING, MovementMode.FLYING.
---- @field animationEvent Event @Some animations have events specified at important points of the animation (e.g. the impact point in a punch animation). This event is fired with the Player that triggered it, the name of the event at those points, and the name of the animation itself. Events generated from default stances on the player will return "animation_stance" as the animation name.
+--- @field animationEvent Event @Some animations have events specified at important points of the animation (for example the impact point in a punch animation). This event is fired with the Player that triggered it, the name of the event at those points, and the name of the animation itself. Events generated from default stances on the player will return "animation_stance" as the animation name.
 --- @field emoteStartedEvent Event @Fired when the Player begins playing an emote.
 --- @field emoteStoppedEvent Event @Fired when the Player stops playing an emote or an emote is interrupted.
 --- @field perkChangedEvent Event @Fired when a player's list of owned perks has changed, indicating which perk's amount has changed. Do not expect this event to fire for perks that a player already has when they join a game. Use the `HasPerk(NetReference)` or `GetPerkCount(NetReference)` function for any initial logic that needs to be handled when joining. Also, this event may not actively fire when a perk expires, but it may fire for an expired perk as a result of purchasing a different perk.
@@ -1763,6 +2078,10 @@ function PlayerInstance:GetEquipment() end
 --- Returns a table containing CoreObjects attached to this player.
 --- @return table<number, CoreObject>
 function PlayerInstance:GetAttachedObjects() end
+
+--- Returns a list of Inventory objects assigned to the player. If the player has no assigned inventories, this list is empty.
+--- @return table<number, Inventory>
+function PlayerInstance:GetInventories() end
 
 --- Returns an array of all IKAnchor objects activated on this player.
 --- @return table<number, IKAnchor>
@@ -2568,7 +2887,7 @@ function TreadedVehicleInstance:IsA(typeName) end
 --- @class GlobalTreadedVehicle : Vehicle @TreadedVehicle is a Vehicle with treads, such as a tank or a tonk.
 TreadedVehicle = {}
 
---- @class Trigger : CoreObject @A trigger is an invisible and non-colliding CoreObject which fires events when it interacts with another object (e.g. A Player walks into it):
+--- @class Trigger : CoreObject @A trigger is an invisible and non-colliding CoreObject which fires events when it interacts with another object (for example a Player walks into it):
 --- @field beginOverlapEvent Event @Fired when an object enters the Trigger volume. The first parameter is the Trigger itself. The second is the object overlapping the Trigger, which may be a CoreObject, a Player, or some other type. Call `other:IsA()` to check the type.
 --- @field endOverlapEvent Event @Fired when an object exits the Trigger volume. Parameters the same as `beginOverlapEvent.`
 --- @field interactedEvent Event @Fired when a player uses the interaction on a trigger volume (<kbd>F</kbd> key). The first parameter is the Trigger itself and the second parameter is a Player.
@@ -2592,7 +2911,7 @@ function TriggerInstance:GetOverlappingObjects() end
 --- @return boolean
 function TriggerInstance:IsA(typeName) end
 
---- @class GlobalTrigger : CoreObject @A trigger is an invisible and non-colliding CoreObject which fires events when it interacts with another object (e.g. A Player walks into it):
+--- @class GlobalTrigger : CoreObject @A trigger is an invisible and non-colliding CoreObject which fires events when it interacts with another object (for example a Player walks into it):
 Trigger = {}
 
 --- @class UIButton : UIControl @A UIControl for a button, should be inside client context. Inherits from [UIControl](uicontrol.md).
@@ -3120,6 +3439,7 @@ function Vector4.New(xy, zw) end
 --- @field clientMovementHook Hook @Hook called when processing the driver's input. The `parameters` table contains "throttleInput", "steeringInput", and "isHandbrakeEngaged". This is only called on the driver's client. "throttleInput" is a number -1.0, to 1.0, with positive values indicating forward input. "steeringInput" is the same, and positive values indicate turning to the right. "isHandbrakeEngaged" is a boolean.
 --- @field serverMovementHook Hook @Hook called when on the server for a vehicle with no driver. This has the same parameters as clientMovementHook.
 --- @field damageHook Hook @Hook called when applying damage from a call to `ApplyDamage()`. The incoming damage may be modified or prevented by modifying properties on the `damage` parameter.
+--- @field canExit boolean @Returns `true` if the driver of the vehicle is allowed to exit using the Vehicle Exit binding.
 --- @field isAccelerating boolean @Returns `true` if the vehicle is currently accelerating.
 --- @field driver Player @The Player currently driving the vehicle, or `nil` if there is no driver.
 --- @field mass number @Returns the mass of the vehicle in kilograms.
@@ -3258,7 +3578,7 @@ VoiceChatChannel = {}
 
 --- @class Weapon : Equipment @A Weapon is an Equipment that comes with built-in Abilities and fires Projectiles.
 --- @field projectileSpawnedEvent Event @Fired when a Weapon spawns a projectile.
---- @field targetImpactedEvent Event @Fired when a Weapon interacts with something. E.g. a shot hits a wall. The `ImpactData` parameter contains information such as which object was hit, who owns the Weapon, which ability was involved in the interaction, etc.
+--- @field targetImpactedEvent Event @Fired when a Weapon interacts with something. For example a shot hits a wall. The `ImpactData` parameter contains information such as which object was hit, who owns the Weapon, which ability was involved in the interaction, etc.
 --- @field targetInteractionEvent Event @targetInteractionEvent is deprecated. Please use targetImpactedEvent instead.
 --- @field attackCooldownDuration number @Interval between separate burst sequences. The value is set by the Shoot ability's Cooldown duration.
 --- @field animationStance string @When the Weapon is equipped this animation stance is applied to the Player.
@@ -3396,6 +3716,11 @@ function CoreDebug.GetStackTrace() end
 --- @return string
 function CoreDebug.GetTaskStackTrace() end
 
+--- Returns a string representation of the given value. By default this will return the same result as Lua's built-in `tostring()` function, but some types may return additional information useful for debugging. The format of strings returned by this function is subject to change and should never be relied upon to return specific information.
+--- @param object any
+--- @return string
+function CoreDebug.ToString(object) end
+
 --- @class CoreMath
 local CoreMathInstance = {}
 --- @class GlobalCoreMath
@@ -3427,7 +3752,7 @@ function CoreMath.Clamp(x, min, max) end
 local CorePlatformInstance = {}
 --- @class GlobalCorePlatform
 CorePlatform = {}
---- Requests metadata for a game with the given ID. Accepts full game IDs (eg "67442ee5c0654855b51c4f5fc96ab0fd") as well as the shorter slug version ("67442e/farmers-market"). This function may yield until a result is available, and may raise an error if the game ID is invalid or if an error occurs retrieving the information. Results may be cached for later calls.
+--- Requests metadata for a game with the given ID. Accepts full game IDs (for example "67442ee5c0654855b51c4f5fc96ab0fd") as well as the shorter slug version ("67442e/farmers-market"). This function may yield until a result is available, and may raise an error if the game ID is invalid or if an error occurs retrieving the information. Results may be cached for later calls.
 --- @param gameId string
 --- @return CoreGameInfo
 function CorePlatform.GetGameInfo(gameId) end
@@ -3622,7 +3947,7 @@ function Game.GetLocalPlayer() end
 --- @return Player
 function Game.FindPlayer(playerId) end
 
---- Returns a table containing the players currently in the game. An optional table may be provided containing parameters to filter the list of players returned: ignoreDead(boolean), ignoreLiving(boolean), ignoreSpawned(boolean), ignoreDespawned(boolean), ignoreTeams(integer or table of integer), includeTeams(integer or table of integer), ignorePlayers(Player or table of Player), E.g.: `Game.GetPlayers({ignoreDead = true, ignorePlayers = Game.GetLocalPlayer()})`.
+--- Returns a table containing the players currently in the game. An optional table may be provided containing parameters to filter the list of players returned: ignoreDead(boolean), ignoreLiving(boolean), ignoreSpawned(boolean), ignoreDespawned(boolean), ignoreTeams(integer or table of integer), includeTeams(integer or table of integer), ignorePlayers(Player or table of Player), for example: `Game.GetPlayers({ignoreDead = true, ignorePlayers = Game.GetLocalPlayer()})`.
 --- @overload fun(): table<number, Player>
 --- @param optionalParams table
 --- @return table<number, Player>
@@ -3736,6 +4061,7 @@ local InputInstance = {}
 --- @field actionReleasedEvent Event @Fired when a player stops an input action by releasing a key, button, or other input control.
 --- @field inputTypeChangedEvent Event @Fired when the active input device has changed to a new type of input.
 --- @field escapeHook Hook @Hook called when the local player presses the Escape key. The `parameters` table contains a `boolean` named "openPauseMenu", which may be set to `false` to prevent the pause menu from being opened. Players may press `Shift-Esc` to force the pause menu to open without calling this hook.
+--- @field actionHook Hook @Hook called each frame with a list of changes in action values since the previous frame. The `actionList` table is an array of tables with the structure {action = "actionName", value = `number` or `Vector2`} for each action whose value has changed since the last frame. If no values have changed, `actionList` will be empty, even if there are actions currently being held. Entries in the table can be added, removed, or changed and will affect whether pressed and released events fire. If a non-zero value is changed to zero then `Input.actionReleasedEvent` will fire for that action. If a zero value changes to non-zero then `Input.actionPressedEvent` will fire.
 Input = {}
 --- Returns the current input value associated with the specified action. This will return a `Vector2` for direction bindings, a `number` for basic and axis bindings, or `nil` for invalid bindings. `nil` may also be returned when called on the server with a non-networked action name or a networked action which simply hasn't been pressed yet.
 --- @param player Player
@@ -3762,6 +4088,26 @@ function Input.IsYAxisInverted(inputType) end
 --- @param action string
 --- @return string
 function Input.GetActionDescription(action) end
+
+--- Returns a string label indicating the key or button assigned to the specified action. Returns `nil` if `actionName` is not a valid action or if an invalid `direction` parameter is specified for axis and direction bindings. Returns "None" for valid actions with no control bound.
+--- 
+--- Supported parameters include:
+--- 
+--- `direction (string)`: *Required* for axis and direction bindings, specifying "positive" or "negative" for axis bindings, or "up", "down", "left", or "right" for direction bindings.
+--- 
+--- `inputType (InputType)`: Specifies whether to return a label for keyboard and mouse or controller. Defaults to the current active input type.
+--- 
+--- `secondary (boolean)`: When `true` and returning a label for keyboard and mouse, returns a label for the secondary input.
+--- @overload fun(action: string): string
+--- @param action string
+--- @param optionalParams table
+--- @return string
+function Input.GetActionInputLabel(action, optionalParams) end
+
+--- Returns `true` when the current device supports the given input type. For example, `Input.IsInputEnabled(InputType.CONTROLLER)` will return `true` if a gamepad is connected.
+--- @param inputType InputType
+--- @return boolean
+function Input.IsInputTypeEnabled(inputType) end
 
 --- Returns a list of the names of each action from currently active binding sets. Actions are included in this list regardless of whether the action is currently held or not.
 --- @return table<number, string>
@@ -4040,6 +4386,14 @@ function UI.SetSocialMenuEnabled(isEnabled) end
 --- Returns whether the social menu is enabled.
 --- @return boolean
 function UI.IsSocialMenuEnabled() end
+
+--- Returns whether the voice chat widget is currently visible. Note that this may return `true` when the voice chat widget is not currently displaying anything on the screen.
+--- @return boolean
+function UI.IsVoiceChatWidgetVisible() end
+
+--- Sets whether the voice chat widget is currently visible.
+--- @param isVisible boolean
+function UI.SetVoiceChatWidgetVisible(isVisible) end
 
 --- @class VoiceChat
 local VoiceChatInstance = {}
