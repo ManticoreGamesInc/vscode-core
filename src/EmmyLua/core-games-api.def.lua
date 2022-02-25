@@ -1313,6 +1313,10 @@ function HitResultInstance:GetShapePosition() end
 --- @return Transform
 function HitResultInstance:GetTransform() end
 
+--- For HitResults involving a `CoreMesh`, returns a MaterialSlot instance indicating which material on the mesh was impacted. For certain types of collisions, including when the impacted object is not a `CoreMesh`, a `MaterialSlot` is not available, and `nil` is returned.
+--- @return MaterialSlot
+function HitResultInstance:GetMaterialSlot() end
+
 --- @param typeName string
 --- @return boolean
 function HitResultInstance:IsA(typeName) end
@@ -1430,7 +1434,7 @@ function InventoryInstance:Unassign() end
 --- @return InventoryItem
 function InventoryInstance:GetItem(slot) end
 
---- Returns a list of all items in the inventory. Returns an empty list if the inventory is empty.
+--- Returns a table mapping integer slot number to the inventory item in that slot. Note that this may leave gaps in the table if the inventory contains empty slots, so use with `ipairs()` is not recommended. Returns an empty table if the inventory is empty.
 --- 
 --- Supported parameters include:
 --- 
@@ -1956,6 +1960,8 @@ PhysicsObject = {}
 --- @field emoteStartedEvent Event @Fired when the Player begins playing an emote.
 --- @field emoteStoppedEvent Event @Fired when the Player stops playing an emote or an emote is interrupted.
 --- @field perkChangedEvent Event @Fired when a player's list of owned perks has changed, indicating which perk's amount has changed. Do not expect this event to fire for perks that a player already has when they join a game. Use the `HasPerk(NetReference)` or `GetPerkCount(NetReference)` function for any initial logic that needs to be handled when joining. Also, this event may not actively fire when a perk expires, but it may fire for an expired perk as a result of purchasing a different perk.
+--- @field interactableFocusedEvent Event @Fired when a player has focused on an interactable Trigger and may interact with it.
+--- @field interactableUnfocusedEvent Event @Fired when a player is no longer focused on a previously focused interactable Trigger.
 --- @field privateNetworkedDataChangedEvent Event @Fired when the player's private data changes. On the client, only the local player's private data is available.
 --- @field movementHook Hook @Hook called when processing a Player's movement. The `parameters` table contains a `Vector3` named "direction", indicating the direction the player will move.
 --- @field damageHook Hook @Hook called when applying damage from a call to `ApplyDamage()`. The incoming damage may be modified or prevented by modifying properties on the `damage` parameter.
@@ -2321,6 +2327,10 @@ function PlayerInstance:GetPrivateNetworkedDataKeys() end
 --- Returns the number of bytes used by private networked data on this player. Returns 0 if private networked data is not available.
 --- @return number
 function PlayerInstance:GetPrivateNetworkedDataSize() end
+
+--- If the player is currently focused on an interactable Trigger, returns that Trigger. Returns `nil` if the player is not currently focused on an interactable Trigger.
+--- @return Trigger
+function PlayerInstance:GetInteractableTarget() end
 
 --- @param typeName string
 --- @return boolean
@@ -2891,6 +2901,8 @@ TreadedVehicle = {}
 --- @field beginOverlapEvent Event @Fired when an object enters the Trigger volume. The first parameter is the Trigger itself. The second is the object overlapping the Trigger, which may be a CoreObject, a Player, or some other type. Call `other:IsA()` to check the type.
 --- @field endOverlapEvent Event @Fired when an object exits the Trigger volume. Parameters the same as `beginOverlapEvent.`
 --- @field interactedEvent Event @Fired when a player uses the interaction on a trigger volume (<kbd>F</kbd> key). The first parameter is the Trigger itself and the second parameter is a Player.
+--- @field interactableFocusedEvent Event @Fired when a player has focused on an interactable Trigger and may interact with it.
+--- @field interactableUnfocusedEvent Event @Fired when a player is no longer focused on a previously focused interactable Trigger.
 --- @field isInteractable boolean @Interactable Triggers expect Players to walk up and press the <kbd>F</kbd> key to activate them.
 --- @field interactionLabel string @The text players will see in their HUD when they come into range of interacting with this trigger.
 --- @field team number @Assigns the trigger to a team. Value range from 0 to 4. 0 is neutral team.
@@ -4453,6 +4465,20 @@ function VoiceChat.IsPlayerSpeaking(player) end
 --- @return number
 function VoiceChat.GetPlayerSpeakingVolume(player) end
 
+--- Returns `true` if Core has detected a microphone for the given player, otherwise returns `false`.
+--- @param player Player
+--- @return boolean
+function VoiceChat.HasMicrophone(player) end
+
+--- Returns `true` if the given player has enabled voice chat in their settings.
+--- @param player Player
+--- @return boolean
+function VoiceChat.IsVoiceChatEnabled(player) end
+
+--- Returns the method the local player has selected in their settings to activate voice chat.
+--- @return VoiceChatMethod
+function VoiceChat.GetVoiceChatMethod() end
+
 --- @class World
 local WorldInstance = {}
 --- @class GlobalWorld
@@ -4877,6 +4903,11 @@ Visibility = {
 VoiceChannelType = {
     NORMAL = 0,
     POSITIONAL = 1,
+}
+--- @class VoiceChatMethod @Indicates the setting a player uses to activate voice chat.
+VoiceChatMethod = {
+    PUSH_TO_TALK = 0,
+    DETECT_SPEAKING = 2,
 }
 --- @class VoiceChatMode @Controls whether voice chat is enabled in the game.
 VoiceChatMode = {
