@@ -5,6 +5,24 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.8.10](https://github.com/ManticoreGamesInc/vscode-core/compare/1.8.9...1.8.10) - 2022-02-28
+
+### Commits
+
+- Bump esbuild from 0.14.21 to 0.14.23 [`c9cacef`](https://github.com/ManticoreGamesInc/vscode-core/commit/c9cacef21e1658ff26b26ce73a4da98773ca636b)
+- Bump @typescript-eslint/parser from 5.12.0 to 5.12.1 [`bda6bab`](https://github.com/ManticoreGamesInc/vscode-core/commit/bda6bab89987b0c98f79de63b48b6ccc05fe2e80)
+- Bump @typescript-eslint/eslint-plugin from 5.11.0 to 5.12.0 [`6946957`](https://github.com/ManticoreGamesInc/vscode-core/commit/694695771d6580e278697d9b09a948a786bc314e)
+- Bump @typescript-eslint/eslint-plugin from 5.12.0 to 5.12.1 [`59c996c`](https://github.com/ManticoreGamesInc/vscode-core/commit/59c996cf0da1c68c13cfd687dffac49a317bbefb)
+- Bump @typescript-eslint/typescript-estree from 5.12.0 to 5.12.1 [`932e409`](https://github.com/ManticoreGamesInc/vscode-core/commit/932e40967c3fd60ef01d6258197148b367306e35)
+- Bump @typescript-eslint/parser from 5.11.0 to 5.12.0 [`f6bd9f0`](https://github.com/ManticoreGamesInc/vscode-core/commit/f6bd9f00fc0012cd337867320dbecb410efa3a98)
+- Add Patch 1.0.233 API [`43d1af2`](https://github.com/ManticoreGamesInc/vscode-core/commit/43d1af229d55d61ff1090e30a2081fedbca417fb)
+- Bump eslint from 8.9.0 to 8.10.0 [`24dadac`](https://github.com/ManticoreGamesInc/vscode-core/commit/24dadacc9ae96c53d5bfa4aa08d8fa76009f6339)
+- Bump @types/node from 17.0.19 to 17.0.21 [`8735727`](https://github.com/ManticoreGamesInc/vscode-core/commit/873572768375e99d77653d93795060df48083c2e)
+- Bump @types/node from 17.0.18 to 17.0.19 [`3bb7153`](https://github.com/ManticoreGamesInc/vscode-core/commit/3bb7153f4229626f5c9c77cdb29b6c280bb13e8e)
+- Bump mocha from 9.2.0 to 9.2.1 [`e361d4c`](https://github.com/ManticoreGamesInc/vscode-core/commit/e361d4c21142f2e8814bd48ddf1f5573679af554)
+- Bump @types/node from 17.0.17 to 17.0.18 [`b0c7be3`](https://github.com/ManticoreGamesInc/vscode-core/commit/b0c7be3f41e99c2ccfcbf2f6fa6cd8c53391d7f5)
+- Bump actions/setup-node from 2.5.1 to 3 [`05e2fb7`](https://github.com/ManticoreGamesInc/vscode-core/commit/05e2fb780489108d319952cc2ec410967565ba8c)
+
 ## [1.8.9](https://github.com/ManticoreGamesInc/vscode-core/compare/1.8.8...1.8.9) - 2022-02-14
 
 ### Commits
