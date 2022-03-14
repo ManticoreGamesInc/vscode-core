@@ -963,6 +963,11 @@ function CoreObjectInstance:SetCustomProperty(propertyName, propertyValue) end
 --- @return boolean
 function CoreObjectInstance:SetNetworkedCustomProperty(propertyName, propertyValue) end
 
+--- Returns `true` if the named custom property exists and is marked as dynamic. Otherwise, returns `false`.
+--- @param propertyName string
+--- @return boolean
+function CoreObjectInstance:IsCustomPropertyDynamic(propertyName) end
+
 --- @param typeName string
 --- @return boolean
 function CoreObjectInstance:IsA(typeName) end
@@ -1702,6 +1707,11 @@ function InventoryItemInstance:GetCustomProperty(propertyName) end
 --- Returns a table containing the names and values of all custom properties on this item. Initial values are inherited from the Item asset defining this item.
 --- @return table
 function InventoryItemInstance:GetCustomProperties() end
+
+--- Returns `true` if the named custom property exists and is marked as dynamic. Otherwise, returns `false`.
+--- @param propertyName string
+--- @return boolean
+function InventoryItemInstance:IsCustomPropertyDynamic(propertyName) end
 
 --- @param typeName string
 --- @return boolean
@@ -4124,6 +4134,19 @@ function Input.IsInputTypeEnabled(inputType) end
 --- Returns a list of the names of each action from currently active binding sets. Actions are included in this list regardless of whether the action is currently held or not.
 --- @return table<number, string>
 function Input.GetActions() end
+
+--- Enables the specified action, if the action exists.
+--- @param action string
+function Input.EnableAction(action) end
+
+--- Disables the specified action, if the action exists. If the action is currently held, this will also release the action.
+--- @param action string
+function Input.DisableAction(action) end
+
+--- Returns `true` if the specified action is enabled. Returns `false` if the action is disabled or does not exist.
+--- @param action string
+--- @return boolean
+function Input.IsActionEnabled(action) end
 
 --- @class Leaderboards
 local LeaderboardsInstance = {}
