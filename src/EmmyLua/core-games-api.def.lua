@@ -89,6 +89,10 @@ function AbilityInstance:SetTargetData(target) end
 --- @return AbilityPhase
 function AbilityInstance:GetCurrentPhase() end
 
+--- Returns the settings for the current phase of this Ability. Returns `nil` if the current phase is `AbilityPhase.READY`.
+--- @return AbilityPhaseSettings
+function AbilityInstance:GetCurrentPhaseSettings() end
+
 --- Seconds left in the current phase.
 --- @return number
 function AbilityInstance:GetPhaseTimeRemaining() end
@@ -2265,6 +2269,10 @@ function PlayerInstance:ActivateWalking() end
 --- @param isMounted boolean
 function PlayerInstance:SetMounted(isMounted) end
 
+--- Returns the Ability that is currently active on the player, or `nil` if no ability is currently active. Abilities are considered active if they are in `CAST`, `EXECUTE`, or `RECOVERY` phases. Abilities in `COOLDOWN` or `READY` phase are not considered active.
+--- @return Ability
+function PlayerInstance:GetActiveAbility() end
+
 --- Returns whichever camera is currently active for the Player.
 --- @return Camera
 function PlayerInstance:GetActiveCamera() end
@@ -4126,6 +4134,10 @@ function Input.GetActionDescription(action) end
 --- @return string
 function Input.GetActionInputLabel(action, optionalParams) end
 
+--- Returns a Vector2 with the `x`, `y` coordinates of the mouse cursor on the screen. May return `nil` if the cursor position cannot be determined.
+--- @return Vector2
+function Input.GetCursorPosition() end
+
 --- Returns `true` when the current device supports the given input type. For example, `Input.IsInputEnabled(InputType.CONTROLLER)` will return `true` if a gamepad is connected.
 --- @param inputType InputType
 --- @return boolean
@@ -4134,19 +4146,6 @@ function Input.IsInputTypeEnabled(inputType) end
 --- Returns a list of the names of each action from currently active binding sets. Actions are included in this list regardless of whether the action is currently held or not.
 --- @return table<number, string>
 function Input.GetActions() end
-
---- Enables the specified action, if the action exists.
---- @param action string
-function Input.EnableAction(action) end
-
---- Disables the specified action, if the action exists. If the action is currently held, this will also release the action.
---- @param action string
-function Input.DisableAction(action) end
-
---- Returns `true` if the specified action is enabled. Returns `false` if the action is disabled or does not exist.
---- @param action string
---- @return boolean
-function Input.IsActionEnabled(action) end
 
 --- @class Leaderboards
 local LeaderboardsInstance = {}
@@ -4344,7 +4343,7 @@ function UI.GetScreenSize() end
 --- @param color Color
 function UI.PrintToScreen(message, color) end
 
---- Returns a Vector2 with the `x`, `y` coordinates of the mouse cursor on the screen. May return `nil` if the cursor position cannot be determined.
+--- *This function is deprecated. Please use Input.GetCursorPosition() instead.* Returns a Vector2 with the `x`, `y` coordinates of the mouse cursor on the screen. May return `nil` if the cursor position cannot be determined.
 --- @return Vector2
 function UI.GetCursorPosition() end
 
