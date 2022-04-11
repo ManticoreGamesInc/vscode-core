@@ -1366,7 +1366,7 @@ HookListener = {}
 --- @class IKAnchor : CoreObject @IKAnchors are objects that can be used to control player animations. They can be used to specify the position of a specific hand, foot, or the hips of a player, and can be controlled from script to create complex animations.
 --- @field activatedEvent Event @Fired when this IKAnchor is activated on a player.
 --- @field deactivatedEvent Event @Fired when this IKAnchor is deactivated from a player.
---- @field target string @Which Player the IKAnchor is activated on.
+--- @field target Player @Which Player the IKAnchor is activated on.
 --- @field anchorType IKAnchorType @Which socket this IKAnchor applies to.
 --- @field blendInTime number @The duration over which this IKAnchor is blended when it is activated.
 --- @field blendOutTime number @The duration over which this IKAnchor is blended when it is deactivated.
@@ -2956,6 +2956,7 @@ Trigger = {}
 --- @field shouldClipToSize boolean @Whether or not the button and its shadow should be clipped when exceeding the bounds of this control.
 --- @field shouldScaleToFit boolean @Whether or not the button's label should scale down to fit within the bounds of this control.
 --- @field boundAction string @Returns the name of the action binding that is toggled when the button is pressed or released, or `nil` if no binding has been set.
+--- @field isHittable boolean @When set to `true`, this control can receive input from the cursor and blocks input to controls behind it. When set to `false`, the cursor ignores this control and can interact with controls behind it.
 --- @field type string
 local UIButtonInstance = {}
 --- Sets the image to a new MUID. You can get this MUID from an Asset Reference.
@@ -3042,6 +3043,10 @@ function UIContainerInstance:GetCanvasSize() end
 --- @param size Vector2
 function UIContainerInstance:SetCanvasSize(size) end
 
+--- Returns `true` if the container has completed initialization, otherwise returns `false`. Calls to get or set the absolute position of controls within a container may not perform correctly before the container has finished initialization.
+--- @return boolean
+function UIContainerInstance:IsCanvasReady() end
+
 --- @param typeName string
 --- @return boolean
 function UIContainerInstance:IsA(typeName) end
@@ -3090,6 +3095,7 @@ UIControl = {}
 --- @field unhoveredEvent Event @Fired when button is unhovered.
 --- @field isInteractable boolean @Returns whether the button can interact with the cursor (click, hover, etc).
 --- @field eventId string @Returns the ID of the event for which this button is currently configured. This ID can be found in the creator dashboard or using the `CoreGameEvent.id` property of an event returned from various `CorePlatform` functions.
+--- @field isHittable boolean @When set to `true`, this control can receive input from the cursor and blocks input to controls behind it. When set to `false`, the cursor ignores this control and can interact with controls behind it.
 --- @field type string
 local UIEventRSVPButtonInstance = {}
 --- @param typeName string
@@ -3105,6 +3111,7 @@ UIEventRSVPButton = {}
 --- @field shouldClipToSize boolean @Whether or not the image and its shadow should be clipped when exceeding the bounds of this control.
 --- @field isFlippedHorizontal boolean @Whether or not the image is flipped horizontally.
 --- @field isFlippedVertical boolean @Whether or not the image is flipped vertically.
+--- @field isHittable boolean @When set to `true`, this control can receive input from the cursor and blocks input to controls behind it. When set to `false`, the cursor ignores this control and can interact with controls behind it.
 --- @field type string
 local UIImageInstance = {}
 --- Returns the current color of the UIImage.
@@ -3187,6 +3194,7 @@ UIPanel = {}
 --- @field hoveredEvent Event @Fired when button is hovered.
 --- @field unhoveredEvent Event @Fired when button is unhovered.
 --- @field isInteractable boolean @Returns whether the button can interact with the cursor (click, hover, etc).
+--- @field isHittable boolean @When set to `true`, this control can receive input from the cursor and blocks input to controls behind it. When set to `false`, the cursor ignores this control and can interact with controls behind it.
 --- @field type string
 local UIPerkPurchaseButtonInstance = {}
 --- Configures this button to use the specified perk.
@@ -3209,6 +3217,7 @@ UIPerkPurchaseButton = {}
 --- @field fillType ProgressBarFillType @Controls the direction in which the progress bar fills.
 --- @field fillTileType ImageTileType @How the fill texture is tiled.
 --- @field backgroundTileType ImageTileType @How the background texture is tiled.
+--- @field isHittable boolean @When set to `true`, this control can receive input from the cursor and blocks input to controls behind it. When set to `false`, the cursor ignores this control and can interact with controls behind it.
 --- @field type string
 local UIProgressBarInstance = {}
 --- Sets the progress bar fill to use the image specified by the given asset ID.
@@ -3251,6 +3260,7 @@ function UIProgressBarInstance:IsA(typeName) end
 UIProgressBar = {}
 
 --- @class UIRewardPointsMeter : UIControl @A UIControl that displays the a players progress towards the daily Reward Points cap. Inherits from [UIControl](uicontrol.md).
+--- @field isHittable boolean @When set to `true`, this control can receive input from the cursor and blocks input to controls behind it. When set to `false`, the cursor ignores this control and can interact with controls behind it.
 --- @field type string
 local UIRewardPointsMeterInstance = {}
 --- @param typeName string
@@ -3282,6 +3292,7 @@ UIScrollPanel = {}
 --- @field shouldWrapText boolean @Whether or not text should be wrapped within the bounds of this control.
 --- @field shouldClipText boolean @Whether or not text should be clipped when exceeding the bounds of this control.
 --- @field shouldScaleToFit boolean @Whether or not text should scale down to fit within the bounds of this control.
+--- @field isHittable boolean @When set to `true`, this control can receive input from the cursor and blocks input to controls behind it. When set to `false`, the cursor ignores this control and can interact with controls behind it.
 --- @field type string
 local UITextInstance = {}
 --- Returns the color of the Text.
@@ -3922,6 +3933,10 @@ function Environment.IsLocalGame() end
 --- @return boolean
 function Environment.IsHostedGame() end
 
+--- Returns the Detail Level selected by the player in the Settings menu. Useful for determining whether to spawn templates for VFX or other client-only objects, or selecting templates that are optimized for a particular detail level based on the player's settings.
+--- @return DetailLevel
+function Environment.GetDetailLevel() end
+
 --- @class Events
 local EventsInstance = {}
 --- @class GlobalEvents
@@ -4090,6 +4105,14 @@ local InputInstance = {}
 --- @field actionPressedEvent Event @Fired when a player starts an input action by pressing a key, button, or other input control. The third parameter, `value`, will be a `Vector2` for direction bindings, or a `number` for axis and basic bindings.
 --- @field actionReleasedEvent Event @Fired when a player stops an input action by releasing a key, button, or other input control.
 --- @field inputTypeChangedEvent Event @Fired when the active input device has changed to a new type of input.
+--- @field pinchStartedEvent Event @Fired when the player begins a pinching gesture on a touch input device. `Input.GetPinchValue()` may be polled during the pinch gesture to determine how far the player has pinched.
+--- @field pinchStoppedEvent Event @Fired when the player ends a pinching gesture on a touch input device.
+--- @field rotateStartedEvent Event @Fired when the player begins a rotating gesture on a touch input device. `Input.GetRotateValue()` may be polled during the rotate gesture to determine how far the player has rotated.
+--- @field rotateStoppedEvent Event @Fired when the player ends a rotating gesture on a touch input device.
+--- @field flickedEvent Event @Fired when the player performs a quick flicking gesture on a touch input device. The `angle` parameter indicates the direction of the flick. 0 indicates a flick to the right. Values increase in degrees counter-clockwise, so 90 indicates a flick straight up, 180 indicates a flick to the left, etc.
+--- @field touchStartedEvent Event @Fired when the player starts touching the screen on a touch input device. Parameters are the screen location of the touch and a touch index used to distinguish between separate touches on a multitouch device.
+--- @field touchStoppedEvent Event @Fired when the player stops touching the screen on a touch input device. Parameters are the screen location from which the touch was released and a touch index used to distinguish between separate touches on a multitouch device.
+--- @field tappedEvent Event @Fired when the player taps on a touch input device. Parameters are the screen location of the tap and the touch index with which the tap was performed.
 --- @field escapeHook Hook @Hook called when the local player presses the Escape key. The `parameters` table contains a `boolean` named "openPauseMenu", which may be set to `false` to prevent the pause menu from being opened. Players may press `Shift-Esc` to force the pause menu to open without calling this hook.
 --- @field actionHook Hook @Hook called each frame with a list of changes in action values since the previous frame. The `actionList` table is an array of tables with the structure {action = "actionName", value = `number` or `Vector2`} for each action whose value has changed since the last frame. If no values have changed, `actionList` will be empty, even if there are actions currently being held. Entries in the table can be added, removed, or changed and will affect whether pressed and released events fire. If a non-zero value is changed to zero then `Input.actionReleasedEvent` will fire for that action. If a zero value changes to non-zero then `Input.actionPressedEvent` will fire.
 Input = {}
@@ -4138,6 +4161,30 @@ function Input.GetActionInputLabel(action, optionalParams) end
 --- @return Vector2
 function Input.GetCursorPosition() end
 
+--- Returns a Vector2 with the `x`, `y` coordinates of a touch input on the screen. An optional touch index may be provided to specify which touch to return on multitouch devices. If not specified, index 1 is used. Returns `nil` if the requested touch index is not currently active.
+--- @overload fun(fingerIndex: number): Vector2
+--- @return Vector2
+function Input.GetTouchPosition() end
+
+--- When the current input type is `InputType.TOUCH`, returns a Vector2 with the `x`, `y` coordinates of a touch input on the screen. When the current input type is not `InputType.TOUCH`, returns the cursor position. An optional touch index may be provided to specify which touch to return on multitouch devices. If not specified, index 1 is used. Returns `nil` if the requested touch index is not currently active. The touch index is ignored for other input types.
+--- @overload fun(fingerIndex: number): Vector2
+--- @return Vector2
+function Input.GetPointerPosition() end
+
+--- During a pinch gesture with touch input, returns a value indicating the relative progress of the pinch gesture. Pinch gestures start with a pinch value of 1 and approach 0 when pinching together, or increase past 1 when touches move apart from each other. Returns 0 if no pinch is in progress.
+--- @return number
+function Input.GetPinchValue() end
+
+--- During a rotate gesture with touch input, returns a value indicating the angle of rotation from the start of the gesture. Returns 0 if no rotate is in progress.
+--- @return number
+function Input.GetRotateValue() end
+
+--- Enables display of virtual controls on devices with touch input, or in preview mode if device emulation is enabled. Virtual controls default to enabled when using touch input.
+function Input.EnableVirtualControls() end
+
+--- Disables display of virtual controls on devices with touch input, or in preview mode with device emulation enabled.
+function Input.DisableVirtualControls() end
+
 --- Returns `true` when the current device supports the given input type. For example, `Input.IsInputEnabled(InputType.CONTROLLER)` will return `true` if a gamepad is connected.
 --- @param inputType InputType
 --- @return boolean
@@ -4146,6 +4193,19 @@ function Input.IsInputTypeEnabled(inputType) end
 --- Returns a list of the names of each action from currently active binding sets. Actions are included in this list regardless of whether the action is currently held or not.
 --- @return table<number, string>
 function Input.GetActions() end
+
+--- Enables the specified action, if the action exists.
+--- @param action string
+function Input.EnableAction(action) end
+
+--- Disables the specified action, if the action exists. If the action is currently held, this will also release the action.
+--- @param action string
+function Input.DisableAction(action) end
+
+--- Returns `true` if the specified action is enabled. Returns `false` if the action is disabled or does not exist.
+--- @param action string
+--- @return boolean
+function Input.IsActionEnabled(action) end
 
 --- @class Leaderboards
 local LeaderboardsInstance = {}
@@ -4429,6 +4489,11 @@ function UI.IsVoiceChatWidgetVisible() end
 --- @param isVisible boolean
 function UI.SetVoiceChatWidgetVisible(isVisible) end
 
+--- Looks for a hittable UI control at the given screen position. Returns the top-most control if found. Returns `nil` if no hittable control was found at the specified position.
+--- @param position Vector2
+--- @return UIControl
+function UI.FindControlAtPosition(position) end
+
 --- @class VoiceChat
 local VoiceChatInstance = {}
 --- @class GlobalVoiceChat
@@ -4576,6 +4641,8 @@ function World.SpawnAsset(assetId, optionalParameters) end
 --- 
 --- `ignoreObjects (Object, Array<Object>)`: Ignore results that are contained in this list.
 --- 
+--- `useCameraCollision (boolean)`: If `true`, results are found based on objects' camera collision property rather than their game collision.
+--- 
 --- `shouldDebugRender (boolean)`: If `true`, enables visualization of the raycast in world space for debugging.
 --- 
 --- `debugRenderDuration (number)`: Number of seconds for which debug rendering should remain on screen. Defaults to 1 second.
@@ -4647,6 +4714,8 @@ function World.BoxcastAll(startPosition, endPosition, boxSize, optionalParameter
 --- `checkObjects (Object, Array<Object>)`: Only return results that are contained in this list.
 --- 
 --- `ignoreObjects (Object, Array<Object>)`: Ignore results that are contained in this list.
+--- 
+--- `useCameraCollision (boolean)`: If `true`, results are found based on objects' camera collision property rather than their game collision.
 --- @overload fun(position: Vector3,radius: number): table<number, Object>
 --- @param position Vector3
 --- @param radius number
@@ -4744,6 +4813,13 @@ DamageReason = {
     MAP = 3,
     NPC = 4,
 }
+--- @class DetailLevel @Indicates the desired detail level selected by the player in the Settings menu.
+DetailLevel = {
+    LOW = 0,
+    MEDIUM = 1,
+    HIGH = 2,
+    ULTRA = 3,
+}
 --- @class FacingMode @Describes how the player character determines which direction it should face.
 FacingMode = {
     FACE_AIM_WHEN_ACTIVE = 0,
@@ -4769,6 +4845,7 @@ ImageTileType = {
 InputType = {
     KEYBOARD_AND_MOUSE = 0,
     CONTROLLER = 1,
+    TOUCH = 2,
 }
 --- @class LeaderboardType @Identifies a specific leaderboard type associated with a leaderboard key.
 LeaderboardType = {
