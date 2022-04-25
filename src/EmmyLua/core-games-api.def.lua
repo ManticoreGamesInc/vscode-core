@@ -2571,6 +2571,36 @@ RandomStream = {}
 function RandomStream.New(seed) end
 
 
+--- @class Rectangle @A rectangle defined by upper-left and lower-right corners. Generally assumed to be used within screen space, so the Y axis points down. This means the bottom of the rectangle is expected to be a higher value than the top.
+--- @field left number @The position of the left edge of the rectangle.
+--- @field top number @The position of the top edge of the rectangle.
+--- @field right number @The position of the right edge of the rectangle.
+--- @field bottom number @The position of the bottom edge of the rectangle.
+--- @field type string
+local RectangleInstance = {}
+--- Returns a Vector2 indicating the width and height of the rectangle.
+--- @return Vector2
+function RectangleInstance:GetSize() end
+
+--- Returns a Vector2 indicating the coordinates of the center of the rectangle.
+--- @return Vector2
+function RectangleInstance:GetCenter() end
+
+--- @param typeName string
+--- @return boolean
+function RectangleInstance:IsA(typeName) end
+
+--- @class GlobalRectangle @A rectangle defined by upper-left and lower-right corners. Generally assumed to be used within screen space, so the Y axis points down. This means the bottom of the rectangle is expected to be a higher value than the top.
+Rectangle = {}
+--- Constructs a Rectangle with the given `left`, `top`, `right`, `bottom` values, defaults to (0, 0, 0, 0).
+--- @overload fun(rectangle: Rectangle): Rectangle
+--- @overload fun(left: number,top: number,right: number,bottom: number): Rectangle
+--- @overload fun(): Rectangle
+--- @param vector Vector4
+--- @return Rectangle
+function Rectangle.New(vector) end
+
+
 --- @class Rotation @An euler-based rotation around `x`, `y`, and `z` axes.
 --- @field x number @The `x` component of the Rotation.
 --- @field y number @The `y` component of the Rotation.
@@ -3033,6 +3063,7 @@ UIButton = {}
 --- @class UIContainer : UIControl @A UIContainer is a type of UIControl. All other UI elements must be a descendant of a UIContainer to be visible. It does not have a position or size. It is always the size of the entire screen. It has no properties or functions of its own, but inherits everything from CoreObject. Inherits from [UIControl](uicontrol.md).
 --- @field opacity number @Controls the opacity of the container's contents by multiplying the alpha component of descendants' colors. Note that other UIPanels and UIContainers in the hierarchy may also contribute their own opacity values. A resulting alpha value of 1 or greater is fully opaque, 0 is fully transparent.
 --- @field cylinderArcAngle number @When the container is rendered in 3D space, this adjusts the curvature of the canvas in degrees. Changing this value will force a redraw.
+--- @field useSafeArea boolean @When `true`, the size and position of the container is inset to avoid overlapping with a device's display elements, such as a mobile phone's notch. When `false`, the container is the same size and shape as the device's display regardless of a device's display features. This property has no effect on containers rendered in 3D space.
 --- @field type string
 local UIContainerInstance = {}
 --- Returns the size of the canvas when drawn in 3D space.
@@ -4396,6 +4427,10 @@ function UI.GetScreenPosition(worldPosition) end
 --- Returns a Vector2 with the size of the Player's screen in the `x`, `y` coordinates. May return `nil` if the screen size cannot be determined.
 --- @return Vector2
 function UI.GetScreenSize() end
+
+--- Returns a rectangle in screen space indicating an area on screen that is not obscured by elements such as the notch on a mobile phone.
+--- @return Rectangle
+function UI.GetSafeArea() end
 
 --- Draws a message on the corner of the screen. Second optional Color parameter can change the color from the default white.
 --- @overload fun(message: string)
