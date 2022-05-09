@@ -397,7 +397,7 @@ function CameraInstance:IsA(typeName) end
 --- @class GlobalCamera : CoreObject @Camera is a CoreObject which is used both to configure Player Camera settings as well as to represent the position and rotation of the Camera in the world. Cameras can be configured in various ways, usually following a specific Player's view, but can also have a fixed orientation and/or position.. . Each Player (on their client) can have a default Camera and an override Camera. If they have neither, camera behavior falls back to a basic third-person behavior. Default Cameras should be used for main gameplay while override Cameras are generally employed as a temporary view, such as a when the Player is sitting in a mounted turret.
 Camera = {}
 
---- @class CameraCapture @CameraCapture represents an image rendered by a `Camera` to be used elsewhere in the game, for example in UI. Captures can be created using a fixed set of resolutions, and a finite number of captures are allowed at a time for each resolution. Creators may wish to explicitly release existing capture instances when they are no longer needed, so that they can create more elsewhere. A released capture is no longer valid, and should not be used thereafter.. . Currently, creators are limited to the following:. . * Up to 256 `VERY_SMALL` captures.. * In addition to Up to 64 `SMALL` capture.. * In addition to Up to 16 `MEDIUM` captures.. * In addition to Up to 4 `LARGE` captures.. * In addition to Up to 1 `VERY_LARGE` capture.
+--- @class CameraCapture @CameraCapture represents an image rendered by a `Camera` to be used elsewhere in the game, for example in UI. Each camera capture instance uses a certain amount of the memory based on the resolution size. Creators are free to create whatever combination (mixed resolutions) of camera captures needed up until the budget is fully consumed. Creators may wish to explicitly release existing capture instances when they are no longer needed, so that they can create more elsewhere. A released capture is no longer valid, and should not be used thereafter.. . The total budget is 8 megapixels (8,388,608 pixels).. . Below lists the total nunber of captures that can be done per resolution. Creators can mix the resolution size as long as the total budget is not above the limit of 8 megapixels.. . - 2048 maximum captures at `VERY_SMALL` resolution size.. - 512 maximum captures at `SMALL` resolution size.. - 128 maximum captures at `MEDIUM` resolution size.. - 32 maximum captures at `LARGE` resolution size.. - 8 maximum captures at `VERY_LARGE` resolution size.
 --- @field resolution CameraCaptureResolution @The resolution of this capture.
 --- @field camera Camera @The Camera to capture from.
 --- @field type string
@@ -416,7 +416,7 @@ function CameraCaptureInstance:Release() end
 --- @return boolean
 function CameraCaptureInstance:IsA(typeName) end
 
---- @class GlobalCameraCapture @CameraCapture represents an image rendered by a `Camera` to be used elsewhere in the game, for example in UI. Captures can be created using a fixed set of resolutions, and a finite number of captures are allowed at a time for each resolution. Creators may wish to explicitly release existing capture instances when they are no longer needed, so that they can create more elsewhere. A released capture is no longer valid, and should not be used thereafter.. . Currently, creators are limited to the following:. . * Up to 256 `VERY_SMALL` captures.. * In addition to Up to 64 `SMALL` capture.. * In addition to Up to 16 `MEDIUM` captures.. * In addition to Up to 4 `LARGE` captures.. * In addition to Up to 1 `VERY_LARGE` capture.
+--- @class GlobalCameraCapture @CameraCapture represents an image rendered by a `Camera` to be used elsewhere in the game, for example in UI. Each camera capture instance uses a certain amount of the memory based on the resolution size. Creators are free to create whatever combination (mixed resolutions) of camera captures needed up until the budget is fully consumed. Creators may wish to explicitly release existing capture instances when they are no longer needed, so that they can create more elsewhere. A released capture is no longer valid, and should not be used thereafter.. . The total budget is 8 megapixels (8,388,608 pixels).. . Below lists the total nunber of captures that can be done per resolution. Creators can mix the resolution size as long as the total budget is not above the limit of 8 megapixels.. . - 2048 maximum captures at `VERY_SMALL` resolution size.. - 512 maximum captures at `SMALL` resolution size.. - 128 maximum captures at `MEDIUM` resolution size.. - 32 maximum captures at `LARGE` resolution size.. - 8 maximum captures at `VERY_LARGE` resolution size.
 CameraCapture = {}
 
 --- @class Color @An RGBA representation of a color. Color components have an effective range of `[0.0, 1.0]`, but values greater than 1 may be used.
@@ -3053,6 +3053,10 @@ function UIButtonInstance:GetShadowOffset() end
 --- @param vector2 Vector2
 function UIButtonInstance:SetShadowOffset(vector2) end
 
+--- Returns the touch index currently interacting with this button. Returns `nil` if the button is not currently being interacted with.
+--- @return number
+function UIButtonInstance:GetCurrentTouchIndex() end
+
 --- @param typeName string
 --- @return boolean
 function UIButtonInstance:IsA(typeName) end
@@ -3129,6 +3133,10 @@ UIControl = {}
 --- @field isHittable boolean @When set to `true`, this control can receive input from the cursor and blocks input to controls behind it. When set to `false`, the cursor ignores this control and can interact with controls behind it.
 --- @field type string
 local UIEventRSVPButtonInstance = {}
+--- Returns the touch index currently interacting with this button. Returns `nil` if the button is not currently being interacted with.
+--- @return number
+function UIEventRSVPButtonInstance:GetCurrentTouchIndex() end
+
 --- @param typeName string
 --- @return boolean
 function UIEventRSVPButtonInstance:IsA(typeName) end
@@ -3199,6 +3207,10 @@ function UIImageInstance:SetShadowOffset(vector2) end
 --- @param cameraCapture CameraCapture
 function UIImageInstance:SetCameraCapture(cameraCapture) end
 
+--- Returns the touch index currently interacting with this image. Returns `nil` if the image is not currently being interacted with.
+--- @return number
+function UIImageInstance:GetCurrentTouchIndex() end
+
 --- @param typeName string
 --- @return boolean
 function UIImageInstance:IsA(typeName) end
@@ -3235,6 +3247,10 @@ function UIPerkPurchaseButtonInstance:SetPerkReference(perkReference) end
 --- Returns a reference to the perk for which this button is currently configured. If no perk has been set, returns an unassigned NetReference. (See the `.isAssigned` property on `NetReference`.)
 --- @return NetReference
 function UIPerkPurchaseButtonInstance:GetPerkReference() end
+
+--- Returns the touch index currently interacting with this button. Returns `nil` if the button is not currently being interacted with.
+--- @return number
+function UIPerkPurchaseButtonInstance:GetCurrentTouchIndex() end
 
 --- @param typeName string
 --- @return boolean
@@ -3283,6 +3299,10 @@ function UIProgressBarInstance:GetBackgroundColor() end
 --- @param color Color
 function UIProgressBarInstance:SetBackgroundColor(color) end
 
+--- Returns the touch index currently interacting with this control. Returns `nil` if the control is not currently being interacted with.
+--- @return number
+function UIProgressBarInstance:GetCurrentTouchIndex() end
+
 --- @param typeName string
 --- @return boolean
 function UIProgressBarInstance:IsA(typeName) end
@@ -3294,6 +3314,10 @@ UIProgressBar = {}
 --- @field isHittable boolean @When set to `true`, this control can receive input from the cursor and blocks input to controls behind it. When set to `false`, the cursor ignores this control and can interact with controls behind it.
 --- @field type string
 local UIRewardPointsMeterInstance = {}
+--- Returns the touch index currently interacting with this control. Returns `nil` if the control is not currently being interacted with.
+--- @return number
+function UIRewardPointsMeterInstance:GetCurrentTouchIndex() end
+
 --- @param typeName string
 --- @return boolean
 function UIRewardPointsMeterInstance:IsA(typeName) end
@@ -3365,6 +3389,10 @@ function UITextInstance:GetOutlineColor() end
 --- Sets the color of the text's outline.
 --- @param color Color
 function UITextInstance:SetOutlineColor(color) end
+
+--- Returns the touch index currently interacting with this control. Returns `nil` if the control is not currently being interacted with.
+--- @return number
+function UITextInstance:GetCurrentTouchIndex() end
 
 --- @param typeName string
 --- @return boolean
@@ -4144,6 +4172,9 @@ local InputInstance = {}
 --- @field touchStartedEvent Event @Fired when the player starts touching the screen on a touch input device. Parameters are the screen location of the touch and a touch index used to distinguish between separate touches on a multitouch device.
 --- @field touchStoppedEvent Event @Fired when the player stops touching the screen on a touch input device. Parameters are the screen location from which the touch was released and a touch index used to distinguish between separate touches on a multitouch device.
 --- @field tappedEvent Event @Fired when the player taps on a touch input device. Parameters are the screen location of the tap and the touch index with which the tap was performed.
+--- @field pointerMovedEvent Event @Fired when the pointer (either the mouse or a touch input) has moved. Parameters include the change in position since the last time `pointerMovedEvent` was fired for the given pointer, and an optional touch index indicating which touch input moved. `touchIndex` will be `nil` when the mouse has moved.
+--- @field mouseButtonPressedEvent Event @Fired when the user has pressed a mouse button. Parameters indicate the screen position of the cursor when the button was pressed, and an enum value indicating which mouse button was pressed.
+--- @field mouseButtonReleasedEvent Event @Fired when the user has released a mouse button. Parameters indicate the screen position of the cursor when the button was released, and an enum value indicating which mouse button was released.
 --- @field escapeHook Hook @Hook called when the local player presses the Escape key. The `parameters` table contains a `boolean` named "openPauseMenu", which may be set to `false` to prevent the pause menu from being opened. Players may press `Shift-Esc` to force the pause menu to open without calling this hook.
 --- @field actionHook Hook @Hook called each frame with a list of changes in action values since the previous frame. The `actionList` table is an array of tables with the structure {action = "actionName", value = `number` or `Vector2`} for each action whose value has changed since the last frame. If no values have changed, `actionList` will be empty, even if there are actions currently being held. Entries in the table can be added, removed, or changed and will affect whether pressed and released events fire. If a non-zero value is changed to zero then `Input.actionReleasedEvent` will fire for that action. If a zero value changes to non-zero then `Input.actionPressedEvent` will fire.
 Input = {}
@@ -4894,6 +4925,14 @@ LookControlMode = {
     NONE = 0,
     RELATIVE = 1,
     LOOK_AT_CURSOR = 2,
+}
+--- @class MouseButton @Identifies a mouse button involved in an input event.
+MouseButton = {
+    LEFT = 1,
+    RIGHT = 2,
+    MIDDLE = 3,
+    THUMB_1 = 4,
+    THUMB_2 = 5,
 }
 --- @class MovementControlMode @Defines how player input controls the player's movement direction.
 MovementControlMode = {
