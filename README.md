@@ -4,7 +4,7 @@
 
 A [Visual Studio Code](https://code.visualstudio.com/) [extension](https://marketplace.visualstudio.com/VSCode) that adds support for the [Core Games](https://www.coregames.com) Lua API to the Lua Language Server.
 
-[![Build Status](https://github.com/ManticoreGamesInc/vscode-core/workflows/CI/badge.svg)](https://github.com/ManticoreGamesInc/vscode-core/actions?workflow=CI) [![Marketplace Version](https://img.shields.io/visual-studio-marketplace/v/manticoregames.vscode-core?label=Visual%20Studio%20Marketplace&logo=visual-studio-code "Current Version")](https://marketplace.visualstudio.com/items?itemName=ManticoreGames.vscode-core)
+[![Open in VSCode](https://img.shields.io/static/v1?logo=visualstudiocode&label=&message=Open%20in%20Visual%20Studio%20Code&labelColor=2c2c32&color=007acc&logoColor=007acc)](https://open.vscode.dev/ManticoreGames/vscode-core) [![Build Status](https://github.com/ManticoreGamesInc/vscode-core/workflows/CI/badge.svg)](https://github.com/ManticoreGamesInc/vscode-core/actions?workflow=CI) [![Marketplace Version](https://img.shields.io/visual-studio-marketplace/v/manticoregames.vscode-core?label=Visual%20Studio%20Marketplace&logo=visual-studio-code "Current Version")](https://marketplace.visualstudio.com/items?itemName=ManticoreGames.vscode-core)
 
 ![Logo](https://i.imgur.com/4WSkkYF.jpg)
 </div>
@@ -19,7 +19,7 @@ Sumneko's Lua extension also comes with it's own "**Diagnostics**" feature, so i
 
 ## Known Issues
 
-- There is currently no support for Core operators.
+- There is currently no support for Core API operators.
 
 ## Installation
 
