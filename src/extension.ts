@@ -3,7 +3,7 @@ import * as path from "path";
 
 export function activate() {
     setExternalLibrary(path.join("out", "EmmyLua"), true);
-    updateConfig()
+    updateConfig();
 }
 
 export function deactivate() {
@@ -43,11 +43,11 @@ export function setExternalLibrary(folder: string, enable: boolean) {
 }
 
 function updateConfig() {
-    const sumneko = vscode.workspace.getConfiguration("Lua")
-    const currentSize: number = sumneko.get("workspace.preloadFileSize") || 150
+    const sumneko = vscode.workspace.getConfiguration("Lua");
+    const currentSize: number = sumneko.get("workspace.preloadFileSize") || 150;
     if (currentSize < 400) {
         // increase preloadFileSize to make sure our config gets loaded
-        sumneko.update("workspace.preloadFileSize", 400, true)
-        console.log("Bumping preloadFileSize")
+        sumneko.update("workspace.preloadFileSize", 400, true);
+        console.log("Bumping preloadFileSize");
     }
 }
