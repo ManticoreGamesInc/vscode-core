@@ -5,6 +5,26 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.8.15](https://github.com/ManticoreGamesInc/vscode-core/compare/1.8.14...1.8.15) - 2022-05-09
+
+### Commits
+
+- Bump @typescript-eslint/parser from 5.20.0 to 5.21.0 [`0ed93b8`](https://github.com/ManticoreGamesInc/vscode-core/commit/0ed93b8e9967cfb3b1a87135f437fd11b74b1638)
+- Bump @typescript-eslint/parser from 5.21.0 to 5.22.0 [`0ba36ea`](https://github.com/ManticoreGamesInc/vscode-core/commit/0ba36eaf4825ffbe6043c8dff469c9005394a63a)
+- Bump @typescript-eslint/eslint-plugin from 5.21.0 to 5.22.0 [`b329110`](https://github.com/ManticoreGamesInc/vscode-core/commit/b3291105b7500a6bc03c82ba85b65d60a0e36547)
+- Bump @typescript-eslint/eslint-plugin from 5.20.0 to 5.21.0 [`88a2340`](https://github.com/ManticoreGamesInc/vscode-core/commit/88a23401ccc07c1c4a1797dc2548bb060c079018)
+- Bump @typescript-eslint/typescript-estree from 5.20.0 to 5.21.0 [`67142bc`](https://github.com/ManticoreGamesInc/vscode-core/commit/67142bc4b5fb0d1e772c73465f8f8a17a66406e0)
+- Bump mocha from 9.2.2 to 10.0.0 [`2a31ccf`](https://github.com/ManticoreGamesInc/vscode-core/commit/2a31ccffdde8ccf56b8baae8d86d1af194b2845a)
+- Bump eslint from 8.14.0 to 8.15.0 [`18c630f`](https://github.com/ManticoreGamesInc/vscode-core/commit/18c630fdedc8be26011efeb0a271dfebf4597cf6)
+- Add patch 1.0.240 API [`c88cf95`](https://github.com/ManticoreGamesInc/vscode-core/commit/c88cf95dc09adab5bb702bb91905d4fe3ec96eb0)
+- Bump @types/node from 17.0.26 to 17.0.31 [`c9bdc16`](https://github.com/ManticoreGamesInc/vscode-core/commit/c9bdc167153262c8a37f7f060edc23298439db9d)
+- Bump ts-loader from 9.2.8 to 9.3.0 [`7859fba`](https://github.com/ManticoreGamesInc/vscode-core/commit/7859fba7abceee4f103fddee663b528eb70b4fa6)
+- Bump typescript from 4.6.3 to 4.6.4 [`73e675f`](https://github.com/ManticoreGamesInc/vscode-core/commit/73e675fed49d397141a1cdcb545280dbcdf09a8e)
+- Fix lint [`be1c19a`](https://github.com/ManticoreGamesInc/vscode-core/commit/be1c19a9b8874b39445e4ff28587c35340a3333f)
+- Bump github/codeql-action from 1 to 2 [`99790af`](https://github.com/ManticoreGamesInc/vscode-core/commit/99790af7a805edd120ba99548a67082c9722f808)
+- Update README [`5a7ea5a`](https://github.com/ManticoreGamesInc/vscode-core/commit/5a7ea5aee77be99f39e34c8f723702cbdaab1b5e)
+- CI: Update node version to 16 + 18 [`825242d`](https://github.com/ManticoreGamesInc/vscode-core/commit/825242d29d3140b486bb173cde4feb191390bf5e)
+
 ## [1.8.14](https://github.com/ManticoreGamesInc/vscode-core/compare/1.8.13...1.8.14) - 2022-04-25
 
 ### Commits
