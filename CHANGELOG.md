@@ -5,6 +5,46 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.8.16](https://github.com/ManticoreGamesInc/vscode-core/compare/1.8.15...1.8.16) - 2022-06-21
+
+### Commits
+
+- Bump esbuild from 0.14.43 to 0.14.46 [`03e2dab`](https://github.com/ManticoreGamesInc/vscode-core/commit/03e2dab03b6793fb4cf8978e2ea2c8bf47c5780d)
+- Bump esbuild from 0.14.42 to 0.14.43 [`29260f7`](https://github.com/ManticoreGamesInc/vscode-core/commit/29260f757f861adf6f238404521e5e4d33531c86)
+- Bump esbuild from 0.14.39 to 0.14.42 [`6243f7a`](https://github.com/ManticoreGamesInc/vscode-core/commit/6243f7a5414bb6d700d7ff91b36b005caac8894a)
+- Bump esbuild from 0.14.38 to 0.14.39 [`ea914c0`](https://github.com/ManticoreGamesInc/vscode-core/commit/ea914c0decd2d9838cfc3f572ad4c58491c3522d)
+- Bump @typescript-eslint/parser from 5.27.0 to 5.27.1 [`4474955`](https://github.com/ManticoreGamesInc/vscode-core/commit/4474955a58fe89f48024789401da4a75c455e19a)
+- Bump @typescript-eslint/parser from 5.22.0 to 5.23.0 [`4637cd9`](https://github.com/ManticoreGamesInc/vscode-core/commit/4637cd90846822a1efd2e0680dd155c5a60f5868)
+- Bump @typescript-eslint/eslint-plugin from 5.27.1 to 5.28.0 [`21642f6`](https://github.com/ManticoreGamesInc/vscode-core/commit/21642f6975de894ac9f09bb8e79b2c0b077a52cf)
+- Bump @typescript-eslint/eslint-plugin from 5.23.0 to 5.25.0 [`c83c5a4`](https://github.com/ManticoreGamesInc/vscode-core/commit/c83c5a4f4502926fee86a0e89bfdcc02e8ca9657)
+- Bump @typescript-eslint/eslint-plugin from 5.22.0 to 5.23.0 [`fd03140`](https://github.com/ManticoreGamesInc/vscode-core/commit/fd0314011e6111af6a6a6fb245e3a4a7d2c4eb2f)
+- Add Patch 1.0.249 API [`7be292c`](https://github.com/ManticoreGamesInc/vscode-core/commit/7be292ce08a7cf986f0ccf6ac7f67c514e287fbf)
+- Bump @typescript-eslint/eslint-plugin from 5.27.0 to 5.27.1 [`1bdd82f`](https://github.com/ManticoreGamesInc/vscode-core/commit/1bdd82fd3530efac94e66cd70baba1d2328d108f)
+- Bump @typescript-eslint/parser from 5.23.0 to 5.25.0 [`49f99a7`](https://github.com/ManticoreGamesInc/vscode-core/commit/49f99a7f3e778eecffb92e783f52b3a30e634e41)
+- Bump @typescript-eslint/typescript-estree from 5.27.1 to 5.28.0 [`a5d16a4`](https://github.com/ManticoreGamesInc/vscode-core/commit/a5d16a4a9b4dbac0f4760f7ea76c7cf575e288f7)
+- Bump @typescript-eslint/typescript-estree from 5.22.0 to 5.23.0 [`939c7e9`](https://github.com/ManticoreGamesInc/vscode-core/commit/939c7e9527fd6676fb1570b9c8b64650fecbd3c9)
+- Bump @typescript-eslint/parser from 5.26.0 to 5.27.0 [`213c917`](https://github.com/ManticoreGamesInc/vscode-core/commit/213c9176992392c50918bf043cba1e3bdbb421f9)
+- Bump @typescript-eslint/parser from 5.27.1 to 5.28.0 [`b8b4e45`](https://github.com/ManticoreGamesInc/vscode-core/commit/b8b4e4541f522e47148da2ea0b3d187e41312aa0)
+- Bump @typescript-eslint/parser from 5.25.0 to 5.26.0 [`309a062`](https://github.com/ManticoreGamesInc/vscode-core/commit/309a062b955bf87ab306d39b6c22c2712a073873)
+- Bump @typescript-eslint/typescript-estree from 5.27.0 to 5.27.1 [`9310837`](https://github.com/ManticoreGamesInc/vscode-core/commit/931083713415817c82864d32dacc7b9d66dae40e)
+- Bump @typescript-eslint/eslint-plugin from 5.25.0 to 5.27.0 [`11775fa`](https://github.com/ManticoreGamesInc/vscode-core/commit/11775fa2a0733393893d2c7cb09937fa2bb33113)
+- Bump ts-node from 10.7.0 to 10.8.0 [`f9e1fcb`](https://github.com/ManticoreGamesInc/vscode-core/commit/f9e1fcb234e20793d7a83b1e9722bd06e0b76e80)
+- Bump @typescript-eslint/typescript-estree from 5.25.0 to 5.27.0 [`344d142`](https://github.com/ManticoreGamesInc/vscode-core/commit/344d142133b175b31912f3a65d8d17e93263b595)
+- Bump eslint from 8.15.0 to 8.16.0 [`822d4c0`](https://github.com/ManticoreGamesInc/vscode-core/commit/822d4c06591913e301f8018c791bd1239062908f)
+- Bump glob from 8.0.1 to 8.0.3 [`4a3bc8d`](https://github.com/ManticoreGamesInc/vscode-core/commit/4a3bc8d006ce4f58a8b51f15968bbb20dbfd0484)
+- Bump @types/node from 17.0.31 to 17.0.33 [`84ccfa0`](https://github.com/ManticoreGamesInc/vscode-core/commit/84ccfa02f6da9c3269ad823c78984a751981c844)
+- Bump typescript from 4.7.3 to 4.7.4 [`2f3c350`](https://github.com/ManticoreGamesInc/vscode-core/commit/2f3c350e38950a19cce6f81b0ffb59cae51a0ba2)
+- Bump @types/node from 17.0.42 to 18.0.0 [`38bcea1`](https://github.com/ManticoreGamesInc/vscode-core/commit/38bcea1bde816a65476d56bcd46fc4d06a56010e)
+- Bump eslint from 8.17.0 to 8.18.0 [`2d7a28c`](https://github.com/ManticoreGamesInc/vscode-core/commit/2d7a28c592c5703804ceae4678c15e379b3ceb2c)
+- Bump @types/node from 17.0.40 to 17.0.42 [`8908385`](https://github.com/ManticoreGamesInc/vscode-core/commit/8908385083ebdb46b46a5665b1ebc3c4ded555ef)
+- Bump ts-node from 10.8.0 to 10.8.1 [`45aa814`](https://github.com/ManticoreGamesInc/vscode-core/commit/45aa814f175e06df48fa33f59b049388a45e4389)
+- Bump @types/node from 17.0.36 to 17.0.40 [`6d16c3a`](https://github.com/ManticoreGamesInc/vscode-core/commit/6d16c3a9c4d8eb3abf488c2047557bf677ff3469)
+- Bump eslint from 8.16.0 to 8.17.0 [`35fd2be`](https://github.com/ManticoreGamesInc/vscode-core/commit/35fd2bed97e23ff2cc289a5149dee11e448e17b8)
+- Bump typescript from 4.7.2 to 4.7.3 [`d18e99d`](https://github.com/ManticoreGamesInc/vscode-core/commit/d18e99d992e6610dcbd6f140de8059bdd2371aef)
+- Bump @types/node from 17.0.35 to 17.0.36 [`d5db7b0`](https://github.com/ManticoreGamesInc/vscode-core/commit/d5db7b0e24d7a913265fd5be555e25aa760f00ec)
+- Bump typescript from 4.6.4 to 4.7.2 [`d7cecf2`](https://github.com/ManticoreGamesInc/vscode-core/commit/d7cecf2a51abbd09dd31b481b0b74dee35f20e9d)
+- Bump @types/node from 17.0.33 to 17.0.35 [`640f1c5`](https://github.com/ManticoreGamesInc/vscode-core/commit/640f1c5cd347aeb9477c842f849df9b9220b9ddc)
+
 ## [1.8.15](https://github.com/ManticoreGamesInc/vscode-core/compare/1.8.14...1.8.15) - 2022-05-09
 
 ### Commits
