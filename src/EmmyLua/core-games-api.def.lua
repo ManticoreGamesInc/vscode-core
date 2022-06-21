@@ -65,7 +65,7 @@ AIActivityHandler = {}
 --- @field interruptedEvent Event @Fired when the Ability is interrupted.
 --- @field tickEvent Event @Fired every tick while the Ability is active (isEnabled = true and phase is not ready).
 --- @field actionBinding string @*This property is deprecated. Please use `actionName` instead, but note that `actionBinding` and `actionName` use different values.*  Which action binding will cause the Ability to activate. Possible values of the bindings are listed on the [Ability binding](../api/key_bindings.md) page.
---- @field actionName string @Which binding set action name will cause the Ability to activate.
+--- @field actionName string @Which binding set action name will cause the Ability to activate. See [Binding Sets](../references/binding_sets.md) reference.
 --- @field canActivateWhileDead boolean @Indicates if the Ability can be used while the owning Player is dead. False by default.
 --- @field animation string @Name of the animation the Player will play when the Ability is activated. Possible values: See [Ability Animation](../api/animations.md) for strings and other info.
 --- @field canBePrevented boolean @Used in conjunction with the phase property `preventsOtherAbilities` so multiple abilities on the same Player can block each other during specific phases. True by default.
@@ -334,6 +334,107 @@ function BindingSetInstance:IsA(typeName) end
 --- @class GlobalBindingSet : CoreObject @BindingSet is a CoreObject which contains a set of actions a creator has defined for a game and the default key bindings to trigger those actions.
 BindingSet = {}
 
+--- @class BlockchainContract @Metadata about a smart contract on the blockchain.
+--- @field address string @The address of the contract.
+--- @field name string @The name of the contract, if it has one.
+--- @field description string @The description of the contract, if it has one.
+--- @field symbol string @An abbreviated name for the contract.
+--- @field count number @The number of tokens contained in the contract, if available.
+--- @field type string
+local BlockchainContractInstance = {}
+--- @param typeName string
+--- @return boolean
+function BlockchainContractInstance:IsA(typeName) end
+
+--- @class GlobalBlockchainContract @Metadata about a smart contract on the blockchain.
+BlockchainContract = {}
+
+--- @class BlockchainToken @Metadata about a token stored on the blockchain.
+--- @field contractAddress string @The address of the contract this token belongs to.
+--- @field tokenId string @The ID of this token within its contract.
+--- @field name string @The name of the token, if it has one.
+--- @field description string @The description of the token, if it has one.
+--- @field rawMetadata string @The raw, unprocessed metadata value from the token. This could be anything, including a URL, JSON string, etc.
+--- @field ownerAddress string @The wallet address of the token's owner.
+--- @field creatorAddress string @The address of the token's creator.
+--- @field type string
+local BlockchainTokenInstance = {}
+--- Returns the contract this token belongs to.
+--- @return BlockchainContract
+function BlockchainTokenInstance:GetContract() end
+
+--- Returns an array of this token's attributes.
+--- @return table<number, BlockchainTokenAttribute>
+function BlockchainTokenInstance:GetAttributes() end
+
+--- Returns the attribute with the specified name. Returns nil if this token does not contain the desired attribute.
+--- @param name string
+--- @return BlockchainTokenAttribute
+function BlockchainTokenInstance:GetAttribute(name) end
+
+--- @param typeName string
+--- @return boolean
+function BlockchainTokenInstance:IsA(typeName) end
+
+--- @class GlobalBlockchainToken @Metadata about a token stored on the blockchain.
+BlockchainToken = {}
+
+--- @class BlockchainTokenAttribute @A single attribute on a BlockchainToken.
+--- @field name string @The name of the attribute.
+--- @field type string
+local BlockchainTokenAttributeInstance = {}
+--- Returns the attribute's value as a string.
+--- @return string
+function BlockchainTokenAttributeInstance:GetValue() end
+
+--- @param typeName string
+--- @return boolean
+function BlockchainTokenAttributeInstance:IsA(typeName) end
+
+--- @class GlobalBlockchainTokenAttribute @A single attribute on a BlockchainToken.
+BlockchainTokenAttribute = {}
+
+--- @class BlockchainTokenCollection @Contains a set of results from [Blockchain.GetTokens()](blockchain.md) and related functions. Depending on how many tokens are available, results may be separated into multiple pages. The `.hasMoreResults` property may be checked to determine whether more tokens are available. Those results may be retrieved using the `:GetMoreResults()` function.
+--- @field hasMoreResults boolean @Returns `true` if there are more tokens available to be requested.
+--- @field type string
+local BlockchainTokenCollectionInstance = {}
+--- Returns the list of tokens contained in this set of results. This may return an empty table.
+--- @return table<number, BlockchainToken>
+function BlockchainTokenCollectionInstance:GetResults() end
+
+--- Requests the next set of results for this list of tokens and returns a new collection containing those results. This function may yield until a result is available. Returns `nil` if the `hasMoreResults` property is `false`, or if an error occurs while fetching data. The status code in the second return value indicates whether the request succeeded or failed, with an optional error message in the third return value.
+--- @return BlockchainTokenCollection|BlockchainTokenResultCode|string
+function BlockchainTokenCollectionInstance:GetMoreResults() end
+
+--- @param typeName string
+--- @return boolean
+function BlockchainTokenCollectionInstance:IsA(typeName) end
+
+--- @class GlobalBlockchainTokenCollection @Contains a set of results from [Blockchain.GetTokens()](blockchain.md) and related functions. Depending on how many tokens are available, results may be separated into multiple pages. The `.hasMoreResults` property may be checked to determine whether more tokens are available. Those results may be retrieved using the `:GetMoreResults()` function.
+BlockchainTokenCollection = {}
+
+--- @class Box @A 3D box aligned to some coordinate system.
+--- @field type string
+local BoxInstance = {}
+--- Returns the coordinates of the center of the box.
+--- @return Vector3
+function BoxInstance:GetCenter() end
+
+--- Returns a Vector3 representing half the size of the box along its local axes.
+--- @return Vector3
+function BoxInstance:GetExtent() end
+
+--- Returns a Transform which, when applied to a unit cube, produces a result matching the position, size, and rotation of this box.
+--- @return Transform
+function BoxInstance:GetTransform() end
+
+--- @param typeName string
+--- @return boolean
+function BoxInstance:IsA(typeName) end
+
+--- @class GlobalBox @A 3D box aligned to some coordinate system.
+Box = {}
+
 --- @class Camera : CoreObject @Camera is a CoreObject which is used both to configure Player Camera settings as well as to represent the position and rotation of the Camera in the world. Cameras can be configured in various ways, usually following a specific Player's view, but can also have a fixed orientation and/or position.. . Each Player (on their client) can have a default Camera and an override Camera. If they have neither, camera behavior falls back to a basic third-person behavior. Default Cameras should be used for main gameplay while override Cameras are generally employed as a temporary view, such as a when the Player is sitting in a mounted turret.
 --- @field followPlayer Player @Which Player's view the camera should follow. Set to the local Player for a first or third person camera. Set to nil to detach.
 --- @field isOrthographic boolean @Whether the camera uses an isometric (orthographic) view or perspective.
@@ -357,6 +458,7 @@ BindingSet = {}
 --- @field audioListenerOffset Vector3 @This property is deprecated. Please use the GetAudioListenerOffset() and SetAudioListenerOffset() functions instead.
 --- @field lerpTime number
 --- @field isUsingCameraRotation boolean
+--- @field isCameraCollisionEnabled boolean @When true, this camera will collide with objects that have camera collision enabled. When set to false, the camera will not collide with any objects. Defaults to true.
 --- @field type string
 local CameraInstance = {}
 --- An offset added to the camera or follow target's eye position to the Player's view.
@@ -397,7 +499,7 @@ function CameraInstance:IsA(typeName) end
 --- @class GlobalCamera : CoreObject @Camera is a CoreObject which is used both to configure Player Camera settings as well as to represent the position and rotation of the Camera in the world. Cameras can be configured in various ways, usually following a specific Player's view, but can also have a fixed orientation and/or position.. . Each Player (on their client) can have a default Camera and an override Camera. If they have neither, camera behavior falls back to a basic third-person behavior. Default Cameras should be used for main gameplay while override Cameras are generally employed as a temporary view, such as a when the Player is sitting in a mounted turret.
 Camera = {}
 
---- @class CameraCapture @CameraCapture represents an image rendered by a `Camera` to be used elsewhere in the game, for example in UI. Each camera capture instance uses a certain amount of the memory based on the resolution size. Creators are free to create whatever combination (mixed resolutions) of camera captures needed up until the budget is fully consumed. Creators may wish to explicitly release existing capture instances when they are no longer needed, so that they can create more elsewhere. A released capture is no longer valid, and should not be used thereafter.. . The total budget is 8 megapixels (8,388,608 pixels).. . Below lists the total nunber of captures that can be done per resolution. Creators can mix the resolution size as long as the total budget is not above the limit of 8 megapixels.. . - 2048 maximum captures at `VERY_SMALL` resolution size.. - 512 maximum captures at `SMALL` resolution size.. - 128 maximum captures at `MEDIUM` resolution size.. - 32 maximum captures at `LARGE` resolution size.. - 8 maximum captures at `VERY_LARGE` resolution size.
+--- @class CameraCapture @CameraCapture represents an image rendered by a `Camera` to be used elsewhere in the game, for example in UI. Each camera capture instance uses a certain amount of the memory based on the resolution size. Creators are free to create whatever combination (mixed resolutions) of camera captures needed up until the budget is fully consumed. Creators may wish to explicitly release existing capture instances when they are no longer needed, so that they can create more elsewhere. A released capture is no longer valid, and should not be used thereafter.. . The total budget is 8 megapixels (8,388,608 pixels).. . Below lists the total number of captures that can be done per resolution. Creators can mix the resolution size as long as the total budget is not above the limit of 8 megapixels.. . - 2048 maximum captures at `VERY_SMALL` resolution size.. - 512 maximum captures at `SMALL` resolution size.. - 128 maximum captures at `MEDIUM` resolution size.. - 32 maximum captures at `LARGE` resolution size.. - 8 maximum captures at `VERY_LARGE` resolution size.
 --- @field resolution CameraCaptureResolution @The resolution of this capture.
 --- @field camera Camera @The Camera to capture from.
 --- @field type string
@@ -416,7 +518,7 @@ function CameraCaptureInstance:Release() end
 --- @return boolean
 function CameraCaptureInstance:IsA(typeName) end
 
---- @class GlobalCameraCapture @CameraCapture represents an image rendered by a `Camera` to be used elsewhere in the game, for example in UI. Each camera capture instance uses a certain amount of the memory based on the resolution size. Creators are free to create whatever combination (mixed resolutions) of camera captures needed up until the budget is fully consumed. Creators may wish to explicitly release existing capture instances when they are no longer needed, so that they can create more elsewhere. A released capture is no longer valid, and should not be used thereafter.. . The total budget is 8 megapixels (8,388,608 pixels).. . Below lists the total nunber of captures that can be done per resolution. Creators can mix the resolution size as long as the total budget is not above the limit of 8 megapixels.. . - 2048 maximum captures at `VERY_SMALL` resolution size.. - 512 maximum captures at `SMALL` resolution size.. - 128 maximum captures at `MEDIUM` resolution size.. - 32 maximum captures at `LARGE` resolution size.. - 8 maximum captures at `VERY_LARGE` resolution size.
+--- @class GlobalCameraCapture @CameraCapture represents an image rendered by a `Camera` to be used elsewhere in the game, for example in UI. Each camera capture instance uses a certain amount of the memory based on the resolution size. Creators are free to create whatever combination (mixed resolutions) of camera captures needed up until the budget is fully consumed. Creators may wish to explicitly release existing capture instances when they are no longer needed, so that they can create more elsewhere. A released capture is no longer valid, and should not be used thereafter.. . The total budget is 8 megapixels (8,388,608 pixels).. . Below lists the total number of captures that can be done per resolution. Creators can mix the resolution size as long as the total budget is not above the limit of 8 megapixels.. . - 2048 maximum captures at `VERY_SMALL` resolution size.. - 512 maximum captures at `SMALL` resolution size.. - 128 maximum captures at `MEDIUM` resolution size.. - 32 maximum captures at `LARGE` resolution size.. - 8 maximum captures at `VERY_LARGE` resolution size.
 CameraCapture = {}
 
 --- @class Color @An RGBA representation of a color. Color components have an effective range of `[0.0, 1.0]`, but values greater than 1 may be used.
@@ -1966,8 +2068,8 @@ PhysicsObject = {}
 --- @field diedEvent Event @Fired when the Player dies.
 --- @field spawnedEvent Event @Fired when the Player spawns. Indicates the start point at which they spawned and the spawn key used to select the start point. The start point may be nil if a position was specified when spawning the player.
 --- @field respawnedEvent Event @Player.respawnedEvent is deprecated. Please use Player.spawnedEvent instead.
---- @field bindingPressedEvent Event @Fired when an action binding is pressed. Second parameter tells you which binding. Possible values of the bindings are listed on the [Ability binding](../api/key_bindings.md) page.
---- @field bindingReleasedEvent Event @Fired when an action binding is released. Second parameter tells you which binding.
+--- @field bindingPressedEvent Event @Player.bindingPressedEvent is deprecated. Please use Input.actionPressedEvent instead, but note that it does not use the same binding names.
+--- @field bindingReleasedEvent Event @Player.bindingReleasedEvent is deprecated. Please use Input.actionReleasedEvent instead, but note that it does not use the same binding names.
 --- @field resourceChangedEvent Event @Fired when a resource changed, indicating the type of the resource and its new amount.
 --- @field movementModeChangedEvent Event @Fired when a Player's movement mode changes. The first parameter is the Player being changed. The second parameter is the "new" movement mode. The third parameter is the "previous" movement mode. Possible values for MovementMode are: MovementMode.NONE, MovementMode.WALKING, MovementMode.FALLING, MovementMode.SWIMMING, MovementMode.FLYING.
 --- @field animationEvent Event @Some animations have events specified at important points of the animation (for example the impact point in a punch animation). This event is fired with the Player that triggered it, the name of the event at those points, and the name of the animation itself. Events generated from default stances on the player will return "animation_stance" as the animation name.
@@ -2307,7 +2409,7 @@ function PlayerInstance:GetLookWorldRotation() end
 --- @param newLookRotation Rotation
 function PlayerInstance:SetLookWorldRotation(newLookRotation) end
 
---- Returns `true` if the player is currently pressing the named binding. Possible values of the bindings are listed on the [Ability binding](../api/key_bindings.md) page. Note that when called on a client, this function will only work for the local player.
+--- *This function is deprecated. Please use Input.IsActionHeld() instead, but note that it does not use the same binding names.* Returns `true` if the player is currently pressing the named binding. Possible values of the bindings are listed on the [Ability binding](../api/key_bindings.md) page. Note that when called on a client, this function will only work for the local player.
 --- @param bindingName string
 --- @return boolean
 function PlayerInstance:IsBindingPressed(bindingName) end
@@ -2803,6 +2905,15 @@ function StaticMeshInstance:GetMaterialSlots() end
 --- @param slotName string
 function StaticMeshInstance:ResetMaterialSlot(slotName) end
 
+--- Returns a `Box` describing the mesh bounds. The `Box` span may exceed the exact extrema of the object. Optional parameters can be provided to control the results:
+--- 
+--- `inLocalSpace (boolean)`: If true, the box will describe the bounds in the mesh's local coordinate system. Defaults to false.
+--- 
+--- `onlyCollidable (boolean)`: If true, the box will only describe the bounds of the mesh's collidable geometry. This can be affected by collision settings and network context. Defaults to false.
+--- @param optionalParameters table
+--- @return Box
+function StaticMeshInstance:GetBoundingBox(optionalParameters) end
+
 --- @param typeName string
 --- @return boolean
 function StaticMeshInstance:IsA(typeName) end
@@ -2980,6 +3091,14 @@ Trigger = {}
 --- @field releasedEvent Event @Fired when button is released. (mouse button up)
 --- @field hoveredEvent Event @Fired when button is hovered.
 --- @field unhoveredEvent Event @Fired when button is unhovered.
+--- @field pinchStartedEvent Event @Fired when the player begins a pinching gesture on the control on a touch input device. `Input.GetPinchValue()` may be polled during the pinch gesture to determine how far the player has pinched.
+--- @field pinchStoppedEvent Event @Fired when the player ends a pinching gesture on a touch input device.
+--- @field rotateStartedEvent Event @Fired when the player begins a rotating gesture on the control on a touch input device. `Input.GetRotateValue()` may be polled during the rotate gesture to determine how far the player has rotated.
+--- @field rotateStoppedEvent Event @Fired when the player ends a rotating gesture on a touch input device.
+--- @field touchStartedEvent Event @Fired when the player starts touching the control on a touch input device. Parameters are the screen location of the touch and a touch index used to distinguish between separate touches on a multitouch device.
+--- @field touchStoppedEvent Event @Fired when the player stops touching the control on a touch input device. Parameters are the screen location from which the touch was released and a touch index used to distinguish between separate touches on a multitouch device.
+--- @field tappedEvent Event @Fired when the player taps the control on a touch input device. Parameters are the screen location of the tap and the touch index with which the tap was performed.
+--- @field flickedEvent Event @Fired when the player performs a quick flicking gesture on the control on a touch input device. The `angle` parameter indicates the direction of the flick. 0 indicates a flick to the right. Values increase in degrees counter-clockwise, so 90 indicates a flick straight up, 180 indicates a flick to the left, etc.
 --- @field text string @Returns the button's label text.
 --- @field fontSize number @Returns the font size of the label text.
 --- @field isInteractable boolean @Returns whether the Button can interact with the cursor (click, hover, etc).
@@ -3128,6 +3247,14 @@ UIControl = {}
 --- @field releasedEvent Event @Fired when button is released. (mouse button up)
 --- @field hoveredEvent Event @Fired when button is hovered.
 --- @field unhoveredEvent Event @Fired when button is unhovered.
+--- @field pinchStartedEvent Event @Fired when the player begins a pinching gesture on the control on a touch input device. `Input.GetPinchValue()` may be polled during the pinch gesture to determine how far the player has pinched.
+--- @field pinchStoppedEvent Event @Fired when the player ends a pinching gesture on a touch input device.
+--- @field rotateStartedEvent Event @Fired when the player begins a rotating gesture on the control on a touch input device. `Input.GetRotateValue()` may be polled during the rotate gesture to determine how far the player has rotated.
+--- @field rotateStoppedEvent Event @Fired when the player ends a rotating gesture on a touch input device.
+--- @field touchStartedEvent Event @Fired when the player starts touching the control on a touch input device. Parameters are the screen location of the touch and a touch index used to distinguish between separate touches on a multitouch device.
+--- @field touchStoppedEvent Event @Fired when the player stops touching the control on a touch input device. Parameters are the screen location from which the touch was released and a touch index used to distinguish between separate touches on a multitouch device.
+--- @field tappedEvent Event @Fired when the player taps the control on a touch input device. Parameters are the screen location of the tap and the touch index with which the tap was performed.
+--- @field flickedEvent Event @Fired when the player performs a quick flicking gesture on the control on a touch input device. The `angle` parameter indicates the direction of the flick. 0 indicates a flick to the right. Values increase in degrees counter-clockwise, so 90 indicates a flick straight up, 180 indicates a flick to the left, etc.
 --- @field isInteractable boolean @Returns whether the button can interact with the cursor (click, hover, etc).
 --- @field eventId string @Returns the ID of the event for which this button is currently configured. This ID can be found in the creator dashboard or using the `CoreGameEvent.id` property of an event returned from various `CorePlatform` functions.
 --- @field isHittable boolean @When set to `true`, this control can receive input from the cursor and blocks input to controls behind it. When set to `false`, the cursor ignores this control and can interact with controls behind it.
@@ -3145,6 +3272,14 @@ function UIEventRSVPButtonInstance:IsA(typeName) end
 UIEventRSVPButton = {}
 
 --- @class UIImage : UIControl @A UIControl for displaying an image. Inherits from [UIControl](uicontrol.md).
+--- @field pinchStartedEvent Event @Fired when the player begins a pinching gesture on the control on a touch input device. `Input.GetPinchValue()` may be polled during the pinch gesture to determine how far the player has pinched.
+--- @field pinchStoppedEvent Event @Fired when the player ends a pinching gesture on a touch input device.
+--- @field rotateStartedEvent Event @Fired when the player begins a rotating gesture on the control on a touch input device. `Input.GetRotateValue()` may be polled during the rotate gesture to determine how far the player has rotated.
+--- @field rotateStoppedEvent Event @Fired when the player ends a rotating gesture on a touch input device.
+--- @field touchStartedEvent Event @Fired when the player starts touching the control on a touch input device. Parameters are the screen location of the touch and a touch index used to distinguish between separate touches on a multitouch device.
+--- @field touchStoppedEvent Event @Fired when the player stops touching the control on a touch input device. Parameters are the screen location from which the touch was released and a touch index used to distinguish between separate touches on a multitouch device.
+--- @field tappedEvent Event @Fired when the player taps the control on a touch input device. Parameters are the screen location of the tap and the touch index with which the tap was performed.
+--- @field flickedEvent Event @Fired when the player performs a quick flicking gesture on the control on a touch input device. The `angle` parameter indicates the direction of the flick. 0 indicates a flick to the right. Values increase in degrees counter-clockwise, so 90 indicates a flick straight up, 180 indicates a flick to the left, etc.
 --- @field isTeamColorUsed boolean @If `true`, the image will be tinted blue if its team matches the Player, or red if not.
 --- @field team number @the team of the image, used for `isTeamColorUsed`.
 --- @field shouldClipToSize boolean @Whether or not the image and its shadow should be clipped when exceeding the bounds of this control.
@@ -3203,6 +3338,10 @@ function UIImageInstance:GetShadowOffset() end
 --- @param vector2 Vector2
 function UIImageInstance:SetShadowOffset(vector2) end
 
+--- Downloads and sets a blockchain token image as the texture for this UIImage control.
+--- @param blockchainToken BlockchainToken
+function UIImageInstance:SetBlockchainToken(blockchainToken) end
+
 --- Sets the UIImage to display the given camera capture. If the given capture is not valid, it will be ignored. If the capture is released while in use, this UIImage will revert to its default image.
 --- @param cameraCapture CameraCapture
 function UIImageInstance:SetCameraCapture(cameraCapture) end
@@ -3236,6 +3375,14 @@ UIPanel = {}
 --- @field releasedEvent Event @Fired when button is released. (mouse button up)
 --- @field hoveredEvent Event @Fired when button is hovered.
 --- @field unhoveredEvent Event @Fired when button is unhovered.
+--- @field pinchStartedEvent Event @Fired when the player begins a pinching gesture on the control on a touch input device. `Input.GetPinchValue()` may be polled during the pinch gesture to determine how far the player has pinched.
+--- @field pinchStoppedEvent Event @Fired when the player ends a pinching gesture on a touch input device.
+--- @field rotateStartedEvent Event @Fired when the player begins a rotating gesture on the control on a touch input device. `Input.GetRotateValue()` may be polled during the rotate gesture to determine how far the player has rotated.
+--- @field rotateStoppedEvent Event @Fired when the player ends a rotating gesture on a touch input device.
+--- @field touchStartedEvent Event @Fired when the player starts touching the control on a touch input device. Parameters are the screen location of the touch and a touch index used to distinguish between separate touches on a multitouch device.
+--- @field touchStoppedEvent Event @Fired when the player stops touching the control on a touch input device. Parameters are the screen location from which the touch was released and a touch index used to distinguish between separate touches on a multitouch device.
+--- @field tappedEvent Event @Fired when the player taps the control on a touch input device. Parameters are the screen location of the tap and the touch index with which the tap was performed.
+--- @field flickedEvent Event @Fired when the player performs a quick flicking gesture on the control on a touch input device. The `angle` parameter indicates the direction of the flick. 0 indicates a flick to the right. Values increase in degrees counter-clockwise, so 90 indicates a flick straight up, 180 indicates a flick to the left, etc.
 --- @field isInteractable boolean @Returns whether the button can interact with the cursor (click, hover, etc).
 --- @field isHittable boolean @When set to `true`, this control can receive input from the cursor and blocks input to controls behind it. When set to `false`, the cursor ignores this control and can interact with controls behind it.
 --- @field type string
@@ -3260,6 +3407,14 @@ function UIPerkPurchaseButtonInstance:IsA(typeName) end
 UIPerkPurchaseButton = {}
 
 --- @class UIProgressBar : UIControl @A UIControl that displays a filled rectangle which can be used for things such as a health indicator. Inherits from [UIControl](uicontrol.md).
+--- @field pinchStartedEvent Event @Fired when the player begins a pinching gesture on the control on a touch input device. `Input.GetPinchValue()` may be polled during the pinch gesture to determine how far the player has pinched.
+--- @field pinchStoppedEvent Event @Fired when the player ends a pinching gesture on a touch input device.
+--- @field rotateStartedEvent Event @Fired when the player begins a rotating gesture on the control on a touch input device. `Input.GetRotateValue()` may be polled during the rotate gesture to determine how far the player has rotated.
+--- @field rotateStoppedEvent Event @Fired when the player ends a rotating gesture on a touch input device.
+--- @field touchStartedEvent Event @Fired when the player starts touching the control on a touch input device. Parameters are the screen location of the touch and a touch index used to distinguish between separate touches on a multitouch device.
+--- @field touchStoppedEvent Event @Fired when the player stops touching the control on a touch input device. Parameters are the screen location from which the touch was released and a touch index used to distinguish between separate touches on a multitouch device.
+--- @field tappedEvent Event @Fired when the player taps the control on a touch input device. Parameters are the screen location of the tap and the touch index with which the tap was performed.
+--- @field flickedEvent Event @Fired when the player performs a quick flicking gesture on the control on a touch input device. The `angle` parameter indicates the direction of the flick. 0 indicates a flick to the right. Values increase in degrees counter-clockwise, so 90 indicates a flick straight up, 180 indicates a flick to the left, etc.
 --- @field progress number @From 0 to 1, how full the bar should be.
 --- @field fillType ProgressBarFillType @Controls the direction in which the progress bar fills.
 --- @field fillTileType ImageTileType @How the fill texture is tiled.
@@ -3311,6 +3466,14 @@ function UIProgressBarInstance:IsA(typeName) end
 UIProgressBar = {}
 
 --- @class UIRewardPointsMeter : UIControl @A UIControl that displays the a players progress towards the daily Reward Points cap. Inherits from [UIControl](uicontrol.md).
+--- @field pinchStartedEvent Event @Fired when the player begins a pinching gesture on the control on a touch input device. `Input.GetPinchValue()` may be polled during the pinch gesture to determine how far the player has pinched.
+--- @field pinchStoppedEvent Event @Fired when the player ends a pinching gesture on a touch input device.
+--- @field rotateStartedEvent Event @Fired when the player begins a rotating gesture on the control on a touch input device. `Input.GetRotateValue()` may be polled during the rotate gesture to determine how far the player has rotated.
+--- @field rotateStoppedEvent Event @Fired when the player ends a rotating gesture on a touch input device.
+--- @field touchStartedEvent Event @Fired when the player starts touching the control on a touch input device. Parameters are the screen location of the touch and a touch index used to distinguish between separate touches on a multitouch device.
+--- @field touchStoppedEvent Event @Fired when the player stops touching the control on a touch input device. Parameters are the screen location from which the touch was released and a touch index used to distinguish between separate touches on a multitouch device.
+--- @field tappedEvent Event @Fired when the player taps the control on a touch input device. Parameters are the screen location of the tap and the touch index with which the tap was performed.
+--- @field flickedEvent Event @Fired when the player performs a quick flicking gesture on the control on a touch input device. The `angle` parameter indicates the direction of the flick. 0 indicates a flick to the right. Values increase in degrees counter-clockwise, so 90 indicates a flick straight up, 180 indicates a flick to the left, etc.
 --- @field isHittable boolean @When set to `true`, this control can receive input from the cursor and blocks input to controls behind it. When set to `false`, the cursor ignores this control and can interact with controls behind it.
 --- @field type string
 local UIRewardPointsMeterInstance = {}
@@ -3340,6 +3503,14 @@ function UIScrollPanelInstance:IsA(typeName) end
 UIScrollPanel = {}
 
 --- @class UIText : UIControl @A UIControl which displays a basic text label. Inherits from [UIControl](uicontrol.md).
+--- @field pinchStartedEvent Event @Fired when the player begins a pinching gesture on the control on a touch input device. `Input.GetPinchValue()` may be polled during the pinch gesture to determine how far the player has pinched.
+--- @field pinchStoppedEvent Event @Fired when the player ends a pinching gesture on a touch input device.
+--- @field rotateStartedEvent Event @Fired when the player begins a rotating gesture on the control on a touch input device. `Input.GetRotateValue()` may be polled during the rotate gesture to determine how far the player has rotated.
+--- @field rotateStoppedEvent Event @Fired when the player ends a rotating gesture on a touch input device.
+--- @field touchStartedEvent Event @Fired when the player starts touching the control on a touch input device. Parameters are the screen location of the touch and a touch index used to distinguish between separate touches on a multitouch device.
+--- @field touchStoppedEvent Event @Fired when the player stops touching the control on a touch input device. Parameters are the screen location from which the touch was released and a touch index used to distinguish between separate touches on a multitouch device.
+--- @field tappedEvent Event @Fired when the player taps the control on a touch input device. Parameters are the screen location of the tap and the touch index with which the tap was performed.
+--- @field flickedEvent Event @Fired when the player performs a quick flicking gesture on the control on a touch input device. The `angle` parameter indicates the direction of the flick. 0 indicates a flick to the right. Values increase in degrees counter-clockwise, so 90 indicates a flick straight up, 180 indicates a flick to the left, etc.
 --- @field text string @The actual text string to show.
 --- @field fontSize number @The font size of the UIText control.
 --- @field outlineSize number @The thickness of the outline around text in this control. A value of 0 means no outline.
@@ -3760,6 +3931,58 @@ function WorldTextInstance:IsA(typeName) end
 
 --- @class GlobalWorldText : CoreObject @WorldText is an in-world text CoreObject.
 WorldText = {}
+
+--- @class Blockchain
+local BlockchainInstance = {}
+--- @class GlobalBlockchain
+Blockchain = {}
+--- Looks up a single blockchain token given its contract address and token ID. This function may yield while fetching token data. May return nil if the requested token does not exist, or if an error occurs while fetching data. The status code in the second return value indicates whether the request succeeded or failed, with an optional error message in the third return value.
+--- @param contractAddress string
+--- @param tokenId string
+--- @return BlockchainToken|BlockchainTokenResultCode|string
+function Blockchain.GetToken(contractAddress, tokenId) end
+
+--- Searches for blockchain tokens owned by the specified player. This function may yield while fetching token data. May return nil if an error occurs while fetching data. The status code in the second return value indicates whether the request succeeded or failed, with an optional error message in the third return value.
+--- 
+--- Optional parameters can be provided to filter the results:
+--- 
+--- `contractAddress (string)`: Only return tokens with the specified contract address.
+--- 
+--- `tokenIds (string or Array<string>)`: Only return tokens with the specified token IDs.
+--- @overload fun(player: Player): BlockchainTokenCollection|BlockchainTokenResultCode|string
+--- @param player Player
+--- @param optionalParameters table
+--- @return BlockchainTokenCollection|BlockchainTokenResultCode|string
+function Blockchain.GetTokensForPlayer(player, optionalParameters) end
+
+--- Searches for blockchain tokens owned by the specified wallet address. This function may yield while fetching token data. May return nil if an error occurs while fetching data. The status code in the second return value indicates whether the request succeeded or failed, with an optional error message in the third return value.
+--- 
+--- Optional parameters can be provided to filter the results:
+--- 
+--- `contractAddress (string)`: Only return tokens with the specified contract address.
+--- 
+--- `tokenIds (string or Array<string>)`: Only return tokens with the specified token IDs.
+--- @overload fun(ownerAddress: string): BlockchainTokenCollection|BlockchainTokenResultCode|string
+--- @param ownerAddress string
+--- @param optionalParameters table
+--- @return BlockchainTokenCollection|BlockchainTokenResultCode|string
+function Blockchain.GetTokensForOwner(ownerAddress, optionalParameters) end
+
+--- Searches for blockchain tokens belonging to the specified contract address. This function may yield while fetching token data. May return nil if an error occurs while fetching data. The status code in the second return value indicates whether the request succeeded or failed, with an optional error message in the third return value.
+--- 
+--- Optional parameters can be provided to filter the results:
+--- 
+--- `tokenIds (string or Array<string>)`: Only return tokens with the specified token IDs.
+--- @overload fun(contractAddress: string): BlockchainTokenCollection|BlockchainTokenResultCode|string
+--- @param contractAddress string
+--- @param optionalParameters table
+--- @return BlockchainTokenCollection|BlockchainTokenResultCode|string
+function Blockchain.GetTokens(contractAddress, optionalParameters) end
+
+--- Looks up a blockchain contract given the contract address. This function may yield while fetching the contract data. May return nil if the requested contract does not exist, or if an error occurs while fetching data. The status code in the second return value indicates whether the request succeeded or failed, with an optional error message in the third return value.
+--- @param contractAddress string
+--- @return BlockchainContract|BlockchainTokenResultCode|string
+function Blockchain.GetContract(contractAddress) end
 
 --- @class Chat
 local ChatInstance = {}
@@ -4799,6 +5022,14 @@ function World.FindObjectsOverlappingSphere(position, radius, optionalParameters
 --- @return table<number, Object>
 function World.FindObjectsOverlappingBox(position, boxSize, optionalParameters) end
 
+--- Returns a `Box` describing the combined bounds of a list of objects. The `Box` span may exceed the exact extrema of the objects. Optional parameters can be provided to control the results:
+--- 
+--- `onlyCollidable (boolean)`: If true, the box will only describe the bounds of the mesh's collidable geometry. This can be affected by collision settings and network context. Defaults to false.
+--- @param objects table
+--- @param optionalParameters table
+--- @return Box
+function World.GetBoundingBoxFromObjects(objects, optionalParameters) end
+
 --- @class AbilityFacingMode @Used with `AbilityPhaseSettings` to control how and if a player rotates while executing an ability.
 AbilityFacingMode = {
     NONE = 0,
@@ -4812,6 +5043,11 @@ AbilityPhase = {
     EXECUTE = 2,
     RECOVERY = 3,
     COOLDOWN = 4,
+}
+--- @class BlockchainTokenResultCode @Status code returned by functions in the `Blockchain` namespace when retrieving data.
+BlockchainTokenResultCode = {
+    SUCCESS = 0,
+    FAILURE = 1,
 }
 --- @class BroadcastEventResultCode @Status code returned by functions in the `Events` namespace when broadcasting networked events.
 BroadcastEventResultCode = {
