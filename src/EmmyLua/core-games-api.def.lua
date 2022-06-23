@@ -943,24 +943,24 @@ function CoreObjectInstance:FindTemplateRoot() end
 function CoreObjectInstance:IsAncestorOf(coreObject) end
 
 --- Smoothly moves the object to the target location over a given amount of time (seconds). Third parameter specifies if the given destination is in local space (true) or world space (false).
---- @overload fun(worldPosition: Vector3,duration: number)
+--- @overload fun(self: CoreObject,worldPosition: Vector3,duration: number)
 --- @param position Vector3
 --- @param duration number
 --- @param isLocalPosition boolean
 function CoreObjectInstance:MoveTo(position, duration, isLocalPosition) end
 
 --- Smoothly moves the object over time by the given velocity vector. Second parameter specifies if the given velocity is in local space (true) or world space (false). The velocity vector indicates the direction, with its magnitude expressed in centimeters per second.
---- @overload fun(worldVelocity: Vector3)
+--- @overload fun(self: CoreObject,worldVelocity: Vector3)
 --- @param worldVelocity Vector3
 --- @param isLocalVelocity boolean
 function CoreObjectInstance:MoveContinuous(worldVelocity, isLocalVelocity) end
 
 --- Follows a CoreObject or Player at a certain speed. If the speed is not supplied it will follow as fast as possible. The third parameter specifies a distance to keep away from the target.
---- @overload fun(target: Player,speed: number)
---- @overload fun(target: Player)
---- @overload fun(target: CoreObject,speed: number,minimumDistance: number)
---- @overload fun(target: CoreObject,speed: number)
---- @overload fun(target: CoreObject)
+--- @overload fun(self: CoreObject,target: Player,speed: number)
+--- @overload fun(self: CoreObject,target: Player)
+--- @overload fun(self: CoreObject,target: CoreObject,speed: number,minimumDistance: number)
+--- @overload fun(self: CoreObject,target: CoreObject,speed: number)
+--- @overload fun(self: CoreObject,target: CoreObject)
 --- @param target Player
 --- @param speed number
 --- @param minimumDistance number
@@ -970,22 +970,22 @@ function CoreObjectInstance:Follow(target, speed, minimumDistance) end
 function CoreObjectInstance:StopMove() end
 
 --- Smoothly rotates the object to the target orientation over a given amount of time. Third parameter specifies if given rotation is in local space (true) or world space (false).
---- @overload fun(worldRotation: Quaternion,duration: number)
---- @overload fun(rotation: Rotation,duration: number,isLocalRotation: boolean)
---- @overload fun(worldRotation: Rotation,duration: number)
+--- @overload fun(self: CoreObject,worldRotation: Quaternion,duration: number)
+--- @overload fun(self: CoreObject,rotation: Rotation,duration: number,isLocalRotation: boolean)
+--- @overload fun(self: CoreObject,worldRotation: Rotation,duration: number)
 --- @param rotation Quaternion
 --- @param duration number
 --- @param isLocalRotation boolean
 function CoreObjectInstance:RotateTo(rotation, duration, isLocalRotation) end
 
 --- Smoothly rotates the object over time by the given rotation (per second). The second parameter is an optional multiplier, for very fast rotations. Third parameter specifies if the given rotation or quaternion is in local space (true) or world space (false (default)). Angular velocity is expressed in degrees per second.
---- @overload fun(angularVelocity: Vector3)
---- @overload fun(quaternionSpeed: Quaternion,multiplier: number,isLocalQuaternionSpeed: boolean)
---- @overload fun(quaternionSpeed: Quaternion,multiplier: number)
---- @overload fun(quaternionSpeed: Quaternion)
---- @overload fun(rotationSpeed: Rotation,multiplier: number,isLocalRotationSpeed: boolean)
---- @overload fun(rotationSpeed: Rotation,multiplier: number)
---- @overload fun(rotationSpeed: Rotation)
+--- @overload fun(self: CoreObject,angularVelocity: Vector3)
+--- @overload fun(self: CoreObject,quaternionSpeed: Quaternion,multiplier: number,isLocalQuaternionSpeed: boolean)
+--- @overload fun(self: CoreObject,quaternionSpeed: Quaternion,multiplier: number)
+--- @overload fun(self: CoreObject,quaternionSpeed: Quaternion)
+--- @overload fun(self: CoreObject,rotationSpeed: Rotation,multiplier: number,isLocalRotationSpeed: boolean)
+--- @overload fun(self: CoreObject,rotationSpeed: Rotation,multiplier: number)
+--- @overload fun(self: CoreObject,rotationSpeed: Rotation)
 --- @param angularVelocity Vector3
 --- @param isLocalAngularVelocity boolean
 function CoreObjectInstance:RotateContinuous(angularVelocity, isLocalAngularVelocity) end
@@ -995,20 +995,20 @@ function CoreObjectInstance:RotateContinuous(angularVelocity, isLocalAngularVelo
 function CoreObjectInstance:LookAt(worldPosition) end
 
 --- Smoothly rotates a CoreObject to look at another given CoreObject or Player. Second parameter is optional and locks the pitch, default is unlocked. Third parameter is optional and sets how fast it tracks the target (in radians/second). If speed is not supplied it tracks as fast as possible.
---- @overload fun(target: Player,speed: number)
---- @overload fun(target: Player,isPitchLocked: boolean)
---- @overload fun(target: Player)
---- @overload fun(target: CoreObject,isPitchLocked: boolean,speed: number)
---- @overload fun(target: CoreObject,speed: number)
---- @overload fun(target: CoreObject,isPitchLocked: boolean)
---- @overload fun(target: CoreObject)
+--- @overload fun(self: CoreObject,target: Player,speed: number)
+--- @overload fun(self: CoreObject,target: Player,isPitchLocked: boolean)
+--- @overload fun(self: CoreObject,target: Player)
+--- @overload fun(self: CoreObject,target: CoreObject,isPitchLocked: boolean,speed: number)
+--- @overload fun(self: CoreObject,target: CoreObject,speed: number)
+--- @overload fun(self: CoreObject,target: CoreObject,isPitchLocked: boolean)
+--- @overload fun(self: CoreObject,target: CoreObject)
 --- @param target Player
 --- @param isPitchLocked boolean
 --- @param speed number
 function CoreObjectInstance:LookAtContinuous(target, isPitchLocked, speed) end
 
 --- Continuously looks at the local camera. The boolean parameter is optional and locks the pitch.
---- @overload fun()
+--- @overload fun(self: CoreObject)
 --- @param isPitchLocked boolean
 function CoreObjectInstance:LookAtLocalView(isPitchLocked) end
 
@@ -1016,14 +1016,14 @@ function CoreObjectInstance:LookAtLocalView(isPitchLocked) end
 function CoreObjectInstance:StopRotate() end
 
 --- Smoothly scales the object to the target scale over a given amount of time. Third parameter specifies if the given scale is in local space (true) or world space (false).
---- @overload fun(worldScale: Vector3,duration: number)
+--- @overload fun(self: CoreObject,worldScale: Vector3,duration: number)
 --- @param scale Vector3
 --- @param duration number
 --- @param isScaleLocal boolean
 function CoreObjectInstance:ScaleTo(scale, duration, isScaleLocal) end
 
 --- Smoothly scales the object over time by the given scale vector per second. Second parameter specifies if the given scale rate is in local space (true) or world space (false).
---- @overload fun(scaleRate: Vector3)
+--- @overload fun(self: CoreObject,scaleRate: Vector3)
 --- @param scaleRate Vector3
 --- @param isLocalScaleRate boolean
 function CoreObjectInstance:ScaleContinuous(scaleRate, isLocalScaleRate) end
@@ -1143,10 +1143,10 @@ function CurveKey.New(other) end
 --- @field type string
 local CustomMaterialInstance = {}
 --- Sets the given property of the material.
---- @overload fun(propertyName: string,value: boolean)
---- @overload fun(propertyName: string,value: Vector3)
---- @overload fun(propertyName: string,value: Color)
---- @overload fun(propertyName: string,value: number)
+--- @overload fun(self: CustomMaterial,propertyName: string,value: boolean)
+--- @overload fun(self: CustomMaterial,propertyName: string,value: Vector3)
+--- @overload fun(self: CustomMaterial,propertyName: string,value: Color)
+--- @overload fun(self: CustomMaterial,propertyName: string,value: number)
 --- @param propertyName string
 --- @param value Vector2
 function CustomMaterialInstance:SetProperty(propertyName, value) end
@@ -1224,7 +1224,7 @@ local DamageableObjectInstance = {}
 function DamageableObjectInstance:ApplyDamage(damage) end
 
 --- Kills the object, unless it is immortal. The optional Damage parameter is a way to communicate cause of death.
---- @overload fun()
+--- @overload fun(self: DamageableObject)
 --- @param damage Damage
 function DamageableObjectInstance:Die(damage) end
 
@@ -1889,7 +1889,7 @@ Light = {}
 --- @field type string
 local MaterialSlotInstance = {}
 --- Set the U and V tiling values.
---- @overload fun(u: number,v: number)
+--- @overload fun(self: MaterialSlot,u: number,v: number)
 --- @param uv Vector2
 function MaterialSlotInstance:SetUVTiling(uv) end
 
@@ -2051,7 +2051,7 @@ local PhysicsObjectInstance = {}
 function PhysicsObjectInstance:ApplyDamage(damage) end
 
 --- Kills the object, unless it is immortal. The optional Damage parameter is a way to communicate cause of death.
---- @overload fun()
+--- @overload fun(self: PhysicsObject)
 --- @param damage Damage
 function PhysicsObjectInstance:Die(damage) end
 
@@ -2225,8 +2225,8 @@ function PlayerInstance:ResetVelocity() end
 function PlayerInstance:ApplyDamage(damage) end
 
 --- Enables ragdoll for the Player, starting on `socketName` weighted by `weight` (between 0.0 and 1.0). This can cause the Player capsule to detach from the mesh. All parameters are optional; `socketName` defaults to the root and `weight` defaults to 1.0. Multiple bones can have ragdoll enabled simultaneously. See [Socket Names](../api/animations.md#socket-names) for the list of possible values.
---- @overload fun(socketName: string)
---- @overload fun()
+--- @overload fun(self: Player,socketName: string)
+--- @overload fun(self: Player)
 --- @param socketName string
 --- @param weight number
 function PlayerInstance:EnableRagdoll(socketName, weight) end
@@ -2235,7 +2235,7 @@ function PlayerInstance:EnableRagdoll(socketName, weight) end
 function PlayerInstance:DisableRagdoll() end
 
 --- *This function is deprecated. Please use the `.isVisible` property instead.* Shows or hides the Player. The second parameter is optional, defaults to true, and determines if attachments to the Player are hidden as well as the Player.
---- @overload fun(isVisible: boolean)
+--- @overload fun(self: Player,isVisible: boolean)
 --- @param isVisible boolean
 --- @param includeAttachments boolean
 function PlayerInstance:SetVisibility(isVisible, includeAttachments) end
@@ -2253,7 +2253,7 @@ function PlayerInstance:GetViewWorldPosition() end
 function PlayerInstance:GetViewWorldRotation() end
 
 --- Kills the Player. They will ragdoll and ignore further Damage. The optional Damage parameter is a way to communicate cause of death.
---- @overload fun()
+--- @overload fun(self: Player)
 --- @param damage Damage
 function PlayerInstance:Die(damage) end
 
@@ -2266,7 +2266,7 @@ function PlayerInstance:Die(damage) end
 --- `scale (Vector3)`: Sets the player's scale after respawning. Defaults to the Player Scale Multiplier of the selected spawn point, or the player's current scale if no spawn point was selected. Player scale must be uniform. (All three components must be equal.)
 --- 
 --- `spawnKey (string)`: Only spawn points with the given `spawnKey` will be considered. If omitted, only spawn points with a blank `spawnKey` are used.
---- @overload fun()
+--- @overload fun(self: Player)
 --- @param optionalParameters table
 function PlayerInstance:Spawn(optionalParameters) end
 
@@ -2279,8 +2279,8 @@ function PlayerInstance:Spawn(optionalParameters) end
 --- `scale (Vector3)`: Sets the player's scale after respawning. Defaults to the Player Scale Multiplier of the selected spawn point, or the player's current scale if no spawn point was selected. Player scale must be uniform. (All three components must be equal.)
 --- 
 --- `spawnKey (string)`: Only spawn points with the given `spawnKey` will be considered. If omitted, only spawn points with a blank `spawnKey` are used.
---- @overload fun(optionalParameters: table)
---- @overload fun()
+--- @overload fun(self: Player,optionalParameters: table)
+--- @overload fun(self: Player)
 --- @param position Vector3
 --- @param rotation Rotation
 function PlayerInstance:Respawn(position, rotation) end
@@ -2326,8 +2326,8 @@ function PlayerInstance:GetResourceNames() end
 function PlayerInstance:GetResourceNamesStartingWith(resourceNamePrefix) end
 
 --- Does not work in preview mode or in games played locally. Transfers player to the game specified by the passed-in game ID. Example: The game ID for the URL `https://www.coregames.com/games/577d80/core-royale` is `577d80/core-royale`. This function will raise an error if called from a client script on a player other than the local player.
---- @overload fun(gameInfo: CoreGameInfo)
---- @overload fun(gameId: string)
+--- @overload fun(self: Player,gameInfo: CoreGameInfo)
+--- @overload fun(self: Player,gameId: string)
 --- @param gameCollectionEntry CoreGameCollectionEntry
 function PlayerInstance:TransferToGame(gameCollectionEntry) end
 
@@ -2384,7 +2384,7 @@ function PlayerInstance:GetActiveCamera() end
 function PlayerInstance:GetDefaultCamera() end
 
 --- Sets the default Camera object for the Player.
---- @overload fun(camera: Camera,lerpTime: number)
+--- @overload fun(self: Player,camera: Camera,lerpTime: number)
 --- @param camera Camera
 function PlayerInstance:SetDefaultCamera(camera) end
 
@@ -2393,12 +2393,12 @@ function PlayerInstance:SetDefaultCamera(camera) end
 function PlayerInstance:GetOverrideCamera() end
 
 --- Sets the override Camera object for the Player.
---- @overload fun(camera: Camera,lerpTime: number)
+--- @overload fun(self: Player,camera: Camera,lerpTime: number)
 --- @param camera Camera
 function PlayerInstance:SetOverrideCamera(camera) end
 
 --- Clears the override Camera object for the Player (to revert back to the default camera).
---- @overload fun(lerpTime: number)
+--- @overload fun(self: Player,lerpTime: number)
 function PlayerInstance:ClearOverrideCamera() end
 
 --- Get the rotation for the direction the Player is facing.
@@ -2638,7 +2638,7 @@ function RandomStreamInstance:Reset() end
 function RandomStreamInstance:Mutate() end
 
 --- Returns a floating point number between `min` and `max` (inclusive), defaults to `0` and `1` (exclusive).
---- @overload fun(min: number,max: number): number
+--- @overload fun(self: RandomStream,min: number,max: number): number
 --- @return number
 function RandomStreamInstance:GetNumber() end
 
@@ -2653,7 +2653,7 @@ function RandomStreamInstance:GetInteger(min, max) end
 function RandomStreamInstance:GetVector3() end
 
 --- Returns a random unit vector, uniformly distributed, from inside a cone defined by `direction`, `horizontalHalfAngle` and `verticalHalfAngle` (in degrees).
---- @overload fun(direction: Vector3,coneHalfAngle: number): Vector3
+--- @overload fun(self: RandomStream,direction: Vector3,coneHalfAngle: number): Vector3
 --- @param direction Vector3
 --- @param horizontalHalfAngle number
 --- @param verticalHalfAngle number
@@ -3297,14 +3297,14 @@ function UIImageInstance:GetColor() end
 function UIImageInstance:SetColor(color) end
 
 --- Sets the UIImage to a new image asset ID. You can get this ID from an Asset Reference.
---- @overload fun(imageId: string)
+--- @overload fun(self: UIImage,imageId: string)
 --- @param player Player
 function UIImageInstance:SetImage(player) end
 
 --- Downloads and sets a Player's profile picture as the texture for this UIImage control.
---- @overload fun(playerId: string)
---- @overload fun(friend: CoreFriendCollectionEntry)
---- @overload fun(playerProfile: CorePlayerProfile)
+--- @overload fun(self: UIImage,playerId: string)
+--- @overload fun(self: UIImage,friend: CoreFriendCollectionEntry)
+--- @overload fun(self: UIImage,playerProfile: CorePlayerProfile)
 --- @param player Player
 function UIImageInstance:SetPlayerProfile(player) end
 
@@ -3778,7 +3778,7 @@ function VehicleInstance:SetCenterOfMassOffset(offset) end
 function VehicleInstance:ApplyDamage(damage) end
 
 --- Kills the vehicle, unless it is immortal. The optional Damage parameter is a way to communicate cause of death.
---- @overload fun()
+--- @overload fun(self: Vehicle)
 --- @param damage Damage
 function VehicleInstance:Die(damage) end
 
@@ -3896,9 +3896,9 @@ local WeaponInstance = {}
 function WeaponInstance:HasAmmo() end
 
 --- Triggers the main ability of the Weapon. Optional target parameter can be a Vector3 world position, a Player, or a CoreObject.
---- @overload fun(targetObject: CoreObject)
---- @overload fun(targetWorldPosition: Vector3)
---- @overload fun()
+--- @overload fun(self: Weapon,targetObject: CoreObject)
+--- @overload fun(self: Weapon,targetWorldPosition: Vector3)
+--- @overload fun(self: Weapon)
 --- @param targetPlayer Player
 function WeaponInstance:Attack(targetPlayer) end
 
