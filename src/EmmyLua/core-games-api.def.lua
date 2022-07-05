@@ -1074,6 +1074,17 @@ function CoreObjectInstance:SetNetworkedCustomProperty(propertyName, propertyVal
 --- @return boolean
 function CoreObjectInstance:IsCustomPropertyDynamic(propertyName) end
 
+--- Returns `true` if the object has replication enabled, else returns `false`.
+--- @return boolean
+function CoreObjectInstance:IsReplicationEnabled() end
+
+--- Enables/Disables replication for the networked object.
+--- @param isReplicationEnabled boolean
+function CoreObjectInstance:SetReplicationEnabled(isReplicationEnabled) end
+
+--- If the networked object does not have replication enabled and this call is made, this will force it to replicate its current state.
+function CoreObjectInstance:ForceReplication() end
+
 --- @param typeName string
 --- @return boolean
 function CoreObjectInstance:IsA(typeName) end
@@ -4530,6 +4541,11 @@ Storage = {}
 --- @return number
 function Storage.SizeOfData(data) end
 
+--- Computes and returns the compressed size required for the given `data` table when stored as Player data.
+--- @param data table
+--- @return number
+function Storage.SizeOfCompressedData(data) end
+
 --- Returns the player data associated with `player`. This returns a copy of the data that has already been retrieved for the player, so calling this function does not incur any additional network cost. Changes to the data in the returned table will not be persisted without calling `Storage.SetPlayerData()`.
 --- @param player Player
 --- @return table
@@ -5030,13 +5046,13 @@ function World.FindObjectsOverlappingBox(position, boxSize, optionalParameters) 
 --- @return Box
 function World.GetBoundingBoxFromObjects(objects, optionalParameters) end
 
---- @class AbilityFacingMode @Used with `AbilityPhaseSettings` to control how and if a player rotates while executing an ability.
+--- @class AbilityFacingMode : integer @Used with `AbilityPhaseSettings` to control how and if a player rotates while executing an ability.
 AbilityFacingMode = {
     NONE = 0,
     MOVEMENT = 1,
     AIM = 2,
 }
---- @class AbilityPhase @Describes a phase of ability execution.
+--- @class AbilityPhase : integer @Describes a phase of ability execution.
 AbilityPhase = {
     READY = 0,
     CAST = 1,
@@ -5044,12 +5060,12 @@ AbilityPhase = {
     RECOVERY = 3,
     COOLDOWN = 4,
 }
---- @class BlockchainTokenResultCode @Status code returned by functions in the `Blockchain` namespace when retrieving data.
+--- @class BlockchainTokenResultCode : integer @Status code returned by functions in the `Blockchain` namespace when retrieving data.
 BlockchainTokenResultCode = {
     SUCCESS = 0,
     FAILURE = 1,
 }
---- @class BroadcastEventResultCode @Status code returned by functions in the `Events` namespace when broadcasting networked events.
+--- @class BroadcastEventResultCode : integer @Status code returned by functions in the `Events` namespace when broadcasting networked events.
 BroadcastEventResultCode = {
     SUCCESS = 0,
     FAILURE = 1,
@@ -5057,7 +5073,7 @@ BroadcastEventResultCode = {
     EXCEEDED_RATE_WARNING_LIMIT = 3,
     EXCEEDED_RATE_LIMIT = 4,
 }
---- @class BroadcastMessageResultCode @Status code returned by functions in the `Chat` namespace when sending chat messages.
+--- @class BroadcastMessageResultCode : integer @Status code returned by functions in the `Chat` namespace when sending chat messages.
 BroadcastMessageResultCode = {
     SUCCESS = 0,
     FAILURE = 1,
@@ -5065,7 +5081,7 @@ BroadcastMessageResultCode = {
     EXCEEDED_RATE_WARNING_LIMIT = 3,
     EXCEEDED_RATE_LIMIT = 4,
 }
---- @class CameraCaptureResolution @Indicates the resolution of a camera capture render target.
+--- @class CameraCaptureResolution : integer @Indicates the resolution of a camera capture render target.
 CameraCaptureResolution = {
     VERY_SMALL = 0,
     SMALL = 1,
@@ -5073,19 +5089,19 @@ CameraCaptureResolution = {
     LARGE = 3,
     VERY_LARGE = 4,
 }
---- @class Collision @Controls collision of a `CoreObject`.
+--- @class Collision : integer @Controls collision of a `CoreObject`.
 Collision = {
     INHERIT = 0,
     FORCE_ON = 1,
     FORCE_OFF = 2,
 }
---- @class CoreGameEventState @Indicates the status of a CoreGameEvent.
+--- @class CoreGameEventState : integer @Indicates the status of a CoreGameEvent.
 CoreGameEventState = {
-    ACTIVE = 1,
     SCHEDULED = 0,
+    ACTIVE = 1,
     CANCELED = 2,
 }
---- @class CoreModalType @Identifies the type of a Core built-in modal dialog.
+--- @class CoreModalType : integer @Identifies the type of a Core built-in modal dialog.
 CoreModalType = {
     PAUSE_MENU = 1,
     CHARACTER_PICKER = 2,
@@ -5093,7 +5109,7 @@ CoreModalType = {
     EMOTE_PICKER = 4,
     SOCIAL_MENU = 6,
 }
---- @class CurveExtrapolation @Specifies how curve values are extrapolated outside the beginning and end of a curve.
+--- @class CurveExtrapolation : integer @Specifies how curve values are extrapolated outside the beginning and end of a curve.
 CurveExtrapolation = {
     CYCLE = 0,
     CYCLE_WITH_OFFSET = 1,
@@ -5101,13 +5117,13 @@ CurveExtrapolation = {
     LINEAR = 3,
     CONSTANT = 4,
 }
---- @class CurveInterpolation @Specifies how curve values are interpolated between curve keys.
+--- @class CurveInterpolation : integer @Specifies how curve values are interpolated between curve keys.
 CurveInterpolation = {
     LINEAR = 0,
     CONSTANT = 1,
     CUBIC = 2,
 }
---- @class DamageReason @Indicates the reason a player is taking damage.
+--- @class DamageReason : integer @Indicates the reason a player is taking damage.
 DamageReason = {
     UNKNOWN = 0,
     COMBAT = 1,
@@ -5115,20 +5131,20 @@ DamageReason = {
     MAP = 3,
     NPC = 4,
 }
---- @class DetailLevel @Indicates the desired detail level selected by the player in the Settings menu.
+--- @class DetailLevel : integer @Indicates the desired detail level selected by the player in the Settings menu.
 DetailLevel = {
     LOW = 0,
     MEDIUM = 1,
     HIGH = 2,
     ULTRA = 3,
 }
---- @class FacingMode @Describes how the player character determines which direction it should face.
+--- @class FacingMode : integer @Describes how the player character determines which direction it should face.
 FacingMode = {
     FACE_AIM_WHEN_ACTIVE = 0,
     FACE_AIM_ALWAYS = 1,
     FACE_MOVEMENT = 2,
 }
---- @class IKAnchorType @Which bone this IKAnchor applies to.
+--- @class IKAnchorType : integer @Which bone this IKAnchor applies to.
 IKAnchorType = {
     LEFT_HAND = 0,
     RIGHT_HAND = 1,
@@ -5136,33 +5152,33 @@ IKAnchorType = {
     LEFT_FOOT = 3,
     RIGHT_FOOT = 4,
 }
---- @class ImageTileType @How a UI Texture is tiled or stretched.
+--- @class ImageTileType : integer @How a UI Texture is tiled or stretched.
 ImageTileType = {
     NONE = 0,
     HORIZONTAL = 1,
     VERTICAL = 2,
     BOTH = 3,
 }
---- @class InputType @Specifies a type or method of user input.
+--- @class InputType : integer @Specifies a type or method of user input.
 InputType = {
     KEYBOARD_AND_MOUSE = 0,
     CONTROLLER = 1,
     TOUCH = 2,
 }
---- @class LeaderboardType @Identifies a specific leaderboard type associated with a leaderboard key.
+--- @class LeaderboardType : integer @Identifies a specific leaderboard type associated with a leaderboard key.
 LeaderboardType = {
     GLOBAL = 0,
     DAILY = 1,
     WEEKLY = 2,
     MONTHLY = 3,
 }
---- @class LookControlMode @Defines how player input controls the player's look direction.
+--- @class LookControlMode : integer @Defines how player input controls the player's look direction.
 LookControlMode = {
     NONE = 0,
     RELATIVE = 1,
     LOOK_AT_CURSOR = 2,
 }
---- @class MouseButton @Identifies a mouse button involved in an input event.
+--- @class MouseButton : integer @Identifies a mouse button involved in an input event.
 MouseButton = {
     LEFT = 1,
     RIGHT = 2,
@@ -5170,7 +5186,7 @@ MouseButton = {
     THUMB_1 = 4,
     THUMB_2 = 5,
 }
---- @class MovementControlMode @Defines how player input controls the player's movement direction.
+--- @class MovementControlMode : integer @Defines how player input controls the player's movement direction.
 MovementControlMode = {
     NONE = 0,
     LOOK_RELATIVE = 1,
@@ -5178,7 +5194,7 @@ MovementControlMode = {
     FACING_RELATIVE = 3,
     FIXED_AXES = 4,
 }
---- @class MovementMode @Describes how the player character is currently moving.
+--- @class MovementMode : integer @Describes how the player character is currently moving.
 MovementMode = {
     NONE = 0,
     WALKING = 1,
@@ -5186,17 +5202,17 @@ MovementMode = {
     SWIMMING = 4,
     FLYING = 5,
 }
---- @class NetReferenceType @Indicates the specific type of a `NetReference`.
+--- @class NetReferenceType : integer @Indicates the specific type of a `NetReference`.
 NetReferenceType = {
+    UNKNOWN = 0,
     LEADERBOARD = 1,
-    SHARED_STORAGE = 2,
     SHARED_PLAYER_STORAGE = 2,
+    SHARED_STORAGE = 2,
+    CREATOR_PERK = 3,
     CONCURRENT_SHARED_PLAYER_STORAGE = 4,
     CONCURRENT_CREATOR_STORAGE = 5,
-    CREATOR_PERK = 3,
-    UNKNOWN = 0,
 }
---- @class NetworkContextType @Indicates the network context to use when spawning an object.
+--- @class NetworkContextType : integer @Indicates the network context to use when spawning an object.
 NetworkContextType = {
     NETWORKED = 2,
     CLIENT_CONTEXT = 3,
@@ -5204,12 +5220,12 @@ NetworkContextType = {
     STATIC_CONTEXT = 5,
     LOCAL_CONTEXT = 6,
 }
---- @class Orientation @Determines the orientation of a `UIScrollPanel`.
+--- @class Orientation : integer @Determines the orientation of a `UIScrollPanel`.
 Orientation = {
     HORIZONTAL = 0,
     VERTICAL = 1,
 }
---- @class PlayerTransferReason @Indicates how a player joined or left a game.
+--- @class PlayerTransferReason : integer @Indicates how a player joined or left a game.
 PlayerTransferReason = {
     UNKNOWN = 0,
     CHARACTER = 1,
@@ -5222,21 +5238,21 @@ PlayerTransferReason = {
     EXIT = 8,
     PORTAL_SCENE = 9,
 }
---- @class PrivateNetworkedDataResultCode @Status code returned when setting private player data.
+--- @class PrivateNetworkedDataResultCode : integer @Status code returned when setting private player data.
 PrivateNetworkedDataResultCode = {
     SUCCESS = 0,
     FAILURE = 1,
     EXCEEDED_SIZE_LIMIT = 2,
 }
---- @class ProgressBarFillType @Controls the direction in which the progress bar fills.
+--- @class ProgressBarFillType : integer @Controls the direction in which the progress bar fills.
 ProgressBarFillType = {
     LEFT_TO_RIGHT = 0,
     RIGHT_TO_LEFT = 1,
+    FROM_CENTER = 2,
     TOP_TO_BOTTOM = 3,
     BOTTOM_TO_TOP = 4,
-    FROM_CENTER = 2,
 }
---- @class RespawnMode @Specifies whether a player respawns automatically, and how a start point is selected when they spawn.
+--- @class RespawnMode : integer @Specifies whether a player respawns automatically, and how a start point is selected when they spawn.
 RespawnMode = {
     NONE = 0,
     IN_PLACE = 1,
@@ -5246,33 +5262,33 @@ RespawnMode = {
     FARTHEST_FROM_ENEMY = 5,
     RANDOM = 6,
 }
---- @class RewardsDialogTab @Specifies a tab on the rewards dialog window.
+--- @class RewardsDialogTab : integer @Specifies a tab on the rewards dialog window.
 RewardsDialogTab = {
     QUESTS = 1,
     GAMES = 2,
 }
---- @class RotationMode @Camera rotation mode.
+--- @class RotationMode : integer @Camera rotation mode.
 RotationMode = {
     CAMERA = 0,
     NONE = 1,
     LOOK_ANGLE = 2,
 }
---- @class SpawnMode @Specifies how a start point is selected when a player spawns.
+--- @class SpawnMode : integer @Specifies how a start point is selected when a player spawns.
 SpawnMode = {
     RANDOM = 0,
     ROUND_ROBIN = 1,
     FARTHEST_FROM_OTHER_PLAYERS = 2,
     FARTHEST_FROM_ENEMY = 3,
 }
---- @class StorageResultCode @Status code returned by calls to update a player's storage data.
+--- @class StorageResultCode : integer @Status code returned by calls to update a player's storage data.
 StorageResultCode = {
     SUCCESS = 0,
-    FAILURE = 2,
     STORAGE_DISABLED = 1,
+    FAILURE = 2,
     EXCEEDED_SIZE_LIMIT = 3,
     REQUEST_ALREADY_QUEUED = 4,
 }
---- @class TaskStatus @Indicates the status of a script `Task`.
+--- @class TaskStatus : integer @Indicates the status of a script `Task`.
 TaskStatus = {
     UNINITIALIZED = 0,
     SCHEDULED = 1,
@@ -5283,13 +5299,13 @@ TaskStatus = {
     CANCELED = 6,
     BLOCKED = 7,
 }
---- @class TextJustify @Indicates horizontal alignment of a `UIText` element.
+--- @class TextJustify : integer @Indicates horizontal alignment of a `UIText` element.
 TextJustify = {
     LEFT = 0,
     CENTER = 1,
     RIGHT = 2,
 }
---- @class UIPivot @Specifies the pivot point of a `UIControl`.
+--- @class UIPivot : integer @Specifies the pivot point of a `UIControl`.
 UIPivot = {
     TOP_LEFT = 0,
     TOP_CENTER = 1,
@@ -5302,23 +5318,23 @@ UIPivot = {
     BOTTOM_RIGHT = 8,
     CUSTOM = 9,
 }
---- @class Visibility @Controls visibility of a `CoreObject`.
+--- @class Visibility : integer @Controls visibility of a `CoreObject`.
 Visibility = {
     INHERIT = 0,
     FORCE_ON = 1,
     FORCE_OFF = 2,
 }
---- @class VoiceChannelType @Indicates the type of a voice chat channel.
+--- @class VoiceChannelType : integer @Indicates the type of a voice chat channel.
 VoiceChannelType = {
     NORMAL = 0,
     POSITIONAL = 1,
 }
---- @class VoiceChatMethod @Indicates the setting a player uses to activate voice chat.
+--- @class VoiceChatMethod : integer @Indicates the setting a player uses to activate voice chat.
 VoiceChatMethod = {
     PUSH_TO_TALK = 0,
     DETECT_SPEAKING = 2,
 }
---- @class VoiceChatMode @Controls whether voice chat is enabled in the game.
+--- @class VoiceChatMode : integer @Controls whether voice chat is enabled in the game.
 VoiceChatMode = {
     NONE = 0,
     TEAM = 1,
