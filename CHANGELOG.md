@@ -5,6 +5,23 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.9.1](https://github.com/ManticoreGamesInc/vscode-core/compare/1.9.0...1.9.1) - 2022-07-05
+
+### Commits
+
+- Bump esbuild from 0.14.47 to 0.14.48 [`d6dfd24`](https://github.com/ManticoreGamesInc/vscode-core/commit/d6dfd241039c032b1660c2d2f1d74588cda7eef5)
+- Bump esbuild from 0.14.46 to 0.14.47 [`dea093f`](https://github.com/ManticoreGamesInc/vscode-core/commit/dea093f9582acc4b781ba8ffff46c00b15aaf843)
+- Bump @typescript-eslint/eslint-plugin from 5.28.0 to 5.29.0 [`81a5238`](https://github.com/ManticoreGamesInc/vscode-core/commit/81a523805a0eb9754d374c1712af8592e3cf9e19)
+- Bump @typescript-eslint/parser from 5.28.0 to 5.29.0 [`7ec42c4`](https://github.com/ManticoreGamesInc/vscode-core/commit/7ec42c41f50f83c4e277ae33f2bb59594a77fa13)
+- Bump @typescript-eslint/parser from 5.29.0 to 5.30.4 [`8a1f5fa`](https://github.com/ManticoreGamesInc/vscode-core/commit/8a1f5faaeb88cd83aaa564af07d6fbef129be468)
+- Bump @typescript-eslint/eslint-plugin from 5.29.0 to 5.30.5 [`16d7ff1`](https://github.com/ManticoreGamesInc/vscode-core/commit/16d7ff18680fc863239983259492d384286bcaf1)
+- Bump @typescript-eslint/typescript-estree from 5.29.0 to 5.30.5 [`f690d4a`](https://github.com/ManticoreGamesInc/vscode-core/commit/f690d4a1942ebc551070f0ab139f375063940d20)
+- Update for Patch 1.0.259 [`ad3cb11`](https://github.com/ManticoreGamesInc/vscode-core/commit/ad3cb11efe987faa37c9a64bcadd90b598224043)
+- Bump @types/node from 18.0.0 to 18.0.1 [`a064688`](https://github.com/ManticoreGamesInc/vscode-core/commit/a0646881caa0122c9f856d062b3e45b4f60e707a)
+- Bump ts-node from 10.8.1 to 10.8.2 [`6c06913`](https://github.com/ManticoreGamesInc/vscode-core/commit/6c06913827e046ef895613b94278d585eae0d980)
+- Bump eslint from 8.18.0 to 8.19.0 [`4b4da4c`](https://github.com/ManticoreGamesInc/vscode-core/commit/4b4da4c79f346386edf9ce9daba7da97042b761d)
+- Bump ts-loader from 9.3.0 to 9.3.1 [`c941b5c`](https://github.com/ManticoreGamesInc/vscode-core/commit/c941b5c1409d154c823652e6824ca4a52f14cf29)
+
 ## [1.9.0](https://github.com/ManticoreGamesInc/vscode-core/compare/1.8.16...1.9.0) - 2022-06-23
 
 ### Fixed
