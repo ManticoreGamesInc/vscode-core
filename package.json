@@ -59,7 +59,7 @@
     "@types/vscode": "1.58.1",
     "@typescript-eslint/eslint-plugin": "^5.33.1",
     "@typescript-eslint/parser": "^5.33.1",
-    "@typescript-eslint/typescript-estree": "^5.33.1",
+    "@typescript-eslint/typescript-estree": "^5.35.1",
     "chai": "^4.3.6",
     "esbuild": "^0.15.5",
     "eslint": "^8.22.0",
