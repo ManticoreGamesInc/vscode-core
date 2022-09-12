@@ -413,6 +413,37 @@ function BlockchainTokenCollectionInstance:IsA(typeName) end
 --- @class GlobalBlockchainTokenCollection @Contains a set of results from [Blockchain.GetTokens()](blockchain.md) and related functions. Depending on how many tokens are available, results may be separated into multiple pages. The `.hasMoreResults` property may be checked to determine whether more tokens are available. Those results may be retrieved using the `:GetMoreResults()` function.
 BlockchainTokenCollection = {}
 
+--- @class BlockchainWallet @Metadata about a player's blockchain wallet.
+--- @field address string @The wallet address.
+--- @field isPreferred boolean @Returns `true` is this is the owner's preferred wallet, otherwise `false`.
+--- @field type string
+local BlockchainWalletInstance = {}
+--- @param typeName string
+--- @return boolean
+function BlockchainWalletInstance:IsA(typeName) end
+
+--- @class GlobalBlockchainWallet @Metadata about a player's blockchain wallet.
+BlockchainWallet = {}
+
+--- @class BlockchainWalletCollection @Contains a set of results from [Blockchain.GetWalletsForPlayer()](blockchain.md). Depending on how many wallets are available, results may be separated into multiple pages. The `.hasMoreResults` property may be checked to determine whether more wallets are available. Those results may be retrieved using the `:GetMoreResults()` function.
+--- @field hasMoreResults boolean @Returns `true` if there are more wallets available to be requested.
+--- @field type string
+local BlockchainWalletCollectionInstance = {}
+--- Returns the list of wallets contained in this set of results. This may return an empty table.
+--- @return table<number, BlockchainWallet>
+function BlockchainWalletCollectionInstance:GetResults() end
+
+--- Requests the next set of results for this list of wallets and returns a new collection containing those results. This function may yield until a result is available. Returns `nil` if the `hasMoreResults` property is `false`, or if an error occurs while fetching data. The status code in the second return value indicates whether the request succeeded or failed, with an optional error message in the third return value.
+--- @return BlockchainWalletCollection|BlockchainWalletResultCode|string
+function BlockchainWalletCollectionInstance:GetMoreResults() end
+
+--- @param typeName string
+--- @return boolean
+function BlockchainWalletCollectionInstance:IsA(typeName) end
+
+--- @class GlobalBlockchainWalletCollection @Contains a set of results from [Blockchain.GetWalletsForPlayer()](blockchain.md). Depending on how many wallets are available, results may be separated into multiple pages. The `.hasMoreResults` property may be checked to determine whether more wallets are available. Those results may be retrieved using the `:GetMoreResults()` function.
+BlockchainWalletCollection = {}
+
 --- @class Box @A 3D box aligned to some coordinate system.
 --- @field type string
 local BoxInstance = {}
@@ -4097,7 +4128,7 @@ Blockchain = {}
 --- @return BlockchainToken|BlockchainTokenResultCode|string
 function Blockchain.GetToken(contractAddress, tokenId) end
 
---- Searches for blockchain tokens owned by the specified player. This function may yield while fetching token data. May return nil if an error occurs while fetching data. The status code in the second return value indicates whether the request succeeded or failed, with an optional error message in the third return value.
+--- *This function is deprecated. Please use Blockchain.GetWalletsForPlayer() and Blockchain.GetTokensForOwner() instead.* Searches for blockchain tokens owned by the specified player. This function may yield while fetching token data. May return nil if an error occurs while fetching data. The status code in the second return value indicates whether the request succeeded or failed, with an optional error message in the third return value.
 --- 
 --- Optional parameters can be provided to filter the results:
 --- 
@@ -4109,6 +4140,11 @@ function Blockchain.GetToken(contractAddress, tokenId) end
 --- @param optionalParameters table
 --- @return BlockchainTokenCollection|BlockchainTokenResultCode|string
 function Blockchain.GetTokensForPlayer(player, optionalParameters) end
+
+--- Looks up a list of blockchain wallets owned by the specified player. This function may yield while fetching wallet data. May return nil if an error occurs while fetching data. The status code in the second return value indicates whether the request succeeded or failed, with an optional error message in the third return value.
+--- @param player Player
+--- @return BlockchainWalletCollection|BlockchainWalletResultCode|string
+function Blockchain.GetWalletsForPlayer(player) end
 
 --- Searches for blockchain tokens owned by the specified wallet address. This function may yield while fetching token data. May return nil if an error occurs while fetching data. The status code in the second return value indicates whether the request succeeded or failed, with an optional error message in the third return value.
 --- 
@@ -5210,6 +5246,11 @@ AbilityPhase = {
 }
 --- @class BlockchainTokenResultCode : integer @Status code returned by functions in the `Blockchain` namespace when retrieving data.
 BlockchainTokenResultCode = {
+    SUCCESS = 0,
+    FAILURE = 1,
+}
+--- @class BlockchainWalletResultCode : integer @Status code returned by `Blockchain.GetWalletsForPlayer()` when retrieving data.
+BlockchainWalletResultCode = {
     SUCCESS = 0,
     FAILURE = 1,
 }
