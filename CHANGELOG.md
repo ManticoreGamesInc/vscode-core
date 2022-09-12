@@ -5,6 +5,34 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.9.3](https://github.com/ManticoreGamesInc/vscode-core/compare/1.9.2...1.9.3) - 2022-09-12
+
+### Commits
+
+- Bump esbuild from 0.15.5 to 0.15.7 [`1f7ea4e`](https://github.com/ManticoreGamesInc/vscode-core/commit/1f7ea4e8e1e2e43271f059d3328416c059e5db14)
+- Bump esbuild from 0.15.3 to 0.15.5 [`94f9298`](https://github.com/ManticoreGamesInc/vscode-core/commit/94f929874eeb1b360436775e8e1cb4cb9e2ed2ec)
+- Bump @typescript-eslint/parser from 5.36.1 to 5.36.2 [`c30ea8e`](https://github.com/ManticoreGamesInc/vscode-core/commit/c30ea8e3537155e6a9e2068d43166e89af3e9cf5)
+- Bump @typescript-eslint/eslint-plugin from 5.33.1 to 5.35.1 [`b458fde`](https://github.com/ManticoreGamesInc/vscode-core/commit/b458fde9df9aeacc53ea83a2a8b7fb385e3ebb99)
+- Bump @typescript-eslint/eslint-plugin from 5.33.0 to 5.33.1 [`39359e3`](https://github.com/ManticoreGamesInc/vscode-core/commit/39359e3f35364071ffe03ddd51bd31607efc47a5)
+- Bump @typescript-eslint/eslint-plugin from 5.36.1 to 5.36.2 [`23e512c`](https://github.com/ManticoreGamesInc/vscode-core/commit/23e512c24ce1a54b415bfa2f138c6d64e5a58252)
+- Bump @typescript-eslint/eslint-plugin from 5.35.1 to 5.36.1 [`cf20009`](https://github.com/ManticoreGamesInc/vscode-core/commit/cf20009f61ce3de617a12d9064c62836aa093ab1)
+- Bump @typescript-eslint/typescript-estree from 5.36.1 to 5.36.2 [`51ca9fe`](https://github.com/ManticoreGamesInc/vscode-core/commit/51ca9fe4da4143328242209b3404d07ac47aff48)
+- Bump @typescript-eslint/typescript-estree from 5.33.1 to 5.35.1 [`98a3623`](https://github.com/ManticoreGamesInc/vscode-core/commit/98a362366272f2fa709ec2b0bcdb437fe81a13b5)
+- Bump @typescript-eslint/typescript-estree from 5.33.0 to 5.33.1 [`da97bf8`](https://github.com/ManticoreGamesInc/vscode-core/commit/da97bf8a5fdd2795493c10a5ca38b1e9451945cf)
+- Bump @typescript-eslint/parser from 5.35.1 to 5.36.1 [`64c0ed8`](https://github.com/ManticoreGamesInc/vscode-core/commit/64c0ed861fc3599fea68a0e43059b24f33a5be24)
+- Bump @typescript-eslint/parser from 5.33.0 to 5.33.1 [`b8cd4fd`](https://github.com/ManticoreGamesInc/vscode-core/commit/b8cd4fd7406f0025f3cc5b2e55229ddba2c06810)
+- Bump @typescript-eslint/parser from 5.33.1 to 5.35.1 [`43d2ff9`](https://github.com/ManticoreGamesInc/vscode-core/commit/43d2ff93058af4c5c11ef5832fab8642fca1c6cc)
+- Bump eslint from 8.22.0 to 8.23.0 [`7c02609`](https://github.com/ManticoreGamesInc/vscode-core/commit/7c0260957c04e235af42ad6d388d1999c07aef46)
+- Bump eslint from 8.23.0 to 8.23.1 [`7f6dbb3`](https://github.com/ManticoreGamesInc/vscode-core/commit/7f6dbb3be68fa257d19797f5153abacc2afd5a2b)
+- Add Patch 1.0.263 API [`3f5acea`](https://github.com/ManticoreGamesInc/vscode-core/commit/3f5acea861127a7cc33329fa351223ac55f244c6)
+- Bump typescript from 4.8.2 to 4.8.3 [`58b51ca`](https://github.com/ManticoreGamesInc/vscode-core/commit/58b51ca3a25fd720ed3fa8b0ae6d2e454f7fe3a6)
+- Bump @types/node from 18.7.15 to 18.7.16 [`f387c14`](https://github.com/ManticoreGamesInc/vscode-core/commit/f387c14be0e63f1e5886eb646cb00f9d396df2db)
+- Bump @types/glob from 7.2.0 to 8.0.0 [`d1f5db2`](https://github.com/ManticoreGamesInc/vscode-core/commit/d1f5db24b9a7e121f8b2cb2060c796cdf8ea3914)
+- Bump @types/node from 18.7.13 to 18.7.15 [`4d29092`](https://github.com/ManticoreGamesInc/vscode-core/commit/4d290920c85628a5c61ffd04fcb4bbc2ac0164e7)
+- Bump typescript from 4.7.4 to 4.8.2 [`d76d740`](https://github.com/ManticoreGamesInc/vscode-core/commit/d76d740ba0f149bd1eb49649efa6656c88b43516)
+- Bump @types/node from 18.7.9 to 18.7.13 [`314d7bc`](https://github.com/ManticoreGamesInc/vscode-core/commit/314d7bc8d74217d692852c658f390b26d806d36f)
+- Bump @types/node from 18.7.3 to 18.7.9 [`a3b0454`](https://github.com/ManticoreGamesInc/vscode-core/commit/a3b045485645de07094e7671b50eff17d29df3a4)
+
 ## [1.9.2](https://github.com/ManticoreGamesInc/vscode-core/compare/1.9.1...1.9.2) - 2022-08-15
 
 ### Commits
