@@ -3,7 +3,7 @@
   "displayName": "Core Lua API",
   "description": "Adds support for the Core Games Lua API",
   "license": "MIT",
-  "version": "1.9.3",
+  "version": "1.9.4",
   "icon": "images/logo.png",
   "publisher": "ManticoreGames",
   "repository": {
@@ -34,12 +34,20 @@
     "ui"
   ],
   "activationEvents": [
-    "onLanguage:lua"
+    "workspaceContains:**/Meta.pbt"
   ],
   "extensionDependencies": [
     "sumneko.lua"
   ],
   "main": "./out/extension.js",
+  "contributes": {
+		"commands": [
+			{
+				"command": "extension.SetLuaBuiltins",
+				"title": "Core Enable/Disable Lua builtins"
+			}
+		]
+	},
   "scripts": {
     "vscode:prepublish": "npm run -S esbuild-base -- --minify && cp -r ./src/EmmyLua ./out/EmmyLua",
     "esbuild-base": "esbuild ./src/extension.ts --bundle --outfile=out/extension.js --external:vscode --format=cjs --platform=node",
