@@ -415,7 +415,7 @@ BlockchainTokenCollection = {}
 
 --- @class BlockchainWallet @Metadata about a player's blockchain wallet.
 --- @field address string @The wallet address.
---- @field isPreferred boolean @Returns `true` is this is the owner's preferred wallet, otherwise `false`.
+--- @field isPreferred boolean @Returns `true` if this is the owner's preferred wallet, otherwise `false`.
 --- @field type string
 local BlockchainWalletInstance = {}
 --- @param typeName string
@@ -3350,9 +3350,14 @@ UIEventRSVPButton = {}
 --- @field shouldClipToSize boolean @Whether or not the image and its shadow should be clipped when exceeding the bounds of this control.
 --- @field isFlippedHorizontal boolean @Whether or not the image is flipped horizontally.
 --- @field isFlippedVertical boolean @Whether or not the image is flipped vertically.
+--- @field sourceImageAspectRatio number @The aspect ratio of the image.
 --- @field isHittable boolean @When set to `true`, this control can receive input from the cursor and blocks input to controls behind it. When set to `false`, the cursor ignores this control and can interact with controls behind it.
 --- @field type string
 local UIImageInstance = {}
+--- Returns the size of the image.
+--- @return Vector2
+function UIImageInstance:GetSourceImageSize() end
+
 --- Returns the current color of the UIImage.
 --- @return Color
 function UIImageInstance:GetColor() end
