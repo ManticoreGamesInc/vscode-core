@@ -5,6 +5,25 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.9.4](https://github.com/ManticoreGamesInc/vscode-core/compare/1.9.3...1.9.4) - 2022-09-26
+
+### Commits
+
+- Bump esbuild from 0.15.7 to 0.15.8 [`0e4b959`](https://github.com/ManticoreGamesInc/vscode-core/commit/0e4b95940a7836e5a067ca6f3399dd94c328d118)
+- Bump esbuild from 0.15.8 to 0.15.9 [`cf5dd91`](https://github.com/ManticoreGamesInc/vscode-core/commit/cf5dd91c7ada3fd63e6094c14b773c9648adedeb)
+- Bump @typescript-eslint/eslint-plugin from 5.37.0 to 5.38.0 [`b763b84`](https://github.com/ManticoreGamesInc/vscode-core/commit/b763b8428b494f0dad1af2213a7f83b4b3b0cef2)
+- Bump @typescript-eslint/eslint-plugin from 5.36.2 to 5.37.0 [`fce5a05`](https://github.com/ManticoreGamesInc/vscode-core/commit/fce5a05e073122eccce45c556bc3c7d6368c2267)
+- Bump @typescript-eslint/parser from 5.37.0 to 5.38.0 [`47b2579`](https://github.com/ManticoreGamesInc/vscode-core/commit/47b2579d9b576992365408719df04a6d4246df08)
+- Bump @typescript-eslint/typescript-estree from 5.37.0 to 5.38.0 [`609bb23`](https://github.com/ManticoreGamesInc/vscode-core/commit/609bb230a3a7a88af484a83bfb88cc65e8414f9c)
+- Bump @typescript-eslint/typescript-estree from 5.36.2 to 5.37.0 [`036b05b`](https://github.com/ManticoreGamesInc/vscode-core/commit/036b05b9d6bf4f17189fc4f97c33824c2b48a62b)
+- Bump @typescript-eslint/parser from 5.36.2 to 5.37.0 [`62bff2d`](https://github.com/ManticoreGamesInc/vscode-core/commit/62bff2d1d5634074a08f73928c81fcf8d9052fe8)
+- Bump eslint from 8.23.1 to 8.24.0 [`f84229d`](https://github.com/ManticoreGamesInc/vscode-core/commit/f84229d7175784ee900037b5d941a065c83777d4)
+- Bump @types/node from 18.7.18 to 18.7.21 [`4baabd5`](https://github.com/ManticoreGamesInc/vscode-core/commit/4baabd5808804652d96cdd5353c17f012c31d41b)
+- Bump ts-loader from 9.3.1 to 9.4.1 [`53f00ef`](https://github.com/ManticoreGamesInc/vscode-core/commit/53f00eff787b053b33120a683912d1690f912c53)
+- Bump @types/node from 18.7.16 to 18.7.18 [`1e8eb27`](https://github.com/ManticoreGamesInc/vscode-core/commit/1e8eb27380e349bcba43c66dfb0aa3c3b9a3e26c)
+- Add Patch 1.0.265 API [`b6e0123`](https://github.com/ManticoreGamesInc/vscode-core/commit/b6e01238d9938ca8b2ceccbed3504ebf26b07bfa)
+- Fix  incorrect type for `script` [`4f77297`](https://github.com/ManticoreGamesInc/vscode-core/commit/4f77297e49119fde040ca2d487e5abed3cb98632)
+
 ## [1.9.3](https://github.com/ManticoreGamesInc/vscode-core/compare/1.9.2...1.9.3) - 2022-09-12
 
 ### Commits
