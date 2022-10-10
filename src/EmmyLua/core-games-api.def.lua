@@ -4158,6 +4158,8 @@ function Blockchain.GetWalletsForPlayer(player) end
 --- `contractAddress (string)`: Only return tokens with the specified contract address.
 --- 
 --- `tokenIds (string or Array<string>)`: Only return tokens with the specified token IDs.
+--- 
+--- `openSeaSlug (string)`: Only return tokens with the specified slug.
 --- @overload fun(ownerAddress: string): BlockchainTokenCollection|BlockchainTokenResultCode|string
 --- @param ownerAddress string
 --- @param optionalParameters table
@@ -4169,6 +4171,8 @@ function Blockchain.GetTokensForOwner(ownerAddress, optionalParameters) end
 --- Optional parameters can be provided to filter the results:
 --- 
 --- `tokenIds (string or Array<string>)`: Only return tokens with the specified token IDs.
+--- 
+--- `openSeaSlug (string)`: Only return tokens with the specified slug.
 --- @overload fun(contractAddress: string): BlockchainTokenCollection|BlockchainTokenResultCode|string
 --- @param contractAddress string
 --- @param optionalParameters table
@@ -4378,6 +4382,16 @@ function CoreString.Join(delimiter, ...) end
 --- @param string string
 --- @return string
 function CoreString.Trim(string, ...) end
+
+--- Returns `true` if the given string contains profanity.
+--- @param string string
+--- @return boolean
+function CoreString.IsProfane(string) end
+
+--- Replaces any profanity that may be contained in the given string and returns the result.
+--- @param string string
+--- @return string
+function CoreString.FilterProfanity(string) end
 
 --- @class Environment
 local EnvironmentInstance = {}
