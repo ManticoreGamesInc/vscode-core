@@ -42,5 +42,12 @@
             "problemMatcher": [],
             "detail": "eslint src --ext .js,.jsx,.ts,.tsx"
         }
+        {
+            "type": "npm",
+            "script": "changelog",
+            "label": "npm: changelog",
+            "problemMatcher": [],
+            "detail": "npm run changelog"
+        }
     ]
 }

@@ -5,6 +5,22 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.9.5](https://github.com/ManticoreGamesInc/vscode-core/compare/1.9.4...1.9.5) - 2022-10-10
+
+### Commits
+
+- Bump esbuild from 0.15.9 to 0.15.10 [`0969f8d`](https://github.com/ManticoreGamesInc/vscode-core/commit/0969f8d7ac63607c2915f5628bee78f65872f81d)
+- Bump @typescript-eslint/eslint-plugin from 5.38.1 to 5.39.0 [`eba1fc0`](https://github.com/ManticoreGamesInc/vscode-core/commit/eba1fc0cec439d24d48be59472cf6cdca32db568)
+- Bump @typescript-eslint/eslint-plugin from 5.38.0 to 5.38.1 [`6d6e761`](https://github.com/ManticoreGamesInc/vscode-core/commit/6d6e7616409161350e2d197059a94f777477920a)
+- Bump @typescript-eslint/parser from 5.38.0 to 5.39.0 [`6bed6d1`](https://github.com/ManticoreGamesInc/vscode-core/commit/6bed6d1c003a3902dde6d564b09a7daf989b5d45)
+- Bump @typescript-eslint/typescript-estree from 5.38.0 to 5.39.0 [`9b1a973`](https://github.com/ManticoreGamesInc/vscode-core/commit/9b1a97317c40fcb408b655becc0e44b0ed0ebb42)
+- Bump eslint from 8.24.0 to 8.25.0 [`d3e19ac`](https://github.com/ManticoreGamesInc/vscode-core/commit/d3e19acaa48242563e62eeb25c5be887dc69114d)
+- Bump @types/node from 18.8.0 to 18.8.3 [`38c0a2a`](https://github.com/ManticoreGamesInc/vscode-core/commit/38c0a2aa8bb3ba1aca66439ad0ea6721c0725ee0)
+- Bump @types/mocha from 9.1.1 to 10.0.0 [`3e695de`](https://github.com/ManticoreGamesInc/vscode-core/commit/3e695de8eba2d0ca38d63205a262063d54af61af)
+- Bump typescript from 4.8.3 to 4.8.4 [`2f4d5db`](https://github.com/ManticoreGamesInc/vscode-core/commit/2f4d5db8f8d0e3f3121ec5b8387d8e9b55412d7a)
+- Bump @types/node from 18.7.21 to 18.8.0 [`11df940`](https://github.com/ManticoreGamesInc/vscode-core/commit/11df9400ee490d70dbb9c42c4c75a3ccfafca339)
+- Add Patch 1.0.268 API [`c3633ca`](https://github.com/ManticoreGamesInc/vscode-core/commit/c3633caac8dcc9a390fc799d5cc5df8bffc3128a)
+
 ## [1.9.4](https://github.com/ManticoreGamesInc/vscode-core/compare/1.9.3...1.9.4) - 2022-09-26
 
 ### Commits
