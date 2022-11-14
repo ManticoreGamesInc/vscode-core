@@ -52,7 +52,7 @@
     "changelog": "auto-changelog --template keepachangelog --hide-credit --commit-limit false"
   },
   "devDependencies": {
-    "@types/chai": "^4.3.3",
+    "@types/chai": "^4.3.4",
     "@types/glob": "^8.0.0",
     "@types/mocha": "^10.0.0",
     "@types/node": "^18.11.9",
@@ -60,7 +60,7 @@
     "@typescript-eslint/eslint-plugin": "^5.42.0",
     "@typescript-eslint/parser": "^5.42.0",
     "@typescript-eslint/typescript-estree": "^5.42.1",
-    "chai": "^4.3.6",
+    "chai": "^4.3.7",
     "esbuild": "^0.15.13",
     "eslint": "^8.27.0",
     "glob": "^8.0.3",
