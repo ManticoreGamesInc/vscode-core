@@ -61,7 +61,7 @@
     "@typescript-eslint/parser": "^5.44.0",
     "@typescript-eslint/typescript-estree": "^5.44.0",
     "chai": "^4.3.7",
-    "esbuild": "^0.15.16",
+    "esbuild": "^0.15.18",
     "eslint": "^8.28.0",
     "glob": "^8.0.3",
     "mocha": "^10.1.0",
