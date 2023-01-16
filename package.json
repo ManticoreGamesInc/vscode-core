@@ -62,7 +62,7 @@
     "@typescript-eslint/typescript-estree": "^5.47.1",
     "chai": "^4.3.7",
     "esbuild": "^0.16.12",
-    "eslint": "^8.31.0",
+    "eslint": "^8.32.0",
     "glob": "^8.0.3",
     "mocha": "^10.2.0",
     "ts-loader": "^9.4.2",
