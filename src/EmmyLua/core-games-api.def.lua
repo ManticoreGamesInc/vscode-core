@@ -2949,6 +2949,10 @@ SpotLight = {}
 --- @field isSimulatingDebrisPhysics boolean @If `true`, physics will be enabled for the mesh.
 --- @field type string
 local StaticMeshInstance = {}
+--- Returns whether or not the Static Mesh can simulate Debris Physics.
+--- @return boolean
+function StaticMeshInstance:CanSimulateDebrisPhysics() end
+
 --- Set the material in the given slot to the material specified by assetId.
 --- @param assetId string
 --- @param slotName string
@@ -3585,6 +3589,7 @@ UIScrollPanel = {}
 --- @field fontSize number @The font size of the UIText control.
 --- @field outlineSize number @The thickness of the outline around text in this control. A value of 0 means no outline.
 --- @field justification TextJustify @Determines the alignment of `text`. Possible values are: TextJustify.LEFT, TextJustify.RIGHT, and TextJustify.CENTER.
+--- @field verticalJustification TextVerticalJustify @Determines the vertical alignment of `text`. Possible values are: TextVerticalJustify.TOP, TextVerticalJustify.BOTTOM, TextVerticalJustify.CENTER and TextVerticalJustify.BASELINE.
 --- @field shouldWrapText boolean @Whether or not text should be wrapped within the bounds of this control.
 --- @field shouldClipText boolean @Whether or not text should be clipped when exceeding the bounds of this control.
 --- @field shouldScaleToFit boolean @Whether or not text should scale down to fit within the bounds of this control.
@@ -3657,6 +3662,8 @@ UIText = {}
 --- @field promptText string @Text to be displayed in the input box when `text` is empty.
 --- @field isInteractable boolean @Returns whether the control can interact with the cursor (click, hover, etc).
 --- @field fontSize number @The font size of the control.
+--- @field justification TextJustify @Determines the horizontal alignment of `text`. Possible values are: TextJustify.LEFT, TextJustify.RIGHT, and TextJustify.CENTER.
+--- @field verticalJustification TextVerticalJustify @Determines the vertical alignment of `text`. Possible values are: TextVerticalJustify.TOP, TextVerticalJustify.BOTTOM, TextVerticalJustify.CENTER and TextVerticalJustify.BASELINE.
 --- @field isHittable boolean @When set to `true`, this control can receive input from the cursor and blocks input to controls behind it. When set to `false`, the cursor ignores this control and can interact with controls behind it.
 --- @field type string
 local UITextEntryInstance = {}
@@ -4478,6 +4485,7 @@ local GameInstance = {}
 --- @field roundStartEvent Event @Fired when StartRound is called on game.
 --- @field roundEndEvent Event @Fired when EndRound is called on game.
 --- @field teamScoreChangedEvent Event @Fired whenever any team's score changes. This is fired once per team who's score changes.
+--- @field postCameraUpdateEvent Event @Fired after the camera is updated. It allows Lua code to run after the camera is updated, so a scenario like UI elements positioning themselves to a world location works without a 1 frame lag.
 Game = {}
 --- Returns the local player.
 --- @return Player
@@ -5514,11 +5522,18 @@ TaskStatus = {
     CANCELED = 6,
     BLOCKED = 7,
 }
---- @class TextJustify : integer @Indicates horizontal alignment of a `UIText` element.
+--- @class TextJustify : integer @Indicates horizontal alignment of a `UIText` or `UITextEntry` element.
 TextJustify = {
     LEFT = 0,
     CENTER = 1,
     RIGHT = 2,
+}
+--- @class TextVerticalJustify : integer @Indicates vertical alignment of a `UIText` or `UITextEntry` element.
+TextVerticalJustify = {
+    TOP = 0,
+    BOTTOM = 1,
+    CENTER = 2,
+    BASELINE = 3,
 }
 --- @class UIPivot : integer @Specifies the pivot point of a `UIControl`.
 UIPivot = {
