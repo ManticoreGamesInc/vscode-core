@@ -1255,6 +1255,7 @@ function Damage.New(amount) end
 --- @class DamageableObject : CoreObject @DamageableObject is a CoreObject which implements the [Damageable](damageable.md) interface.
 --- @field damagedEvent Event @Fired when the object takes damage.
 --- @field diedEvent Event @Fired when the object dies.
+--- @field hitPointsChangedEvent Event @Fired when there's a change in hit points on the object.
 --- @field damageHook Hook @Hook called when applying damage from a call to `ApplyDamage()`. The incoming damage may be modified or prevented by modifying properties on the `damage` parameter.
 --- @field hitPoints number @Current amount of hit points.
 --- @field maxHitPoints number @Maximum amount of hit points.
@@ -2078,6 +2079,7 @@ PartyInfo = {}
 --- @class PhysicsObject : CoreObject @A CoreObject with simulated physics that can interact with players and other objects. PhysicsObject also implements the [Damageable](damageable.md) interface.
 --- @field damagedEvent Event @Fired when the object takes damage.
 --- @field diedEvent Event @Fired when the object dies.
+--- @field hitPointsChangedEvent Event @Fired when there's a change in hit points on the object.
 --- @field collidedEvent Event @Fired when the object collides with another object. The `HitResult` parameter describes the collision that occurred.
 --- @field damageHook Hook @Hook called when applying damage from a call to `ApplyDamage()`. The incoming damage may be modified or prevented by modifying properties on the `damage` parameter.
 --- @field team number @Assigns the physics object to a team. Value range from `0` to `4`. `0` is neutral team.
@@ -2126,6 +2128,7 @@ PhysicsObject = {}
 --- @field perkChangedEvent Event @Fired when a player's list of owned perks has changed, indicating which perk's amount has changed. Do not expect this event to fire for perks that a player already has when they join a game. Use the `HasPerk(NetReference)` or `GetPerkCount(NetReference)` function for any initial logic that needs to be handled when joining. Also, this event may not actively fire when a perk expires, but it may fire for an expired perk as a result of purchasing a different perk.
 --- @field interactableFocusedEvent Event @Fired when a player has focused on an interactable Trigger and may interact with it.
 --- @field interactableUnfocusedEvent Event @Fired when a player is no longer focused on a previously focused interactable Trigger.
+--- @field hitPointsChangedEvent Event @undefined
 --- @field privateNetworkedDataChangedEvent Event @Fired when the player's private data changes. On the client, only the local player's private data is available.
 --- @field movementHook Hook @Hook called when processing a Player's movement. The `parameters` table contains a `Vector3` named "direction", indicating the direction the player will move.
 --- @field damageHook Hook @Hook called when applying damage from a call to `ApplyDamage()`. The incoming damage may be modified or prevented by modifying properties on the `damage` parameter.
@@ -2166,7 +2169,9 @@ PhysicsObject = {}
 --- @field maxJumpCount number @Max number of jumps, to enable multiple jumps. Set to 0 to disable jumping.
 --- @field shouldFlipOnMultiJump boolean @Set to `false` to disable flip animation when player performs double-jump, triple-jump, etc. Defaults to `true`, enabling flip animation.
 --- @field jumpVelocity number @Vertical speed applied to Player when they jump. Default = 900. Speed is expressed in centimeters per second.
+--- @field maxMountSpeed number @Maximum speed while the player is mounted. Default = 1280.
 --- @field gravityScale number @Multiplier on gravity applied. Default = 1.9.
+--- @field airControl number @When falling, amount of lateral movement control available to the player. 0 is no control. 1 is full control. Default = 0.5.
 --- @field maxSwimSpeed number @Maximum speed while the player is swimming. Default = 420.
 --- @field maxFlySpeed number @Maximum speed while the player is flying. Default = 600.
 --- @field touchForceFactor number @Force applied to physics objects when contacted with a Player. Default = 1.
@@ -3905,6 +3910,7 @@ function Vector4.New(xy, zw) end
 --- @field driverExitedEvent Event @Fired when a driver exits the vehicle.
 --- @field damagedEvent Event @Fired when the vehicle takes damage.
 --- @field diedEvent Event @Fired when the vehicle dies.
+--- @field hitPointsChangedEvent Event @Fired when there's a change in hit points on the vehicle.
 --- @field clientMovementHook Hook @Hook called when processing the driver's input. The `parameters` table contains "throttleInput", "steeringInput", and "isHandbrakeEngaged". This is only called on the driver's client. "throttleInput" is a number -1.0, to 1.0, with positive values indicating forward input. "steeringInput" is the same, and positive values indicate turning to the right. "isHandbrakeEngaged" is a boolean.
 --- @field serverMovementHook Hook @Hook called when on the server for a vehicle with no driver. This has the same parameters as clientMovementHook.
 --- @field damageHook Hook @Hook called when applying damage from a call to `ApplyDamage()`. The incoming damage may be modified or prevented by modifying properties on the `damage` parameter.
