@@ -38,6 +38,14 @@ This project welcomes contributions and suggestions.
 
 The CI is generating a new release for every tag on this repository and pushes it to the VSC marketplace.
 
+To generate a new release you:
+- Increase the version in `package.json` according to SemVer.
+- Run `npm install && npm run build`
+- Commit the changes with the new version number as the commit note.
+- Create a tag **but don't push it yet** with the same name as the version number.
+- Run `npm run changelog`, amend the changes to the last commit, remove the tag on the old commit, add the same tag on the new amended one.
+- Push the commit with tag.
+
 ### Community Contributors
 
 - @agincel
